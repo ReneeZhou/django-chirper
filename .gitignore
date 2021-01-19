@@ -1,0 +1,12 @@
+# environment
+.python-version
+venv/
+
+
+# tailwind
+node_modules/
+package-lock.json
+package.json
+postcss.config.js
+tailwind.config.js
+src/styles.css
