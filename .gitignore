@@ -24,3 +24,7 @@ src/styles.css
 # django
 db.sqlite3
 django_chirper/django_chirper/settings.py
+
+
+# django collectstatic
+staticfiles/
