@@ -1,7 +1,5 @@
 {% extends 'layout_form.html' %}
-
 {% block title %}Sign up for Chirper{% endblock title %}
-
 
 {% block content %}
 <div class="h-screen sm:bg-gray-900 md:bg-gray-800 md:bg-opacity-100 flex flex-col items-center md:justify-center">
@@ -24,13 +22,69 @@
             <div class="space-y-4 flex flex-col w-128">
                 <div class="text-2xl font-bold tracking-wide">Create your account</div>
                 <div class="space-y-5 text-gray-600">
+                    <!-- name -->
+                    <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                    focus-within:border-blue-500 focus-within:text-blue-500">
+                        <label for="name" class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.username.label }}</label>
+                        {% if form.username.errors %}
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 active:outline-none text-white">{{ form.username }}</div>
+                        {% for error in form.username.errors %}
+                        <span class="flash_warning">{{ error }}</span>
+                        {% endfor %}
+                        {% else %}
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.username }}</div>
+                        {% endif %}
+                    </div>
 
-                    {{ form }}
+                    <!-- email -->
+                    <div class="flex flex-col  bg-gray-700 bg-opacity-25 border-b-2 border-gray-600 
+                    focus-within:border-blue-500 focus-within:text-blue-500">
+                        <label class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.email.label }}</label>
+                        {% if form.email.errors %}
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.email }}</div>
+                        {% for error in form.email.errors %}
+                        <span class="flash_warning">{{ error }}</span>
+                        {% endfor %}
+                        {% else %}
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.email }}</div>
+                        {% endif %}
+                    </div>
+
+
                 </div>
-
                 <div class="text-blue-600 text-sm font-medium no-underline hover:underline cursor-pointer pb-4">Use
                     phone instead</div>
 
+
+                <div class="space-y-5 text-gray-600">
+                    <!-- password -->
+                    <div class="flex flex-col  bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                    focus-within:border-blue-500 focus-within:text-blue-500">
+                        <label for="password1", class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.password1.label }}</label>
+                        {% if form.password1.errors %}
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-blue-800">{{ form.password1 }}</div>
+                        {% for error in errors %}
+                        <span class="flash_warning">{{ form.password1.error }}</span>
+                        {% endfor %}
+                        {% else %}
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.password1 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- confirm password -->
+                    <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                    focus-within:border-blue-500 focus-within:text-blue-500">
+                        <label for="password2", class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.password2.label }}</label>
+                        {% if form.password2.errors %}
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.password2 }}</div>
+                        {% for error in form.password2.errors %}
+                        <span class="flash_warning">{{ error }}</span>
+                        {% endfor %}
+                        {% else %}
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.password2 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
                 <div>
                     <button type="submit" class="bg-blue-500 rounded-full h-12 w-128 font-bold outline-none
                     hover:bg-blue-600 cursor-pointer mt-2 self-center">Sign Up</button>
