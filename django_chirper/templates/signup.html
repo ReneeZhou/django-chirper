@@ -1,7 +1,15 @@
 {% extends 'layout_form.html' %}
+{% load crispy_forms_tags %}
+
 {% block title %}Sign up for Chirper{% endblock title %}
 
 {% block content %}
+<style>
+    .asteriskField {
+        display: none;
+    }
+</style>
+
 <div class="h-screen sm:bg-gray-900 md:bg-gray-800 md:bg-opacity-100 flex flex-col items-center md:justify-center">
     <div class="flex flex-col bg-gray-900 md:rounded-2xl px-8 pb-12 pt-2">
         <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512"
@@ -17,89 +25,19 @@
                     d="m101.433 87.27-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 2.931 2.937 6.774 4.406 10.619 4.406 3.833 0 7.666-1.46 10.594-4.381l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-78.035c0-8.284-6.716-15-15-15h-79.812c-8.284 0-15 6.716-15 15v71.811l-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 5.852 5.866 15.348 5.876 21.213.025l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-63.035h49.812z" />
             </g>
         </svg>
-        <form method="POST" action="" class="space-y-6">
-            {% csrf_token %}
-            <div class="space-y-4 flex flex-col w-128">
-                <div class="text-2xl font-bold tracking-wide">Create your account</div>
-                <div class="space-y-5 text-gray-600">
-                    <!-- name -->
-                    <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
-                    focus-within:border-blue-500 focus-within:text-blue-500">
-                        <label for="name" class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.username.label }}</label>
-                        {% if form.username.errors %}
-                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 active:outline-none text-white">{{ form.username }}</div>
-                        {% for error in form.username.errors %}
-                        <span class="flash_warning">{{ error }}</span>
-                        {% endfor %}
-                        {% else %}
-                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.username }}</div>
-                        {% endif %}
-                    </div>
 
-                    <!-- email -->
-                    <div class="flex flex-col  bg-gray-700 bg-opacity-25 border-b-2 border-gray-600 
-                    focus-within:border-blue-500 focus-within:text-blue-500">
-                        <label class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.email.label }}</label>
-                        {% if form.email.errors %}
-                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.email }}</div>
-                        {% for error in form.email.errors %}
-                        <span class="flash_warning">{{ error }}</span>
-                        {% endfor %}
-                        {% else %}
-                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.email }}</div>
-                        {% endif %}
-                    </div>
-
-
-                </div>
-                <div class="text-blue-600 text-sm font-medium no-underline hover:underline cursor-pointer pb-4">Use
-                    phone instead</div>
-
-
-                <div class="space-y-5 text-gray-600">
-                    <!-- password -->
-                    <div class="flex flex-col  bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
-                    focus-within:border-blue-500 focus-within:text-blue-500">
-                        <label for="password1", class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.password1.label }}</label>
-                        {% if form.password1.errors %}
-                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-blue-800">{{ form.password1 }}</div>
-                        {% for error in errors %}
-                        <span class="flash_warning">{{ form.password1.error }}</span>
-                        {% endfor %}
-                        {% else %}
-                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.password1 }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- confirm password -->
-                    <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
-                    focus-within:border-blue-500 focus-within:text-blue-500">
-                        <label for="password2", class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.password2.label }}</label>
-                        {% if form.password2.errors %}
-                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.password2 }}</div>
-                        {% for error in form.password2.errors %}
-                        <span class="flash_warning">{{ error }}</span>
-                        {% endfor %}
-                        {% else %}
-                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">{{ form.password2 }}</div>
-                        {% endif %}
-                    </div>
-                </div>
-                <div>
-                    <button type="submit" class="bg-blue-500 rounded-full h-12 w-128 font-bold outline-none
-                    hover:bg-blue-600 cursor-pointer mt-2 self-center">Sign Up</button>
-                </div>
+        <div class="space-y-4 flex flex-col w-128 mt-8">
+            <div class="text-2xl font-bold tracking-wide">Create your account</div>
+            <div class="text-gray-600">
+                {% crispy form %}
             </div>
-
-        </form>
+        </div>
     </div>
-
 
     <!-- credit for bird icon -->
     <div class="text-xxs text-gray-700 mt-2">Bird icon made by
         <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from
         <a href="https://www.flaticon.com/" title="Flaticon">Flaticon</a>
     </div>
-
 </div>
 {% endblock content %}
