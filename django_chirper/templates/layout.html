@@ -18,7 +18,7 @@
         <!-- nav bar @xs bp -->
         <nav class="xs:flex sm:flex flex-col lg:hidden h-full justify-between">
             <div class="flex flex-col text-xl font-semibold space-y-3">
-                {% if current_user.is_authenticated %}
+                {% if user.is_authenticated %}
                 <a href="" class="rounded-full px-2">
                     <!-- url_for('main.home') -->
                     {% else %}
@@ -42,7 +42,7 @@
                             </svg>
                         </div>
                     </a>
-                    {% if current_user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <a href="" class="home-a">
                         <!-- url_for('main.home') -->
                         <div class="home-btn">
@@ -67,7 +67,7 @@
                     </a>
 
                     <!-- settings svg -->
-                    {% if not current_user.is_authenticated %}
+                    {% if not user.is_authenticated %}
                     <a href="" class="home-a">
                         <!-- url_for('user_settings.settings') -->
                         <div class="home-btn">
@@ -82,7 +82,7 @@
                     </a>
                     {% endif %}
 
-                    {% if current_user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <a href="" class="home-a">
                         <!-- url_for('main.notifications') -->
                         <div class="home-btn">
@@ -335,7 +335,7 @@
                     </a>
                     <!-- jinja - endif  -->
             </div>
-            {% if current_user.is_authenticated %}
+            {% if user.is_authenticated %}
             <div class="flex flex-col items-center">
                 <!-- manage account -->
                 <a href="#">
@@ -350,7 +350,7 @@
                     </button>
                 </a>
                 <!-- log out button -->
-                <a href="">
+                <a href="{% url 'logout' %}">
                     <!-- url_for('auth.logout')  -->
                     <button
                         class="text-xs px-2 rounded-full hover:bg-gray-800 bg-gray-700 bg-opacity-25 focus:outline-none">Log
@@ -363,7 +363,7 @@
         <!-- nav bar @lg bp -->
         <nav class="xs:hidden sm:hidden lg:flex flex-col xl:hidden h-full justify-between">
             <div class="flex flex-col text-xl font-semibold space-y-3">
-                {% if current_user.is_authenticated %}
+                {% if user.is_authenticated %}
                 <a href="" class="rounded-full px-2">
                     <!-- url_for('main.home') -->
                     {% else %}
@@ -387,7 +387,7 @@
                             </svg>
                         </div>
                     </a>
-                    {% if current_user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <a href="" class="home-a">
                         <!-- url_for('main.home') -->
                         <div class="home-btn">
@@ -412,7 +412,7 @@
                         </div>
                     </a>
 
-                    {% if not current_user.is_authenticated %}
+                    {% if not user.is_authenticated %}
                     <a href="" class="home-a">
                         <!-- url_for('user_settings.settings') -->
                         <div class="home-btn">
@@ -681,7 +681,7 @@
                     </a>
                     <!-- jinja - endif  -->
             </div>
-            {% if current_user.is_authenticated %}
+            {% if user.is_authenticated %}
             <div class="flex flex-col items-center">
                 <!-- manage account -->
                 <a href="#">
@@ -696,7 +696,7 @@
                 </a>
 
                 <!-- log out button -->
-                <a href="">
+                <a href="{% url 'logout' %}">
                     <!-- url_for('auth.logout') -->
                     <button
                         class="text-xs px-2 rounded-full hover:bg-gray-800 bg-gray-700 bg-opacity-25 focus:outline-none">Log
@@ -709,7 +709,7 @@
         <!-- nav bar @xl bp -->
         <nav class="xs:hidden sm:hidden xl:flex flex-col h-full justify-between">
             <div class="flex flex-col text-xl font-semibold space-y-3">
-                {% if current_user.is_authenticated %}
+                {% if user.is_authenticated %}
                 <a href="" class="rounded-full px-2">
                     <!-- url_for('main.home') -->
                     {% else %}
@@ -733,7 +733,7 @@
                             </svg>
                         </div>
                     </a>
-                    {% if current_user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <a href="" class="home-a">
                         <!-- url_for('main.home') -->
                         <div class="home-btn space-x-4">
@@ -760,7 +760,7 @@
                         </div>
                     </a>
 
-                    {% if not current_user.is_authenticated %}
+                    {% if not user.is_authenticated %}
                     <a href="" class="home-a">
                         <!-- url_for('user_settings.settings') -->
                         <div class="home-btn space-x-4">
@@ -776,7 +776,7 @@
                     </a>
                     {% endif %}
 
-                    {% if current_user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <a href="" class="home-a">
                         <!-- url_for('main.notifications') -->
                         <div class="home-btn space-x-4">
@@ -1032,7 +1032,7 @@
                     </a>
                     <!-- jinja - endif  -->
             </div>
-            {% if current_user.is_authenticated %}
+            {% if user.is_authenticated %}
             <div class="space-y-1">
                 <!-- manage account -->
                 <a href="#">
@@ -1061,7 +1061,7 @@
                 </a>
 
                 <!-- log out button -->
-                <a href="" class="flex flex-col">
+                <a href="{% url 'logout' %}" class="flex flex-col">
                     <!-- url_for('auth.logout') -->
                     <button
                         class="text-xs px-2 rounded-full hover:bg-gray-800 bg-gray-700 bg-opacity-25 focus:outline-none">Log
@@ -1105,7 +1105,7 @@
 
             </table>
 
-            {% if not current_user.is_authenticated %}
+            {% if not user.is_authenticated %}
             <!-- temp -->
             <!-- banner -->
             <div
@@ -1113,13 +1113,13 @@
                 <!-- xs, sm buttons -->
                 <div class="flex-row items-center md:hidden space-x-3">
                     <!-- login -->
-                    <a href="">
+                    <a href="{% url 'login' %}">
                         <!-- url_for('auth.login') -->
                         <button class="w-56 border border-white rounded-full h-10 text-white font-semibold
                      hover:bg-blue-400 hover:bg-opacity-50 focus:outline-none">Log in</button>
                     </a>
                     <!-- signup -->
-                    <a href="">
+                    <a href="{% url 'signup' %}">
                         <!-- url_for('auth.signup_1') -->
                         <button class="w-56 bg-white rounded-full h-10 text-blue-500 font-semibold 
                     hover:bg-gray-300 focus:outline-none">Sign up</button>
@@ -1137,13 +1137,13 @@
                     <!-- buttons -->
                     <div class="flex flex-row items-center space-x-3 mr-4">
                         <!-- login -->
-                        <a href="">
+                        <a href="{% url 'login' %}">
                             <!-- url_for('auth.login') -->
                             <button class="w-20 border border-white rounded-full h-10 text-white font-semibold
                  hover:bg-blue-400 hover:bg-opacity-50 focus:outline-none">Log in</button>
                         </a>
                         <!-- signup -->
-                        <a href="">
+                        <a href="{% url 'signup' %}">
                             <!-- url_for('auth.signup_1') -->
                             <button class="w-20 bg-white rounded-full h-10 text-blue-500 font-semibold 
                 hover:bg-gray-300 focus:outline-none">Sign up</button>
@@ -1180,12 +1180,12 @@
 
 
                 <div class="pt-12 space-y-4 overflow-y-scroll h-screen">
-                    {% if not current_user.is_authenticated %}
+                    {% if not user.is_authenticated %}
                     <!-- new to chirper -->
                     <div class="w-88 flex flex-col border border-gray-700 rounded-xl px-4 pt-1 pb-4 space-y-2">
                         <div class="text-xl font-bold">New to Chirper?</div>
                         <div class="text-s text-gray-600">Sign up now to get your own personalized timeline!</div>
-                        <a href="">
+                        <a href="{% url 'login' %}">
                             <!-- url_for('auth.login') -->
                             <div class="bg-blue-500 rounded-full w-80 h-10 text-white font-semibold hover:bg-opacity-75
                         flex justify-center items-center mt-2">Sign up</div>
@@ -1195,13 +1195,13 @@
 
 
                     <!-- user media -->
-                    {% if not current_user.is_authenticated %}
+                    {% if not user.is_authenticated %}
                     <div class="w-88 h-52 flex flex-col border border-gray-700 rounded-xl px-4 pt-1 pb-4 space-y-2">user
                         media</div>
                     {% endif %}
 
                     <!-- avatar template -->
-                    {% if not current_user.is_authenticated %}
+                    {% if not user.is_authenticated %}
                     <div class="w-88 bg-gray-800 bg-opacity-50 rounded-xl divide-y divide-gray-700">
                         <div class="text-xl font-bold px-4 py-2">You might like</div>
 
@@ -1326,7 +1326,7 @@
                         </div>
                     </div>
 
-                    {% if current_user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <!-- avatar template -->
                     <div class="w-88 bg-gray-800 bg-opacity-50 rounded-xl divide-y divide-gray-700">
                         <div class="text-xl font-bold px-4 py-2">Who to follow</div>
@@ -1468,7 +1468,7 @@
 
 
         <!-- message tab -->
-        {% if current_user.is_authenticated %}
+        {% if user.is_authenticated %}
         {% if 'messages' not in request.path %}
         <div class="fixed bottom-0 right-0 px-4 h-12 xs:hidden sm:hidden lg:flex cursor-pointer">
             <div
