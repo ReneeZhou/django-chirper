@@ -20,12 +20,19 @@
             </g>
         </svg>
         <h1 class="text-2xl font-bold text-center py-2">Log in to Chirper</h1>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="flash_warning w-144">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+
         <div class="text-gray-600 flex flex-col items-center">
             {% crispy form %}
         </div>
     </div>
 
-    <div class="text-center font-medium p-2">
+    <div class="text-center font-medium p-2 mt-4">
         <small>
             <a href="" class="nounderline hover:underline text-blue-400">Forgot password?</a>
         </small>
