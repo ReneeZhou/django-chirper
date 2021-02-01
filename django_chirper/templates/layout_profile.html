@@ -1,0 +1,323 @@
+{% extends 'layout.html' %}
+{% block title %}{{ user.name }} (@{{ user.handle }}){% endblock title %}
+{% block header %}{{ user.name }}{% endblock header %}
+{% block presvg %}
+<div onclick="history.go(-1)">
+    <!-- svg redirects to whatever last page user was on -->
+    <div class="svg-bg-div mr-4">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-6 h-6 stroke-current text-blue-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </div>
+</div>
+{% endblock presvg %}
+
+{% block small %}
+<div class="text-gray-600 text-s font-normal">{{ posts_count }} Chirps</div>
+{% endblock small %}
+
+
+{% block content %}
+<div class="mt-2">
+    <!-- user profile -->
+    <div class="flex flex-col justify-between">
+        <!-- user background -->
+        <div class="w-148 h-48 bg-gray-800 overflow-hidden">
+            {% if user.background_image != '' %}
+            <div style="background-image: url({{ url_for('static', filename = 'img/background_pics/' + user.background_image) }}"
+                class="w-full h-full bg-no-repeat bg-center bg-cover"></div>
+            {% endif %}
+        </div>
+        <div class="h-1/2 flex flex-col justify-between mx-3 w-142">
+            <div class="flex flex-col -mt-20 w-full">
+                <div class="flex flex-row justify-between items-end">
+                    <!-- profile pic -->
+                    <div class="w-36 h-36 rounded-full overflow-hidden border-4 border-gray-900">
+                        {% if user.profile_image != '' %}
+                        <img src="{{ url_for('static', filename ='img/profile_pics/' + user.profile_image) }}"
+                            alt="profile pic" class="w-full h-full object-cover">
+                        <!-- not necessarily going to be current_user-->
+                        {% endif %}
+                    </div>
+
+                    <!-- edit button -->
+                    {% if current_user.is_authenticated and current_user.handle == user.handle %}
+                    <a href="{{ url_for('user_settings.settings_profile') }}">
+                        <div class="text-blue-500 font-bold px-3 py-2 mb-2 rounded-full border
+                            border-blue-500 hover:bg-blue-800 hover:bg-opacity-25">Edit Profile</div>
+                    </a>
+
+                    {% elif current_user.is_authenticated and current_user.handle != user.handle %}
+                    {% if following_status != True %}
+                    <form action="{{ url_for('user.follow', handle = user.handle) }}" method="POST">
+                        <input type="submit" value="Follow"
+                            class="bg-gray-900 border border-blue-500 text-blue-500 
+                        hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focus:outline-none cursor-pointer">
+                    </form>
+                    {% else %}
+                    <form action="{{ url_for('user.unfollow', handle = user.handle) }}" method="POST">
+                        <input type="submit" value="Following" class="bg-blue-500 text-white font-bold py-2 px-4 mb-2 rounded-full
+                        hover:bg-red-700 focus:bg-opacity-75 focus:outline-none cursor-pointer">
+                    </form>
+                    {% endif %}
+                    {% else %}
+
+                    <!-- <body class="bg-gray-900 flex items-center justify-center h-screen"> -->
+                    <!-- follow modal -->
+                    <div>
+                        <!-- follow modal button -->
+                        <div class="modal-follow-open bg-transparent bg-gray-900 border border-blue-500 text-blue-500 
+hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focus:outline-none cursor-pointer">Follow
+                        </div>
+
+
+                        <!-- follow modal content -->
+                        {% if not current_user.is_authenticated %}
+                        <div
+                            class="modal-follow opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+                            <!-- bg outside modal -->
+                            <div class="modal-follow-overlay absolute w-full h-full bg-gray-700 opacity-25"></div>
+
+                            <div
+                                class="w-144 modal-follow-container rounded-2xl bg-gray-900 text-white shadow-lg z-50 overflow-y-auto">
+                                <!-- Add margin if you want to see some of the overlay behind the modal-->
+                                <div class="modal-follow-content flex flex-col pt-2 px-3 pb-20">
+                                    <!-- close svg -->
+                                    <div class="flex justify-between items-center">
+                                        <div class="modal-follow-close cursor-pointer z-50 w-10 h-10 rounded-full flex justify-center items-center
+             hover:bg-blue-700 hover:bg-opacity-25">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                class="w-6 h-6 stroke-current text-blue-500">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-col items-center justify-center">
+                                        <!-- user svg-->
+                                        <div class="flex justify-center items-center pb-14 pt-2">
+                                            <div class="z-50 w-12 h-12">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    class="stroke-current text-blue-500 stroke-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <!-- body -->
+                                        <div class="w-108 flex flex-col">
+                                            <div class="flex flex-col justify-center items-center pb-16">
+                                                <p class="font-bold text-2xl text-center">Follow {{ user.name}} to see
+                                                    what they share on Chirper.
+                                                </p>
+                                                <p class="text-gray-600 text-tiny">Sing up so you never miss their
+                                                    Chirps.</p>
+                                            </div>
+
+                                            <!-- buttons -->
+                                            <div
+                                                class="flex flex-col justify-center items-center text-center font-bold space-y-4">
+                                                <a href="{{ url_for('auth.login') }}">
+                                                    <button class="w-108 bg-blue-500 rounded-full h-12 font-semibold 
+    hover:bg-blue-600 focus:outline-none">Log in</button>
+                                                </a>
+                                                <a href="{{ url_for('auth.signup_1') }}">
+                                                    <button class="w-108 border border-blue-500 rounded-full h-12 text-blue-500 font-semibold
+     hover:bg-gray-800 hover:bg-opacity-50 focus:outline-none">Sign up</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <!-- follow modal ends here -->
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                <!-- profile info -->
+                <div class="flex flex-col space-y-2">
+                    <div class="flex flex-col">
+                        <div class="text-xl font-bold">{{ user.name }}</div>
+                        <div class="text-gray-600 text-tiny leading-tight">@{{ user.handle }}</div>
+                    </div>
+                    <!-- user bio -->
+                    {% if user.bio != '' %}
+                    <div>{{ user.bio }}</div>
+                    {% endif %}
+
+
+                    <div class="flex flex-row items-center flex-wrap">
+                        <!-- user location -->
+                        {% if user.location != '' %}
+                        <div class="flex flex-row space-x-1 mr-2">
+                            <!-- calendar svg -->
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="w-5 h-5 stroke-current text-gray-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <div class="text-gray-600 text-tiny">{{ user.location }}</div>
+                        </div>
+                        {% endif %}
+                        <!-- user website -->
+                        {% if user.website != '' %}
+                        <div class="flex flex-row space-x-1 mr-2">
+                            <!-- calendar svg -->
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="w-5 h-5 stroke-current text-gray-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                </svg>
+                            </div>
+                            <div class="text-gray-600 text-tin truncate ... w-48">{{ user.website }}</div>
+                        </div>
+                        {% endif %}
+                        <!-- user birthday -->
+                        {% if user.birthday != '' %}
+                        <div class="flex flex-row space-x-1 mr-2">
+                            <!-- calendar svg -->
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="w-5 h-5 stroke-current text-gray-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
+                                </svg>
+                            </div>
+                            <div class="text-gray-600 text-tiny whitespace-no-wrap">Born
+                                {{ user.birthdate.strftime('%B %d, %Y') }}</div>
+                        </div>
+                        {% endif %}
+                        <!-- user joined date -->
+                        <div class="flex flex-row space-x-1 mr-2">
+                            <!-- calendar svg -->
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="w-5 h-5 stroke-current text-gray-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <div class="text-gray-600 text-tiny whitespace-no-wrap">Joined
+                                {{ user.created_at.strftime('%B %Y') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-row space-x-6 text-tiny">
+                        <a href="{{ url_for('user.profile_following', handle = user.handle) }}" class="hover:underline">
+                            <div class="flex flex-row items-center">
+                                <span class="text-gray-600">
+                                    <b class="text-white">{{ user.following.count() }}</b>
+                                    Following
+                                </span>
+                            </div>
+                        </a>
+                        <a href="{{ url_for('user.profile_followers', handle = user.handle) }}" class="hover:underline">
+                            <div class="flex flex-row items-center">
+                                <span class="text-gray-600">
+                                    <b class="text-white">{{ user.follower.count() }}</b>
+                                    Followers
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 4 tabs -->
+    {% block tabs %}
+    {% endblock tabs %}
+
+    <!-- tab content -->
+    {% block tabcontent %}
+    {% endblock tabcontent %}
+</div>
+
+
+
+
+<!-- modal script -->
+<script>
+    var openmodalFollow = document.querySelectorAll('.modal-follow-open')
+    for (var i = 0; i < openmodalFollow.length; i++) {
+        openmodalFollow[i].addEventListener('click', function (event) {
+            event.preventDefault()
+            toggleModalFollow()
+        })
+    }
+
+    var openmodalMedia = document.querySelectorAll('.modal-media-open')
+    for (var i = 0; i < openmodalMedia.length; i++) {
+        openmodalMedia[i].addEventListener('click', function (event) {
+            event.preventDefault()
+            toggleModalMedia()
+        })
+    }
+
+    const overlayFollow = document.querySelector('.modal-follow-overlay')
+    overlayFollow.addEventListener('click', toggleModalFollow)
+
+    const overlayMedia = document.querySelector('.modal-media-overlay')
+    overlayMedia.addEventListener('click', toggleModalMedia)
+
+
+    var closemodalFollow = document.querySelectorAll('.modal-follow-close')
+    for (var i = 0; i < closemodalFollow.length; i++) {
+        closemodalFollow[i].addEventListener('click', toggleModalFollow)
+    }
+
+    var closemodalMedia = document.querySelectorAll('.modal-media-close')
+    for (var i = 0; i < closemodalMedia.length; i++) {
+        closemodalMedia[i].addEventListener('click', toggleModalMedia)
+    }
+
+    document.onkeydown = function (evt) {
+        evt = evt || window.event
+        var isEscape = false
+        if ("key" in evt) {
+            isEscape = (evt.key === "Escape" || evt.key === "Esc")
+        } else {
+            isEscape = (evt.keyCode === 27)
+        }
+        if (isEscape && document.body.classList.contains('modal-follow-active')) {
+            toggleModalFollow()
+        }
+        if (isEscape && document.body.classList.contains('modal-media-active')) {
+            toggleModalMedia()
+        }
+    };
+
+
+    function toggleModalFollow() {
+        const body = document.querySelector('body')
+        const modalFollow = document.querySelector('.modal-follow')
+        modalFollow.classList.toggle('opacity-0')
+        modalFollow.classList.toggle('pointer-events-none')
+        body.classList.toggle('modal-follow-active')
+    }
+
+    function toggleModalMedia() {
+        const body = document.querySelector('body')
+        const modalMedia = document.querySelector('.modal-media')
+        modalMedia.classList.toggle('opacity-0')
+        modalMedia.classList.toggle('pointer-events-none')
+        body.classList.toggle('modal-media-active')
+    }
+</script>
+<!-- modal script ends here -->
+{% endblock content %}
