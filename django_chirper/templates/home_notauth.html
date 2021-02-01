@@ -1,0 +1,136 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+    <title>Chirper. It's what's happening / Chirper</title>
+</head>
+
+<body class="bg-gray-900 text-white relative">
+    <div class="flex flex-col md:flex-row md:h-screen ">
+        <div class="order-2 md:order-1 md:w-1/2 md:h-full bg-blue-400">
+            <div class="h-full w-full flex flex-col items-center justify-center bg-no-repeat bg-cover"
+                style="background-image: url( {% static 'img/bird_fill_blue.svg' %} )">
+                <aside class="text-lg font-bold text-white p-8">
+                    <div class="space-y-8">
+                        <div class="flex flex-row space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current stroke-1 w-8 h-8">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <h2>Follow your interests.</h2>
+                        </div>
+                        <div class="flex flex-row space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current stroke-1 w-8 h-8">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                            <h2>Hear what people are talking about.</h2>
+                        </div>
+                        <div class="flex flex-row space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current stroke-1 w-8 h-8">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                            <h2>Join the conversation.</h2>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <main class="order-1 md:order-2 md:w-1/2 flex flex-col items-center justify-center relative">
+            <div class="fixed top-0 invisible lg:visible">
+                <!-- login form -->
+                {% crispy form %}
+            </div>
+
+            <div class="w-96 space-y-12 mb-6">
+                <div class="space-y-5 mt-4">
+                    <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512"
+                        xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 fill-current">
+                        <g>
+                            <path
+                                d="m105.623 201.204c0 1.149.382 2.74 2.202 3.789l61.082 35.184v-77.947l-61.081 35.184c-1.821 1.048-2.203 2.639-2.203 3.79z" />
+                            <path
+                                d="m428.034 70.164c-26.196-26.197-60.866-40.624-97.624-40.624h-.698c-34.778 0-67.582 13.65-92.368 38.437s-38.437 57.591-38.437 92.369v132.412c0 58.142 22.813 112.976 64.237 154.399 20.686 20.686 44.716 36.729 70.831 47.61-.258-.255-.521-.502-.778-.759-30.652-30.652-47.533-71.253-47.533-114.324v-64.083c0-59.79 48.644-108.434 108.434-108.434h.527c26.968 0 52.263 7.288 74.031 19.987v-59.367c.001-36.757-14.426-71.427-40.622-97.623zm-94.501 83.862c-8.284 0-15-6.716-15-15 0-9.743-7.96-17.669-17.745-17.669s-17.745 7.926-17.745 17.669c0 8.284-6.716 15-15 15s-15-6.716-15-15c0-26.285 21.418-47.669 47.745-47.669s47.745 21.384 47.745 47.669c0 8.284-6.716 15-15 15z" />
+                            <path
+                                d="m477.509 271.66c-22.242-22.243-51.678-34.492-82.883-34.492h-.527c-43.248 0-78.434 35.186-78.434 78.434v64.083c0 35.058 13.761 68.125 38.746 93.11 24.985 24.986 58.054 38.746 93.111 38.746h50.427c7.748 0 14.051-6.303 14.051-14.051v-142.948c0-31.205-12.249-60.64-34.491-82.882z" />
+                            <path
+                                d="m101.433 87.27-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 2.931 2.937 6.774 4.406 10.619 4.406 3.833 0 7.666-1.46 10.594-4.381l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-78.035c0-8.284-6.716-15-15-15h-79.812c-8.284 0-15 6.716-15 15v71.811l-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 5.852 5.866 15.348 5.876 21.213.025l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-63.035h49.812z" />
+                        </g>
+                    </svg>
+                    <h1 class="text-3xl font-bold leading-snug">See what's happening in the world right now</h1>
+                </div>
+                <div class="flex flex-col space-y-5">
+                    <h4 class="font-semibold">Join Chirper today.</h4>
+
+                    <div class="flex flex-col space-y-4">
+                        <!-- url_for('auth.signup_1') -->
+                        <a href="{% url 'signup' %}">
+                            <button class="w-96 bg-blue-500 rounded-full h-10 font-semibold 
+                            hover:bg-blue-600 focus:outline-none">Sign up</button>
+                        </a>
+                        <!-- url_for('auth.login') -->
+                        <a href="{% url 'login' %}">
+                            <button class="w-96 border border-blue-500 rounded-full h-10 text-blue-500 font-semibold
+                             hover:bg-gray-800 hover:bg-opacity-50 focus:outline-none">Log in</button>
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        <div class="md:hidden order-3 flex flex-row self-center w-96 justify-between mt-8">
+            <!-- url_for('auth.signup_1') -->
+            <a href="{% url 'signup' %}">
+                <button class="w-44 bg-blue-500 rounded-full h-10 font-semibold 
+                hover:bg-blue-600 focus:outline-none">Sign up</button>
+            </a>
+            <!-- url_for('auth.login') -->
+            <a href="{% url 'login' %}">
+                <button class="w-44 border border-blue-500 rounded-full h-10 text-blue-500 font-semibold
+                 hover:bg-gray-800 hover:bg-opacity-50 focus:outline-none">Log in</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 w-full tracking-wider bg-gray-900 flex flex-row justify-center">
+        <footer class="text-gray-500 font-light mx-3 my-3 space-x-2 tracking-wide leading-relaxed text-center">
+            <a><small class="no-underline hover:underline">About</small></a>
+            <a><small class="no-underline hover:underline">Help Center</small></a>
+            <a><small class="no-underline hover:underline">Terms of Service</small></a>
+            <a><small class="no-underline hover:underline">Privacy Policy</small></a>
+            <a><small class="no-underline hover:underline">Cookie Policy</small></a>
+            <a><small class="no-underline hover:underline">Ads info</small></a>
+            <a><small class="no-underline hover:underline">Blog</small></a>
+            <a><small class="no-underline hover:underline">Status</small></a>
+            <a><small class="no-underline hover:underline">Careers</small></a>
+            <a><small class="no-underline hover:underline">Brand Resources</small></a>
+            <a><small class="no-underline hover:underline">Advertising</small></a>
+            <a><small class="no-underline hover:underline">Marketing</small></a>
+            <a><small class="no-underline hover:underline">Chirper for Business</small></a>
+            <a><small class="no-underline hover:underline">Developers</small></a>
+            <a><small class="no-underline hover:underline">Directory</small></a>
+            <a><small class="no-underline hover:underline">Settings</small></a>
+            <a><small class="no-underline hover:underline">© 2020 Chirper, Inc.</small></a>
+
+            <!-- credit for bird icon -->
+            <div class="text-xxs text-gray-800">Bird icon made by
+                <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from
+                <a href="https://www.flaticon.com/" title="Flaticon">Flaticon</a>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
