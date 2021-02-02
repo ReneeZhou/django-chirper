@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title%} / Chirper</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="shortcut icon" href="#"> <!--  url_for('static', filename='img/favicon.png') -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
 
     <!-- dropdown menu component script-->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -55,7 +55,7 @@
                     </a>
                     {% endif %}
 
-                    <a href="" class="home-a">
+                    <a href="{% url 'explore' %}" class="home-a">
                         <!-- url_for('main.explore') -->
                         <div class="home-btn">
                             <!-- explore icon -->
@@ -71,7 +71,7 @@
                     <a href="" class="home-a">
                         <!-- url_for('user_settings.settings') -->
                         <div class="home-btn">
-                            <!-- explore icon -->
+                            <!-- settings icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -400,7 +400,7 @@
                     </a>
                     {% endif %}
 
-                    <a href="" class="home-a">
+                    <a href="{% url 'explore' %}" class="home-a">
                         <!-- url_for('main.explore') -->
                         <div class="home-btn">
                             <!-- explore icon -->
@@ -416,7 +416,7 @@
                     <a href="" class="home-a">
                         <!-- url_for('user_settings.settings') -->
                         <div class="home-btn">
-                            <!-- explore icon -->
+                            <!-- settings icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -747,7 +747,7 @@
                     </a>
                     {% endif %}
 
-                    <a href="" class="home-a">
+                    <a href="{% url 'explore' %}" class="home-a">
                         <!-- url_for('main.explore') -->
                         <!-- explore icon -->
                         <div class="home-btn space-x-4">
@@ -764,7 +764,7 @@
                     <a href="" class="home-a">
                         <!-- url_for('user_settings.settings') -->
                         <div class="home-btn space-x-4">
-                            <!-- explore icon -->
+                            <!-- settings icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -1209,9 +1209,8 @@
                             class="py-2 px-4 flex justify-between hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer">
                             <div class="flex space-x-4">
                                 <a href="#" class="w-12 h-12 rounded-full overflow-hidden">
-                                    <img src=""
+                                    <img src="{% static 'img/profile_pics/ocean2.jpg' %}"
                                         alt="profile pic" class="w-full h-full object-cover">
-                                        <!-- url_for('static', filename = 'img/profile_pics/ocean2.jpg') -->
                                 </a>
                                 <div>
                                     <a href="#" class="font-bold hover:underline">Renee Zhou</a>
@@ -1335,9 +1334,8 @@
                             class="py-2 px-4 flex justify-between hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer">
                             <div class="flex space-x-4">
                                 <a href="#" class="w-12 h-12 rounded-full overflow-hidden">
-                                    <img src=""
+                                    <img src="{% static 'img/profile_pics/ocean2.jpg' %}"
                                         alt="profile pic" class="w-full h-full object-cover">
-                                        <!-- url_for('static', filename = 'img/profile_pics/ocean2.jpg') -->
                                 </a>
                                 <div>
                                     <a href="#" class="font-bold hover:underline">Renee Zhou</a>
