@@ -1,25 +1,33 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from .forms import UserRegisterForm, HUserLoginForm
+from .forms import UserLoginForm, UserRegisterForm
 
 
-# def home_notauth(request):
-#     if request.user.is_authenticated:
-#         return redirect('home')
+def home_notauth(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     
-#     form = HUserLoginForm()
-#     if request.method == 'GET':
-#         return render(request, 'home_notauth.html', {'form': form})
-#     elif request.method == 'POST':
-#         if form.is_valid():
-#             return redirect('home')
-#         else: 
-#             messages.warning(request, 
-#                             'There was unusual login activity on your account. \
-#                                 To help keep your account safe, \
-#                                     please enter your phone number or email address to verify it’s you.')
-#             return redirect('login')
+    if request.method == 'GET':
+        form = UserLoginForm()
+        return render(request, 'home_notauth.html', {'form': form})
+
+    elif request.method == 'POST':
+        form = UserLoginForm(request, request.POST)
+        # this is because AuthenticationForm's __init__()
+        # takes an extra request arg for custom login like this
+
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            # username = request.POST['username']
+            # password = request.POST['password']
+            user = authenticate(request, username = username, password = password)
+            if user is not None:
+                login(request, user = user)
+                return redirect('home')
+        else: 
+            return redirect('login')
 
 
 def signup(request):
