@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from .forms import UserLoginForm, UserRegisterForm
+from .forms import LoginForm, RegistrationForm
 
 
 def home_notauth(request):
@@ -9,11 +9,11 @@ def home_notauth(request):
         return redirect('home')
     
     if request.method == 'GET':
-        form = UserLoginForm()
+        form = LoginForm()
         return render(request, 'home_notauth.html', {'form': form})
 
     elif request.method == 'POST':
-        form = UserLoginForm(request, request.POST)
+        form = LoginForm(request, request.POST)
         # this is because AuthenticationForm's __init__()
         # takes an extra request arg for custom login like this
 
@@ -32,13 +32,13 @@ def home_notauth(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             # messages.success(request, f'Account created for {username}!')
             return redirect('login')
     else:
-        form = UserRegisterForm()
+        form = RegistrationForm()
 
     return render(request, 'signup.html', {'form': form})

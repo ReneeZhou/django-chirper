@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
-from user.forms import UserLoginForm
+from user.forms import LoginForm
 
 
 
@@ -26,7 +26,7 @@ urlpatterns = [
         'login/',
         auth_views.LoginView.as_view(
             template_name = 'login.html', 
-            authentication_form = UserLoginForm
+            authentication_form = LoginForm
             ), 
         name = 'login'
         ),

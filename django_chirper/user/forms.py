@@ -4,7 +4,7 @@ from django.forms import TextInput, EmailInput, PasswordInput
 from django.forms.fields import CharField, EmailField
 
 
-class UserRegisterForm(UserCreationForm):
+class RegistrationForm(UserCreationForm):
     input_field_class = 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'
 
     username = CharField(
@@ -54,7 +54,7 @@ class UserRegisterForm(UserCreationForm):
         super().__init__(*args, **kwargs)
 
 
-class UserLoginForm(AuthenticationForm):
+class LoginForm(AuthenticationForm):
     input_field_class = 'ml-2 h-10 bg-gray-700 bg-opacity-0 outline-none text-white'
 
     username = CharField(
