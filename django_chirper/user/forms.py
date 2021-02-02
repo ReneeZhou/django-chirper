@@ -77,11 +77,11 @@ class LoginForm(AuthenticationForm):
         )
     )
 
-    non_field_errors = ('''
-        There was unusual login activity on your account. 
-        To help keep your account safe, please enter your phone number 
-        or email address to verify it’s you.
-    ''')
+    # non_field_errors = ('''
+    #     There was unusual login activity on your account. 
+    #     To help keep your account safe, please enter your phone number 
+    #     or email address to verify it’s you.
+    # ''')
 
     class Meta: 
         model = User
