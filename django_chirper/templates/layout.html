@@ -43,7 +43,7 @@
                         </div>
                     </a>
                     {% if user.is_authenticated %}
-                    <a href="" class="home-a">
+                    <a href="{% url 'home' %}" class="home-a">
                         <!-- url_for('main.home') -->
                         <div class="home-btn">
                             <!-- home icon -->
@@ -351,7 +351,6 @@
                 </a>
                 <!-- log out button -->
                 <a href="{% url 'logout' %}">
-                    <!-- url_for('auth.logout')  -->
                     <button
                         class="text-xs px-2 rounded-full hover:bg-gray-800 bg-gray-700 bg-opacity-25 focus:outline-none">Log
                         out</button>
@@ -388,8 +387,7 @@
                         </div>
                     </a>
                     {% if user.is_authenticated %}
-                    <a href="" class="home-a">
-                        <!-- url_for('main.home') -->
+                    <a href="{% url 'home' %}" class="home-a">
                         <div class="home-btn">
                             <!-- home icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
@@ -697,7 +695,6 @@
 
                 <!-- log out button -->
                 <a href="{% url 'logout' %}">
-                    <!-- url_for('auth.logout') -->
                     <button
                         class="text-xs px-2 rounded-full hover:bg-gray-800 bg-gray-700 bg-opacity-25 focus:outline-none">Log
                         out</button>
@@ -748,7 +745,6 @@
                     {% endif %}
 
                     <a href="{% url 'explore' %}" class="home-a">
-                        <!-- url_for('main.explore') -->
                         <!-- explore icon -->
                         <div class="home-btn space-x-4">
                             <!-- hashtag icon -->
@@ -1062,7 +1058,6 @@
 
                 <!-- log out button -->
                 <a href="{% url 'logout' %}" class="flex flex-col">
-                    <!-- url_for('auth.logout') -->
                     <button
                         class="text-xs px-2 rounded-full hover:bg-gray-800 bg-gray-700 bg-opacity-25 focus:outline-none">Log
                         out</button>
@@ -1114,7 +1109,6 @@
                 <div class="flex-row items-center md:hidden space-x-3">
                     <!-- login -->
                     <a href="{% url 'login' %}">
-                        <!-- url_for('auth.login') -->
                         <button class="w-56 border border-white rounded-full h-10 text-white font-semibold
                      hover:bg-blue-400 hover:bg-opacity-50 focus:outline-none">Log in</button>
                     </a>
@@ -1138,7 +1132,6 @@
                     <div class="flex flex-row items-center space-x-3 mr-4">
                         <!-- login -->
                         <a href="{% url 'login' %}">
-                            <!-- url_for('auth.login') -->
                             <button class="w-20 border border-white rounded-full h-10 text-white font-semibold
                  hover:bg-blue-400 hover:bg-opacity-50 focus:outline-none">Log in</button>
                         </a>
