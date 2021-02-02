@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Explore{% endblock title%}
+{% block header %}
+<div class="">
+    <div class="flex flex-row items-center justify-start w-124 py-1 px-3 space-x-1
+    text-gray-600 bg-gray-800 bg-opacity-75 rounded-full overflow-hidden
+       border border-transparent focus-within:border-blue-500 focus-within:text-blue-500
+       focus-within:bg-gray-900">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-5 h-5 stroke-current focus:text-blue-500 inline">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <form method="POST" action="" class="inline pl-1">
+            <label for="search"></label>
+            <input name="search" type="text" placeholder="Search Chirper"
+                class="text-base text-white bg-gray-800 bg-opacity-0 outline-none">
+        </form>
+    </div>
+</div>
+{% endblock header %}
+{% block svg %}
+<div class="svg-bg-div">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+        class="w-6 h-6 stroke-current text-blue-500">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+</div>
+{% endblock svg %}
+
+
+
+{% block content %}
+<div>
+    <!-- event -->
+    <a href="#">
+        <div style="background-image:url( {% static 'img/ocean6.jpg' %} )"
+            class="bg-local bg-cover bg-center">
+            <div class="w-full h-80 flex flex-col justify-end px-4 py-3
+        bg-gradient-to-b from-transparent to-gray-900">
+                <div class="flex flex-row items-center space-x-1">
+                    <div class="text-sm">Topic</div>
+                    <div>⋅</div>
+                    <div class="text-sm">Trending</div>
+                </div>
+                <div class="text-xl font-bold">The power of ocean</div>
+            </div>
+        </div>
+    </a>
+
+    <!-- trends for you -->
+    <div class="border-t-8 border-gray-800">
+        <div>
+            <h2 class="border-b border-gray-700 text-xl font-bold p-3 pl-4">Trends for you</h2>
+            {% for trend in trends %}
+            <div class="border-b border-gray-700 pl-4 pr-3 pt-1 pb-3 
+            hover:bg-gray-800 hover:bg-opacity-25">
+                <div class="flex flex-row items-center justify-between">
+                    <div class="flex flex-row text-sm text-gray-600 space-x-1">
+                        <div>{{ trend.label }}</div>
+                        <div>⋅</div>
+                        <div>Trending</div>
+                    </div>
+                    <!-- svg -->
+                    <button class="focus:outline-none hover:text-blue-500">
+                        <div class="rounded-full w-8 h-8 flex justify-center items-center
+                    hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="w-6 h-6 stroke-current m-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                            </svg>
+                        </div>
+                    </button>
+
+                </div>
+                <div class="text-base font-bold">{{ trend.content }}</div>
+                <!-- chirp count -->
+                <div class="text-sm text-gray-600">{{ trend.chirp_count }} Chirps</div>
+            </div>
+        </div>
+        {% endfor %}
+        <!-- 'main.trends' -->
+        <a href="" class="block text-blue-500 hover:bg-gray-800 hover:bg-opacity-25 p-3">Show more</a>
+    </div>
+
+    <!-- what's happening -->
+    <div class="border-t-8 border-gray-800">
+        <div>
+            <h2 class="border-b border-gray-700 text-xl font-bold p-3 pl-4">What's happening</h2>
+            {% for happening in happenings %}
+            <div class="flex flex-row justify-between border-b border-gray-700 p-3
+            hover:bg-gray-800 hover:bg-opacity-25">
+                <div>
+                    <div class="flex flex-row items-center justify-between">
+                        <div class="flex flex-row text-sm text-gray-600 space-x-1">
+                            <div class="text-white font-bold">{{ happening.label }}</div>
+                            <div>⋅</div>
+                            <div>{{ happening.time }}</div>
+                        </div>
+                    </div>
+                    <!-- headlines -->
+                    <div class="text-lg font-bold">{{ happening.title }}</div>
+                </div>
+                <!-- img -->
+                <div class="w-20 h-20 rounded-2xl overflow-hidden">
+                    <img src="{% static 'img/profile_pics/ocean3.jpg' %}" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+        <!-- 'main.timeline' -->
+        <a href="" class="block text-blue-500 hover:bg-gray-800 hover:bg-opacity-25 p-3">Show more</a>
+    </div>
+</div>
+{% endblock content %}

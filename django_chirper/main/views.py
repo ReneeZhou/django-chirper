@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from blog.models import Post
 
 
+@login_required
 def home(request):
     context = {
         'posts': Post.objects.all()
@@ -10,4 +12,55 @@ def home(request):
     if request.user.is_authenticated:
         return render(request, 'home.html', context)
     else: 
-        return render(request, 'home_notauth.html')
+        return redirect('home_notauth')
+
+
+def explore(request):
+    context = {
+        'trends': trends,
+        'happenings': happenings
+        }
+    return render(request, 'explore.html', context)
+
+
+
+trends = [
+    {
+        'label': 'label 1',
+        'topic': 'topic 1',
+        'content': 'content 1',
+        'chirp_count': 'count 1'
+    },
+    {
+        'label': 'label 2',
+        'topic': 'topic 2',
+        'content': 'content 2',
+        'chirp_count': 'count 2'
+    }
+]
+
+happenings = [
+    {
+        'label': 'label 1',
+        'time': 'time 1',
+        'title': 'title 1'
+    },
+    {
+        'label': 'label 2',
+        'time': 'time 2',
+        'title': 'title 2'
+    }
+]
+
+people = [
+    {   
+        'icon': 'icon 1',
+        'username': 'username 1',
+        'handle': '@handle 1'
+    },
+    {
+        'icon': 'icon 2',
+        'username': 'username 2',
+        'handle': '@handle 2'
+    }
+]
