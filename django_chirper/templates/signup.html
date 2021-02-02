@@ -20,18 +20,89 @@
             </g>
         </svg>
 
-        <div class="space-y-4 flex flex-col w-128 mt-8">
-            <div class="text-2xl font-bold tracking-wide">Create your account</div>
-            <div class="text-gray-600">
-                {% crispy form %}
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            <div class="space-y-4 flex flex-col w-128">
+                <div class="text-2xl font-bold tracking-wide">Create your account</div>
+
+                <div class="space-y-5 text-gray-600">
+                    <!-- username -->
+                    <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                    focus-within:border-blue-500 focus-within:text-blue-500">
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.username.label }}</div>
+                        {% if form.username.errors %}
+                        {{ form.username }}
+                        {% for error in form.username.errors %}
+                        <span class="flash_warning">{{ error }}</span>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.username }}
+                        {% endif %}
+                    </div>
+
+                    <!-- email -->
+                    <div class="flex flex-col  bg-gray-700 bg-opacity-25 border-b-2 border-gray-600 
+                    focus-within:border-blue-500 focus-within:text-blue-500">
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.email.label }}</div>
+                        {% if form.email.errors %}
+                        {{ form.email }}
+                        {% for error in form.email.errors %}
+                        <span class="flash_warning">{{ error }}</span>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.email }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="text-blue-600 text-sm font-medium no-underline hover:underline cursor-pointer pb-4">Use
+                    phone instead</div>
+
+                <div class="space-y-5 text-gray-600">
+                    <!-- password -->
+                    <div class="flex flex-col  bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                    focus-within:border-blue-500 focus-within:text-blue-500">
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.password1.label }}</div>
+                        {% if form.password.errors %}
+                        {{ form.password1 }}
+                        {% for error in errors %}
+                        <span class="flash_warning">{{ form.password1.error }}</span>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.password1 }}
+                        {% endif %}
+                    </div>
+
+                    <!-- confirm password -->
+                    <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                    focus-within:border-blue-500 focus-within:text-blue-500">
+                        <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.password2.label }}</div>
+                        {% if form.password2.errors %}
+                        {{ form.password2 }}
+                        {% for error in form.password2.errors %}
+                        <span class="flash_warning">{{ error }}</span>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.password2 }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="block items-center justify-center bg-blue-500 rounded-full h-12 w-128 font-bold 
+                    focus:outline-none hover:bg-blue-600 mt-2">Sign up</button>
+                </div>
             </div>
-        </div>
+
+        </form>
     </div>
+
 
     <!-- credit for bird icon -->
     <div class="text-xxs text-gray-700 mt-2">Bird icon made by
         <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from
         <a href="https://www.flaticon.com/" title="Flaticon">Flaticon</a>
     </div>
+
 </div>
 {% endblock content %}
