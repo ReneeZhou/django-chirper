@@ -5,6 +5,7 @@ from django.forms.fields import CharField, EmailField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Div, HTML
 from crispy_forms.layout import Field as CrispyField
+from django.forms.widgets import TextInput
 
 
 class UserRegisterForm(UserCreationForm):
@@ -17,7 +18,8 @@ class UserRegisterForm(UserCreationForm):
             attrs = {
                 'class': input_field_class
             }
-        ))
+        )
+    )
 
     email = EmailField(
         label = 'Email', 
@@ -29,7 +31,7 @@ class UserRegisterForm(UserCreationForm):
     )
 
     password1 = CharField(
-        max_length = 300,
+        max_length = 250,
         label = 'Password',
         widget = forms.PasswordInput(
             attrs = {
@@ -39,7 +41,7 @@ class UserRegisterForm(UserCreationForm):
     )
 
     password2 = CharField(
-        max_length = 300, 
+        max_length = 250, 
         label = 'Confirm Password',
         widget = forms.PasswordInput(
             attrs = {
@@ -54,6 +56,45 @@ class UserRegisterForm(UserCreationForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+
+class UserLoginForm(AuthenticationForm):
+    input_field_class = 'ml-2 h-10 bg-gray-700 bg-opacity-0 outline-none text-white'
+
+    username = CharField(
+        max_length = 50,
+        label = 'Phone, email, or username',
+        widget = forms.TextInput(
+            attrs = {
+                'class': input_field_class
+            }
+        )
+    )
+
+    password = CharField(
+        max_length = 250,
+        label = 'Password',
+        widget = forms.PasswordInput(
+            attrs = {
+                'class': input_field_class
+            }
+        )
+    )
+
+    non_field_errors = ('''
+        There was unusual login activity on your account. 
+        To help keep your account safe, please enter your phone number 
+        or email address to verify it’s you.
+    ''')
+
+    class Meta: 
+        model = User
+        fields = ('username', 'password')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
 
 
 class VUserLoginForm(AuthenticationForm):
