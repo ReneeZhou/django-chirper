@@ -72,8 +72,8 @@ def timeline(request):
 
 # i
 @login_required
-def connect_people(request):
-    return render(request, 'connect_people.html')
+def connectPeople(request):
+    return render(request, 'connectPeople.html')
 
 
 

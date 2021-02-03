@@ -14,5 +14,5 @@ urlpatterns = [
     path('lists/add_member/', views.lists_addMember, name = 'lists_addMember'),
     path('i/trends/', views.trends, name = 'trends'),
     path('i/timeline/', views.timeline, name = 'timeline'),
-    path('i/connect_people', views.connect_people, name = 'connect_people')
+    path('i/connect_people', views.connectPeople, name = 'connectPeople')
 ]
