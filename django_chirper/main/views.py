@@ -23,6 +23,15 @@ def explore(request):
     return render(request, 'explore.html', context)
 
 
+@login_required
+def notifications(request):
+    return render(request, 'notifications.html')
+
+
+@login_required
+def notifications_mentions(request):
+    return render(request, 'notifications_mentions.html')
+
 
 trends = [
     {

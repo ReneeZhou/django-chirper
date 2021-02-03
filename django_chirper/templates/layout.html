@@ -83,8 +83,7 @@
                     {% endif %}
 
                     {% if user.is_authenticated %}
-                    <a href="" class="home-a">
-                        <!-- url_for('main.notifications') -->
+                    <a href="{% url 'notifications' %}" class="home-a">
                         <div class="home-btn">
                             <!-- notification icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
@@ -426,8 +425,7 @@
                     {% endif %}
 
                     <!-- jinja - if current_user.is_authenticated -->
-                    <a href="" class="home-a">
-                        <!-- url_for('main.notifications') -->
+                    <a href="{% url 'notifications' %}" class="home-a">
                         <div class="home-btn">
                             <!-- notification icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
@@ -773,8 +771,7 @@
                     {% endif %}
 
                     {% if user.is_authenticated %}
-                    <a href="" class="home-a">
-                        <!-- url_for('main.notifications') -->
+                    <a href="{% url 'notifications' %}" class="home-a">
                         <div class="home-btn space-x-4">
                             <!-- notification icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
