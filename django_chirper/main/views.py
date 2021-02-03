@@ -33,6 +33,16 @@ def notifications_mentions(request):
     return render(request, 'notifications_mentions.html')
 
 
+@login_required
+def messages(request):
+    return render(request, 'messages.html')
+
+
+@login_required
+def messages_compose(request):
+    return render(request, 'messages_compose.html')
+
+
 trends = [
     {
         'label': 'label 1',

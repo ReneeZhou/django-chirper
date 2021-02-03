@@ -94,8 +94,7 @@
                     </a>
 
                     <!-- jinja - if current_user.new_messages() == 0  -->
-                    <a href="#" class="home-a">
-                        <!-- url_for('main.messages') -->
+                    <a href="{% url 'messages' %}" class="home-a">
                         <div class="home-btn">
                             <!-- message icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
@@ -105,8 +104,7 @@
                         </div>
                     </a>
                     {% else %}
-                    <a href="" class="home-a">
-                        <!-- url_for('main.messages') -->
+                    <a href="{% url 'messages' %}" class="home-a">
                         <div class="home-btn">
                             <!-- message icon -->
                             <?xml version="1.0" encoding="iso-8859-1"?>
@@ -436,8 +434,7 @@
                     </a>
 
                     <!-- jinja - if current_user.new_messages() == 0   -->
-                    <a href="" class="home-a">
-                        <!-- url_for('main.messages') -->
+                    <a href="{% url 'messages' %}" class="home-a">
                         <div class="home-btn">
                             <!-- message icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
@@ -447,8 +444,7 @@
                         </div>
                     </a>
                     <!-- jinja - else  -->
-                    <a href="" class="home-a">
-                        <!-- url_for('main.messages') -->
+                    <a href="{% url 'messages' %}" class="home-a">
                         <div class="home-btn">
                             <!-- message icon -->
                             <?xml version="1.0" encoding="iso-8859-1"?>
@@ -783,8 +779,7 @@
                     </a>
 
                     <!-- jinja - if current_user.new_messages() == 0  -->
-                    <a href="" class="home-a">
-                        <!-- url_for('main.messages') -->
+                    <a href="{% url 'messages' %}" class="home-a">
                         <div class="home-btn space-x-4">
                             <!-- message icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
@@ -795,8 +790,7 @@
                         </div>
                     </a>
                     {% else %}
-                    <a href="" class="home-a">
-                        <!-- url_for('main.messages') -->
+                    <a href="{% url 'messages' %}" class="home-a">
                         <div class="home-btn space-x-3">
                             <!-- message icon -->
                             <?xml version="1.0" encoding="iso-8859-1"?>
@@ -1461,13 +1455,11 @@
         <div class="fixed bottom-0 right-0 px-4 h-12 xs:hidden sm:hidden lg:flex cursor-pointer">
             <div
                 class="flex flex-row w-100 justify-between items-center rounded-t-2xl py-4 pl-4 pr-2 shadow-msg bg-gray-900">
-                <a href="">
-                    <!-- url_for('main.messages') -->
+                <a href="{% url 'messages' %}">
                     <p class="text-xl font-bold w-72">Messages</p>
                 </a>
                 <div class="flex flex-row">
-                    <a href="">
-                        <!-- url_for('main.messages_compose') -->
+                    <a href="{% url 'messages_compose' %}">
                         <div
                             class="rounded-full hover:bg-blue-800 hover:bg-opacity-25 active:bg-blue-700 w-10 h-10 flex justify-center items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
