@@ -76,6 +76,23 @@ def connectPeople(request):
     return render(request, 'connectPeople.html')
 
 
+# i, dp
+@login_required
+def followerRequests(request):
+    return render(request, 'followerRequests.html')
+
+
+# i, dp 
+@login_required
+def display(request):
+    return render(request, 'display.html')
+
+
+# i, dp
+def keyboardShortcuts(request):
+    return render(request, 'keyboardShortcuts.html')
+
+
 
 topics = [
     {
