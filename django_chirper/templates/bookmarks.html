@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Bookmarks{% endblock title %}
+{% block header %}Bookmarks{% endblock header %}
+
+{% block small %}
+<div class="text-gray-600 text-s font-normal">@{{ current_user.handle }}</div>
+{% endblock small %}
+
+{% block svg %}
+<div class="flex flex-row">
+    <div class="svg-bg-div">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-6 h-6 stroke-current text-blue-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+        </svg>
+    </div>
+</div>
+{% endblock svg %}
+
+{% block content %}
+<div class="mt-4 pt-8 flex flex-col items-center space-y-2">
+    <h1 class="text-white text-xl font-bold">You haven’t added any Chirps to your Bookmarks yet</h1>
+    <p class="text-sm font-medium text-gray-600">When you do, they'll show up here.</p>
+</div>
+{% endblock content %}
