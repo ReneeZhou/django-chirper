@@ -70,6 +70,12 @@ def timeline(request):
     return render(request, 'timeline.html', {'happenings': happenings})
 
 
+# i
+@login_required
+def connect_people(request):
+    return render(request, 'connect_people.html')
+
+
 
 topics = [
     {
