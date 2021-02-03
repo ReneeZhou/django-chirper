@@ -48,6 +48,17 @@ def bookmarks(request):
     return render(request, 'bookmarks.html')
 
 
+@login_required
+def lists_create(request):
+    return render(request, 'lists_create.html')
+
+
+@login_required
+def lists_addMember(request):
+    return render(request, 'lists_addMember.html')
+
+
+
 
 trends = [
     {

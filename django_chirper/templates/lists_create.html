@@ -1,0 +1,81 @@
+{% extends 'layout_form.html' %}
+{% block title %}Create a new List{% endblock title %}
+{% block content %}
+<div class="h-screen sm:bg-gray-900 md:bg-gray-800 md:bg-opacity-100 flex flex-col items-center md:justify-center">
+    <div class="flex flex-col bg-gray-900 md:rounded-2xl pb-32 pt-2">
+        <form method="POST" action="" class="space-y-6" enctype="multipart/form-data">  <!-- this special enctype is for img -->
+            <div class="flex flex-col w-148">
+                <!-- header -->
+                <div class="flex flex-row items-center justify-between border-b border-gray-700 pb-2 px-2">
+                    <!-- justify left -->
+                    <div class="flex flex-row items-center">
+                        <!-- close svg -->
+                        <a href="{{ url_for('user.profile_lists') }}">
+                            <div class="svg-bg-div mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="w-6 h-8 stroke-current text-blue-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </div>
+                        </a>
+                        <div class="text-xl font-bold tracking-wide">Create a new List</div>
+                    </div>
+                    <!-- justify right -->
+                    <!-- next button -->
+                    <a href="#" class="rounded-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mr-3">
+                        <div class="font-bold">Next</div>
+                    </a>
+                </div>
+
+                <!-- photo -->
+                <div class="h-48 mb-4 flex justify-center items-center bg-black bg-opacity-50">
+                    <!-- camera svg -->
+                    <div class="rounded-full w-10 h-10 flex justify-center items-center
+                    hover:bg-gray-800 hover:bg-opacity-25 active:bg-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="1-6 h-6 stroke-current stroke-1 ">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                </div>
+
+
+                <div class="space-y-10">
+                    <div class="space-y-10 text-gray-600 px-4">
+                        <!-- name -->
+                        <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                        focus-within:border-blue-500 focus-within:text-blue-500">
+                            <label for="name" class="bg-gray-700 bg-opacity-0 ml-2 mt-2">Name</label>
+                            <input name="name" class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">
+                        </div>
+
+                        <!-- description -->
+                        <div class="flex flex-col  bg-gray-700 bg-opacity-25 border-b-2 border-gray-600 
+                        focus-within:border-blue-500 focus-within:text-blue-500">
+                            <label for="description" class="bg-gray-700 bg-opacity-0 ml-2 mt-2">Description</label>
+                            <input name="decription" class="bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white">
+                        </div>
+                    </div>
+
+                    <!-- make private -->
+                    <div class="flex flex-col px-4">
+                        <div class="flex flex-row items-center justify-between">
+                            <label for="make_private" class="text-tiny">Make private</label>
+                            <div class="svg-bg-div">
+                                <input type="checkbox" name="make_private" class="form-checkbox text-xl outline-none
+                                rounded-sm bg-gray-900 border-2 border-gray-600">
+                            </div>
+                        </div>
+                        <div class="text-gray-600 text-s">When you make a List private, only you can see it.</div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock content %}
