@@ -17,7 +17,7 @@ def home(request):
 
 def explore(request):
     context = {
-        'trends': trends,
+        'topics': topics,
         'happenings': happenings
         }
     return render(request, 'explore.html', context)
@@ -58,9 +58,20 @@ def lists_addMember(request):
     return render(request, 'lists_addMember.html')
 
 
+# i, explore/
+@login_required
+def trends(request):
+    return render(request, 'trends.html', {'topics': topics})
 
 
-trends = [
+# i, explore/
+@login_required
+def timeline(request):
+    return render(request, 'timeline.html', {'happenings': happenings})
+
+
+
+topics = [
     {
         'label': 'label 1',
         'topic': 'topic 1',

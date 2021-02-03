@@ -11,5 +11,7 @@ urlpatterns = [
     path('messages/compose/', views.messages_compose, name = 'messages_compose'),
     path('bookmarks/', views.bookmarks, name = 'bookmarks'),
     path('lists/create/', views.lists_create, name = 'lists_create'),
-    path('lists/add_member', views.lists_addMember, name = 'lists_addMember')
+    path('lists/add_member/', views.lists_addMember, name = 'lists_addMember'),
+    path('i/trends/', views.trends, name = 'trends'),
+    path('i/timeline/', views.timeline, name = 'timeline')
 ]
