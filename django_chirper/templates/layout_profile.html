@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
-{% block title %}{{ user.name }} (@{{ user.handle }}){% endblock title %}
-{% block header %}{{ user.name }}{% endblock header %}
+{% block title %}{{ user.username }} (@{{ user.handle }}){% endblock title %}
+{% block header %}{{ user.username }}{% endblock header %}
 {% block presvg %}
 <div onclick="history.go(-1)">
     <!-- svg redirects to whatever last page user was on -->
@@ -24,8 +24,8 @@
     <div class="flex flex-col justify-between">
         <!-- user background -->
         <div class="w-148 h-48 bg-gray-800 overflow-hidden">
-            {% if user.background_image != '' %}
-            <div style="background-image: url({{ url_for('static', filename = 'img/background_pics/' + user.background_image) }}"
+            {% if user.profile.background_image != '' %}
+            <div style="background-image: url({{ user.profile.background_image.url }})"
                 class="w-full h-full bg-no-repeat bg-center bg-cover"></div>
             {% endif %}
         </div>
@@ -34,8 +34,8 @@
                 <div class="flex flex-row justify-between items-end">
                     <!-- profile pic -->
                     <div class="w-36 h-36 rounded-full overflow-hidden border-4 border-gray-900">
-                        {% if user.profile_image != '' %}
-                        <img src="{{ url_for('static', filename ='img/profile_pics/' + user.profile_image) }}"
+                        {% if user.profile.profile_image != '' %}
+                        <img src="{{ user.profile.profile_image.url }}"
                             alt="profile pic" class="w-full h-full object-cover">
                         <!-- not necessarily going to be current_user-->
                         {% endif %}
@@ -43,20 +43,23 @@
 
                     <!-- edit button -->
                     {% if current_user.is_authenticated and current_user.handle == user.handle %}
-                    <a href="{{ url_for('user_settings.settings_profile') }}">
+                    <!-- url_for('user_settings.settings_profile') -->
+                    <a href="">
                         <div class="text-blue-500 font-bold px-3 py-2 mb-2 rounded-full border
                             border-blue-500 hover:bg-blue-800 hover:bg-opacity-25">Edit Profile</div>
                     </a>
 
                     {% elif current_user.is_authenticated and current_user.handle != user.handle %}
                     {% if following_status != True %}
-                    <form action="{{ url_for('user.follow', handle = user.handle) }}" method="POST">
+                    <!-- url_for('user.follow', handle = user.handle) -->
+                    <form action="" method="POST">
                         <input type="submit" value="Follow"
                             class="bg-gray-900 border border-blue-500 text-blue-500 
                         hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focus:outline-none cursor-pointer">
                     </form>
                     {% else %}
-                    <form action="{{ url_for('user.unfollow', handle = user.handle) }}" method="POST">
+                    <!-- url_for('user.unfollow', handle = user.handle) -->
+                    <form action="" method="POST">
                         <input type="submit" value="Following" class="bg-blue-500 text-white font-bold py-2 px-4 mb-2 rounded-full
                         hover:bg-red-700 focus:bg-opacity-75 focus:outline-none cursor-pointer">
                     </form>
@@ -110,7 +113,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                         <!-- body -->
                                         <div class="w-108 flex flex-col">
                                             <div class="flex flex-col justify-center items-center pb-16">
-                                                <p class="font-bold text-2xl text-center">Follow {{ user.name}} to see
+                                                <p class="font-bold text-2xl text-center">Follow {{ user.username}} to see
                                                     what they share on Chirper.
                                                 </p>
                                                 <p class="text-gray-600 text-tiny">Sing up so you never miss their
@@ -120,11 +123,12 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                             <!-- buttons -->
                                             <div
                                                 class="flex flex-col justify-center items-center text-center font-bold space-y-4">
-                                                <a href="{{ url_for('auth.login') }}">
+                                                <a href="{% url 'login' %}">
                                                     <button class="w-108 bg-blue-500 rounded-full h-12 font-semibold 
     hover:bg-blue-600 focus:outline-none">Log in</button>
                                                 </a>
-                                                <a href="{{ url_for('auth.signup_1') }}">
+                                                <!-- url_for('auth.signup_1') -->
+                                                <a href="{% url 'signup' %}">
                                                     <button class="w-108 border border-blue-500 rounded-full h-12 text-blue-500 font-semibold
      hover:bg-gray-800 hover:bg-opacity-50 focus:outline-none">Sign up</button>
                                                 </a>
@@ -146,18 +150,18 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                 <!-- profile info -->
                 <div class="flex flex-col space-y-2">
                     <div class="flex flex-col">
-                        <div class="text-xl font-bold">{{ user.name }}</div>
+                        <div class="text-xl font-bold">{{ user.username }}</div>
                         <div class="text-gray-600 text-tiny leading-tight">@{{ user.handle }}</div>
                     </div>
                     <!-- user bio -->
-                    {% if user.bio != '' %}
-                    <div>{{ user.bio }}</div>
+                    {% if user.profile.bio != '' %}
+                    <div>{{ user.profile.bio }}</div>
                     {% endif %}
 
 
                     <div class="flex flex-row items-center flex-wrap">
                         <!-- user location -->
-                        {% if user.location != '' %}
+                        {% if user.profile.location != '' %}
                         <div class="flex flex-row space-x-1 mr-2">
                             <!-- calendar svg -->
                             <div class="flex items-center">
@@ -169,11 +173,11 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             </div>
-                            <div class="text-gray-600 text-tiny">{{ user.location }}</div>
+                            <div class="text-gray-600 text-tiny">{{ user.profile.location }}</div>
                         </div>
                         {% endif %}
                         <!-- user website -->
-                        {% if user.website != '' %}
+                        {% if user.profile.website != '' %}
                         <div class="flex flex-row space-x-1 mr-2">
                             <!-- calendar svg -->
                             <div class="flex items-center">
@@ -183,7 +187,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                         d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                                 </svg>
                             </div>
-                            <div class="text-gray-600 text-tin truncate ... w-48">{{ user.website }}</div>
+                            <div class="text-gray-600 text-tin truncate ... w-48">{{ user.profile.website }}</div>
                         </div>
                         {% endif %}
                         <!-- user birthday -->
@@ -198,7 +202,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                 </svg>
                             </div>
                             <div class="text-gray-600 text-tiny whitespace-no-wrap">Born
-                                {{ user.birthdate.strftime('%B %d, %Y') }}</div>
+                                {#{{ user.birthdate.strftime('%B %d, %Y') }}#}</div>
                         </div>
                         {% endif %}
                         <!-- user joined date -->
@@ -212,23 +216,25 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                 </svg>
                             </div>
                             <div class="text-gray-600 text-tiny whitespace-no-wrap">Joined
-                                {{ user.created_at.strftime('%B %Y') }}</div>
+                                {#{{ user.created_at.strftime('%B %Y') }}#}</div>
                         </div>
                     </div>
 
                     <div class="flex flex-row space-x-6 text-tiny">
-                        <a href="{{ url_for('user.profile_following', handle = user.handle) }}" class="hover:underline">
+                        <!-- url_for('user.profile_following', handle = user.handle) -->
+                        <a href="" class="hover:underline">
                             <div class="flex flex-row items-center">
                                 <span class="text-gray-600">
-                                    <b class="text-white">{{ user.following.count() }}</b>
+                                    <b class="text-white">{#{{ user.following.count() }}#}</b>
                                     Following
                                 </span>
                             </div>
                         </a>
-                        <a href="{{ url_for('user.profile_followers', handle = user.handle) }}" class="hover:underline">
+                        <!--  url_for('user.profile_followers', handle = user.handle) -->
+                        <a href="" class="hover:underline">
                             <div class="flex flex-row items-center">
                                 <span class="text-gray-600">
-                                    <b class="text-white">{{ user.follower.count() }}</b>
+                                    <b class="text-white">{#{{ user.follower.count() }}#}</b>
                                     Followers
                                 </span>
                             </div>

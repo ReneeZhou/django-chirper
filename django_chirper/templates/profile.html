@@ -1,8 +1,8 @@
 {% extends 'layout_profile.html' %}
 
 <!-- overwrite the one in layout_profile.html -->
-{% block title %}{{ user.name }} (@{{ user.handle }}){% endblock title %}
-{% block header %}{{ user.name }}{% endblock header %}
+{% block title %}{{ user.username }} (@{{ user.handle }}){% endblock title %}
+{% block header %}{{ user.username }}{% endblock header %}
 
 
 <!-- 4 tabs -->
@@ -422,7 +422,8 @@
 
 
                     <!-- like button -->
-                    {% if current_user.is_authenticated and current_user.has_liked_post(post) %}
+                    {#{% if current_user.is_authenticated and current_user.has_liked_post(post) %}#}
+                    {% if user.is_authenticated %}
                     <div>
                         <!-- url_for('post.unlike_chirp', handle = current_user.handle, post_id = post.id)  -->
                         <form action="" method="POST">
