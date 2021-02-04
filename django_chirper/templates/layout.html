@@ -331,9 +331,8 @@
                     <button class="flex justify-center items-center focus:outline-none rounded-full hover:bg-gray-700 hover:bg-opacity-25
                     w-16 h-16">
                         <div class="flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
-                            <img src=""
+                            <img src="{{ user.profile.profile_image.url }}"
                                 alt="profile pic" class="w-full h-full object-cover">
-                                <!-- url_for('static', filename = 'img/profile_pics/' + current_user.profile_image) -->
                             <!-- profile_image we passed into the template from routes.py home() -->
                         </div>
                     </button>
@@ -666,9 +665,8 @@
                     <button class="flex justify-center items-center focus:outline-none rounded-full hover:bg-gray-700 hover:bg-opacity-25
                     w-16 h-16">
                         <div class="flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
-                            <img src=""
+                            <img src="{{ user.profile.profile_image.url }}"
                                 alt="profile pic" class="w-full h-full object-cover">
-                                <!-- url_for('static', filename = 'img/profile_pics/' + current_user.profile_image) -->
                         </div>
                     </button>
                 </a>
@@ -1006,13 +1004,12 @@
                     rounded-full hover:bg-gray-700 hover:bg-opacity-25 active:bg-gray-600 cursor-pointer">
                         <div class="flex flex-row space-x-2">
                             <div class="flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
-                                <img src=""
+                                <img src="{{ user.profile.profile_image.url }}"
                                     alt="profile pic" class="w-full h-full object-cover">
-                                    <!-- url_for('static', filename = 'img/profile_pics/' + current_user.profile_image) -->
                             </div>
 
                             <div class="flex flex-col">
-                                <p class="font-bold">{{ current_user.name }}</p>
+                                <p class="font-bold">{{ user.username }}</p>
                                 <p class="text-gray-600">@{{ current_user.handle}}</p>
                             </div>
                         </div>
