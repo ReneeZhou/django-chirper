@@ -1,0 +1,132 @@
+{% extends 'layout_form.html' %}
+{% block title %}Edit profile{% endblock title %}
+{% block content %}
+<div class="h-screen sm:bg-gray-900 md:bg-gray-800 md:bg-opacity-100 flex flex-col items-center md:justify-center">
+    <div class="flex flex-col bg-gray-900 md:rounded-2xl pb-32 pt-2 h-160">
+        <form method="POST" action="" enctype="multipart/form-data">
+            <!-- add a special encoding type to our form in order for our to pass our image data properly -->
+            {% csrf_token %}
+            <div class="flex flex-col w-148">
+                <!-- header -->
+                <div class="flex flex-row items-center justify-between border-b border-gray-700 pb-2 px-2">
+                    <!-- justify left -->
+                    <div class="flex flex-row items-center">
+                        <!-- close svg -->
+                        <!-- url_for('user.profile', handle = current_user.handle) -->
+                        <a href="{% url 'profile' %}">
+                            <div class="svg-bg-div mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="w-6 h-8 stroke-current text-blue-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </div>
+                        </a>
+                        <div class="text-xl font-bold tracking-wide">Edit profile</div>
+                    </div>
+                    <!-- justify right -->
+                    <!-- save button -->
+                    <div>
+                        <button type="submit" method="POST"
+                        class="rounded-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mr-3 cursor-pointer
+                        focus:outline-none font-bold">Save</button>
+                    </div>
+                </div>
+
+                <!-- scrollable area -->
+                <div class="h-144 overflow-y-scroll">
+                    <!-- cover photo -->
+                    <div class="h-48 mb-4 flex justify-center items-center bg-black bg-opacity-50">
+                        <div style="background-image: url({{ user.profile.background_image.url }});"
+                            class="h-full w-full flex justify-center items-center bg-cover bg-center">
+                            <!-- camera svg -->
+                            <label class="cursor-pointer">
+                                <div class="rounded-full w-10 h-10 flex justify-center items-center
+                    hover:bg-gray-800 hover:bg-opacity-25 active:bg-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        class="w-6 h-6 stroke-current stroke-1 ">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                                {{ p_form.background_image }}
+                            </label>
+                        </div>
+                    </div>
+                    <!-- form  fields-->
+                    <div class="flex flex-col">
+                        <div class="space-y-2 text-gray-600 px-4 -mt-16">
+
+                            <!-- camera svg -->
+                            <div class="w-28 h-28 bg-cover bg-center rounded-full"
+                                style="background-image: url({{ user.profile.profile_image.url }}); filter: brightness(95%)">
+                                <div class="w-28 h-28 flex flex-row justify-center items-center rounded-full">
+                                    <label class="cursor-pointer">
+                                        <div class="rounded-full w-10 h-10 flex justify-center items-center
+                                        hover:bg-gray-600 hover:bg-opacity-25 active:bg-gray-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                class="w-6 h-6 stroke-current stroke-1 text-white">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </div>
+                                        {{ p_form.profile_image }}
+                                    </label>
+                                </div>
+
+                            </div>
+
+
+                            <!-- other fields -->
+                            <div class="flex flex-col space-y-8">
+                                <!-- name -->
+                                <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                                    focus-within:border-blue-500 focus-within:text-blue-500">
+                                    <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ u_form.username.label }}</div>
+                                    {{ u_form.username }}
+                                </div>
+
+                                <!-- bio -->
+                                <div class="flex flex-col  bg-gray-700 bg-opacity-25 border-b-2 border-gray-600 
+                                    focus-within:border-blue-500 focus-within:text-blue-500">
+                                    <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ p_form.bio.label }}</div>
+                                    {{ p_form.bio }}
+                                </div>
+
+                                <!-- location -->
+                                <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                                        focus-within:border-blue-500 focus-within:text-blue-500">
+                                    <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ p_form.location.label }}</div>
+                                    {{ p_form.location }}
+                                </div>
+
+                                <!-- website -->
+                                <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                                         focus-within:border-blue-500 focus-within:text-blue-500">
+                                    <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ p_form.website.label }}</div>
+                                    {{ p_form.website }}
+                                </div>
+
+                                <!-- birthday -->
+                                <div class="flex flex-col pb-16">
+                                    <div class="flex flex-row space-x-1">
+                                        <div class="text-tiny">Birth date</div>
+                                        <div class="text-tiny">·</div>
+                                        <a href="#" class="text-tiny text-blue-500 hover:underline">Edit</a>
+                                    </div>
+                                    <div class="text-white">Add your date of birth</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
