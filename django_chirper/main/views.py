@@ -1,27 +1,18 @@
 from django.shortcuts import render, redirect
-from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
 from blog.models import Post
 
 
-# @login_required
-# def home(request):
-#     context = {
-#         'posts': Post.objects.all()
-#     }
+@login_required
+def home(request):
+    context = {
+        'posts': Post.objects.all()[::-1]
+    }
 
-#     if request.user.is_authenticated:
-#         return render(request, 'home.html', context)
-#     else: 
-#         return redirect('home_notauth')
-
-
-class PostListView(ListView):
-    model = Post
-    template_name = 'home.html'   #<app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
-    ordering = ['-created_at']
+    if request.user.is_authenticated:
+        return render(request, 'home.html', context)
+    else: 
+        return redirect('home_notauth')
 
 
 def explore(request):

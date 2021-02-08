@@ -1,11 +1,9 @@
 from django.urls import path
 from . import views
-from.views import PostListView
 
 
 urlpatterns = [
-    # path('home/', views.home, name = 'home'),
-    path('home/', PostListView.as_view(), name = 'home'),
+    path('home/', views.home, name = 'home'),
     path('explore/', views.explore, name = 'explore'),
     path('notifications/', views.notifications, name = 'notifications'),
     path('notifications/mentions/', views.notifications_mentions, name = 'notifications_mentions'),
