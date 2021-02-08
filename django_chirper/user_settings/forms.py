@@ -1,8 +1,8 @@
-from django.forms import ModelForm, TextInput, Textarea, URLField
+from django.forms import ModelForm
+from django.forms.fields import CharField, ImageField, URLField
+from django.forms.widgets import TextInput, Textarea, URLInput, FileInput
 from django.contrib.auth.models import User
-from django.forms.fields import CharField, ImageField
-from django.forms.widgets import URLInput, FileInput
-from .models import Profile
+from user.models import Profile
 
 
 class UpdateUsernameForm(ModelForm):
