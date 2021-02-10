@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    path('profile/', views.profile, name = 'profile')
+    path('<str:handle>/', views.profile, name = 'profile')
 ]

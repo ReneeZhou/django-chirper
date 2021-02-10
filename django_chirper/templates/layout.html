@@ -147,7 +147,7 @@
                             </svg>
                         </div>
                     </a>
-                    <a href="{% url 'profile' %}" class="home-a">
+                    <a href="{% url 'profile' handle=user.profile.handle %}" class="home-a">
                         <!-- url_for('user.profile', handle = current_user.handle) -->
                         <div class="home-btn">
                             <!-- profile icon -->
@@ -480,7 +480,7 @@
                             </svg>
                         </div>
                     </a>
-                    <a href="{% url 'profile' %}" class="home-a">
+                    <a href="{% url 'profile' handle=user.profile.handle %}" class="home-a">
                         <!-- url_for('user.profile', handle = current_user.handle) -->
                         <div class="home-btn">
                             <!-- profile icon -->
@@ -822,7 +822,7 @@
                             <div class="pr-5">Lists</div>
                         </div>
                     </a>
-                    <a href="{% url 'profile' %}" class="home-a">
+                    <a href="{% url 'profile' handle=user.profile.handle %}" class="home-a">
                         <!-- url_for('user.profile', handle = current_user.handle) -->
                         <div class="home-btn space-x-4">
                             <!-- profile icon -->
