@@ -1,0 +1,55 @@
+{% extends 'layout_profile.html' %}
+
+<!-- overwrite the ones in layout_profile.html -->
+{% block title %}Media Chirps by {{ current_user.name }} (@{{ current_user.handle }}){% endblock title %}
+{% block small %}
+<div class="text-gray-600 text-s font-normal">0 Photos & Videos</div>
+{% endblock small %}
+
+
+{% block tabs %}
+<div>
+    <!-- 4 tabs -->
+    <div class="flex flex-row justify-center h-12 text-gray-600 font-bold border-b border-gray-700 mt-4">
+        <a href="{% url 'profile' handle=user_profile.handle %}" class="w-40 flex flex-row justify-center items-center 
+        hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
+            <div>Chirps</div>
+        </a>
+        <a href="{% url 'profile_withReplies' handle=user_profile.handle %}" class="w-56 flex flex-row justify-center items-center 
+        hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
+            <div>Chirps & replies</div>
+        </a>
+        <a href="{% url 'profile_media' handle=user_profile.handle %}" class="w-40 flex flex-row justify-center items-center 
+        hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2 text-blue-500 border-b-2 border-blue-500">
+            <div>Media</div>
+        </a>
+        <a href="{% url 'profile_likes' handle=user_profile.handle %}" class="w-40 flex flex-row justify-center items-center 
+        hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
+            <div>Likes</div>
+        </a>
+    </div>
+{% endblock tabs %}
+
+{% block tabcontent %}
+    {% if current_user.handle == user.handle %}
+    <div class="flex flex-col justify-center items-center space-y-4">
+        <div class="pt-10 flex flex-col items-center space-y-2">
+            <h1 class="text-white text-xl font-bold">You haven’t Chirped any photos or videos yet</h1>
+            <p class="text-sm font-medium text-gray-600">When you send Chirps with photos or videos in them, it will
+                show up here.</p>
+        </div>
+        <a href="{% url 'compose_chirp' %}"
+            class="w-52 flex justify-center rounded-full bg-blue-500 hover:bg-blue-600 px-4 py-2">
+            <div class="font-bold">Take a photo or video</div>
+        </a>
+    </div>
+    {% else %}
+    <div class="flex flex-col justify-center items-center space-y-4">
+        <div class="pt-10 flex flex-col items-center space-y-2">
+            <h1 class="text-white text-xl font-bold">@{{ user.handle }} haven’t Chirped any photos or videos yet</h1>
+            <p class="text-sm font-medium text-gray-600">When they do, their media will show up here.</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock tabcontent %}
