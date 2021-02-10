@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
-{% block title %}{{ user.username }} (@{{ user.handle }}){% endblock title %}
-{% block header %}{{ user.username }}{% endblock header %}
+{% block title %}{{ user_profile.user.username }} (@{{ user_profile.handle }}){% endblock title %}
+{% block header %}{{ user_profile.user.username }}{% endblock header %}
 {% block presvg %}
 <div onclick="history.go(-1)">
     <!-- svg redirects to whatever last page user was on -->
@@ -25,7 +25,7 @@
         <!-- user background -->
         <div class="w-148 h-48 bg-gray-800 overflow-hidden">
             {% if user.profile.background_image != '' %}
-            <div style="background-image: url({{ user.profile.background_image.url }})"
+            <div style="background-image: url({{ user_profile.background_image.url }})"
                 class="w-full h-full bg-no-repeat bg-center bg-cover"></div>
             {% endif %}
         </div>
@@ -35,7 +35,7 @@
                     <!-- profile pic -->
                     <div class="w-36 h-36 rounded-full overflow-hidden border-4 border-gray-900">
                         {% if user.profile.profile_image != '' %}
-                        <img src="{{ user.profile.profile_image.url }}"
+                        <img src="{{ user_profile.profile_image.url }}"
                             alt="profile pic" class="w-full h-full object-cover">
                         <!-- not necessarily going to be current_user-->
                         {% endif %}
@@ -113,7 +113,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                         <!-- body -->
                                         <div class="w-108 flex flex-col">
                                             <div class="flex flex-col justify-center items-center pb-16">
-                                                <p class="font-bold text-2xl text-center">Follow {{ user.username}} to see
+                                                <p class="font-bold text-2xl text-center">Follow {{ user_profile.user.username}} to see
                                                     what they share on Chirper.
                                                 </p>
                                                 <p class="text-gray-600 text-tiny">Sing up so you never miss their
@@ -150,12 +150,12 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                 <!-- profile info -->
                 <div class="flex flex-col space-y-2">
                     <div class="flex flex-col">
-                        <div class="text-xl font-bold">{{ user.username }}</div>
-                        <div class="text-gray-600 text-tiny leading-tight">@{{ user.handle }}</div>
+                        <div class="text-xl font-bold">{{ user_profile.user.username }}</div>
+                        <div class="text-gray-600 text-tiny leading-tight">@{{ user_profile.handle }}</div>
                     </div>
                     <!-- user bio -->
                     {% if user.profile.bio != '' %}
-                    <div>{{ user.profile.bio }}</div>
+                    <div>{{ user_profile.bio }}</div>
                     {% endif %}
 
 
@@ -173,7 +173,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             </div>
-                            <div class="text-gray-600 text-tiny">{{ user.profile.location }}</div>
+                            <div class="text-gray-600 text-tiny">{{ user_profile.location }}</div>
                         </div>
                         {% endif %}
                         <!-- user website -->
@@ -187,7 +187,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                         d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                                 </svg>
                             </div>
-                            <div class="text-gray-600 text-tin truncate ... w-48">{{ user.profile.website }}</div>
+                            <div class="text-gray-600 text-tin truncate ... w-48">{{ user_profile.website }}</div>
                         </div>
                         {% endif %}
                         <!-- user birthday -->
@@ -202,7 +202,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                 </svg>
                             </div>
                             <div class="text-gray-600 text-tiny whitespace-no-wrap">Born
-                                {#{{ user.birthdate.strftime('%B %d, %Y') }}#}</div>
+                                {#{{ user_birthdate.strftime('%B %d, %Y') }}#}</div>
                         </div>
                         {% endif %}
                         <!-- user joined date -->
