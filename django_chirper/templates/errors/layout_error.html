@@ -1,0 +1,533 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title%} / Chirper</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+</head>
+
+<body class="flex place-content-center bg-gray-900 text-white relative">
+    <div class="justify-self-end flex flex-col items-center p-2 h-screen">
+        <!-- nav bar @xs bp -->
+        <nav class="xs:flex sm:flex flex-col lg:hidden h-full justify-between">
+            <div class="flex flex-col text-xl font-semibold space-y-3">
+                {% if user.is_authenticated %}
+                <a href=" {% url 'home' %}" class="rounded-full px-2">
+                    {% else %}
+                    <a href=" {% url 'home_notauth' %}" class="rounded-full px-2">
+                        {% endif %}
+                        <div class="home-btn">
+                            <!-- chirpy icon -->
+                            <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512"
+                                width="512" xmlns="http://www.w3.org/2000/svg" class="fill-current w-8 h-8">
+                                <g>
+                                    <path
+                                        d="m105.623 201.204c0 1.149.382 2.74 2.202 3.789l61.082 35.184v-77.947l-61.081 35.184c-1.821 1.048-2.203 2.639-2.203 3.79z" />
+                                    <path
+                                        d="m428.034 70.164c-26.196-26.197-60.866-40.624-97.624-40.624h-.698c-34.778 0-67.582 13.65-92.368 38.437s-38.437 57.591-38.437 92.369v132.412c0 58.142 22.813 112.976 64.237 154.399 20.686 20.686 44.716 36.729 70.831 47.61-.258-.255-.521-.502-.778-.759-30.652-30.652-47.533-71.253-47.533-114.324v-64.083c0-59.79 48.644-108.434 108.434-108.434h.527c26.968 0 52.263 7.288 74.031 19.987v-59.367c.001-36.757-14.426-71.427-40.622-97.623zm-94.501 83.862c-8.284 0-15-6.716-15-15 0-9.743-7.96-17.669-17.745-17.669s-17.745 7.926-17.745 17.669c0 8.284-6.716 15-15 15s-15-6.716-15-15c0-26.285 21.418-47.669 47.745-47.669s47.745 21.384 47.745 47.669c0 8.284-6.716 15-15 15z" />
+                                    <path
+                                        d="m477.509 271.66c-22.242-22.243-51.678-34.492-82.883-34.492h-.527c-43.248 0-78.434 35.186-78.434 78.434v64.083c0 35.058 13.761 68.125 38.746 93.11 24.985 24.986 58.054 38.746 93.111 38.746h50.427c7.748 0 14.051-6.303 14.051-14.051v-142.948c0-31.205-12.249-60.64-34.491-82.882z" />
+                                    <path
+                                        d="m101.433 87.27-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 2.931 2.937 6.774 4.406 10.619 4.406 3.833 0 7.666-1.46 10.594-4.381l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-78.035c0-8.284-6.716-15-15-15h-79.812c-8.284 0-15 6.716-15 15v71.811l-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 5.852 5.866 15.348 5.876 21.213.025l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-63.035h49.812z" />
+                                </g>
+                            </svg>
+                        </div>
+                    </a>
+
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'home' %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- home icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                        </div>
+                    </a>
+                    {% endif %}
+
+                    <a href="{% url 'explore' %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- explore icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- settings svg -->
+                    {% if not current_user.is_authenticated %}
+                    <!-- url_for('user_settings.settings') -->
+                    <a href="" class="home-a">
+                        <div class="home-btn">
+                            <!-- settings icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                    </a>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'notifications' %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- notification icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="{% url 'messages' %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- message icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="{% url 'bookmarks' %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- bookmark icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                            </svg>
+                        </div>
+                    </a>
+                    <!-- url_for('user.profile_lists') -->
+                    <a href="" class="home-a">
+                        <div class="home-btn">
+                            <!-- list icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="{% url 'profile' handle=user.profile.handle %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- profile icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                    </a>
+                    <a class="home-a cursor-pointer">
+                        <div class="home-btn active:bg-blue-900 active:bg-opacity-25">
+                            <!-- more icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'compose_chirp' %}">
+                        <!-- pen icon -->
+                        <div class="rounded-full m-2 p-2 bg-blue-500 hover:bg-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current w-8 h-8">
+                                <path
+                                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                        </div>
+                    </a>
+                    {% endif %}
+            </div>
+
+            {% if user.is_authenticated %}
+            <div class="flex flex-col items-center">
+                <!-- manage account -->
+                <a href="#">
+                    <button class="flex justify-center items-center focus:outline-none rounded-full hover:bg-gray-700 hover:bg-opacity-25
+                    w-16 h-16">
+                        <div class="flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
+                            <img src="{{ user.profile.profile_image.url }}"
+                                alt="profile pic" class="w-full h-full object-cover">
+                            <!-- profile_image we passed into the template from routes.py home() -->
+                        </div>
+                    </button>
+                </a>
+                <!-- log out button -->
+                <a href="{% url 'logout' %}">
+                    <button
+                        class="text-xs px-2 rounded-full hover:bg-gray-800 bg-gray-700 bg-opacity-25 focus:outline-none">Log
+                        out</button>
+                </a>
+            </div>
+            {% endif %}
+        </nav>
+
+        <!-- nav bar @lg bp -->
+        <nav class="xs:hidden sm:hidden lg:flex flex-col xl:hidden h-full justify-between">
+            <div class="flex flex-col text-xl font-semibold space-y-3">
+                {% if user.is_authenticated %}
+                <a href=" {% url 'home' %}" class="rounded-full px-2">
+                    {% else %}
+                    <a href=" {% url 'home_notauth' %}" class="rounded-full px-2">
+                        {% endif %}
+                        <div class="home-btn">
+                            <!-- chirpy icon -->
+                            <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512"
+                                width="512" xmlns="http://www.w3.org/2000/svg" class="fill-current w-8 h-8">
+                                <g>
+                                    <path
+                                        d="m105.623 201.204c0 1.149.382 2.74 2.202 3.789l61.082 35.184v-77.947l-61.081 35.184c-1.821 1.048-2.203 2.639-2.203 3.79z" />
+                                    <path
+                                        d="m428.034 70.164c-26.196-26.197-60.866-40.624-97.624-40.624h-.698c-34.778 0-67.582 13.65-92.368 38.437s-38.437 57.591-38.437 92.369v132.412c0 58.142 22.813 112.976 64.237 154.399 20.686 20.686 44.716 36.729 70.831 47.61-.258-.255-.521-.502-.778-.759-30.652-30.652-47.533-71.253-47.533-114.324v-64.083c0-59.79 48.644-108.434 108.434-108.434h.527c26.968 0 52.263 7.288 74.031 19.987v-59.367c.001-36.757-14.426-71.427-40.622-97.623zm-94.501 83.862c-8.284 0-15-6.716-15-15 0-9.743-7.96-17.669-17.745-17.669s-17.745 7.926-17.745 17.669c0 8.284-6.716 15-15 15s-15-6.716-15-15c0-26.285 21.418-47.669 47.745-47.669s47.745 21.384 47.745 47.669c0 8.284-6.716 15-15 15z" />
+                                    <path
+                                        d="m477.509 271.66c-22.242-22.243-51.678-34.492-82.883-34.492h-.527c-43.248 0-78.434 35.186-78.434 78.434v64.083c0 35.058 13.761 68.125 38.746 93.11 24.985 24.986 58.054 38.746 93.111 38.746h50.427c7.748 0 14.051-6.303 14.051-14.051v-142.948c0-31.205-12.249-60.64-34.491-82.882z" />
+                                    <path
+                                        d="m101.433 87.27-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 2.931 2.937 6.774 4.406 10.619 4.406 3.833 0 7.666-1.46 10.594-4.381l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-78.035c0-8.284-6.716-15-15-15h-79.812c-8.284 0-15 6.716-15 15v71.811l-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 5.852 5.866 15.348 5.876 21.213.025l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-63.035h49.812z" />
+                                </g>
+                            </svg>
+                        </div>
+                    </a>
+
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'home' %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- home icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                        </div>
+                    </a>
+                    {% endif %}
+
+                    <a href="{% url 'explore' %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- explore icon -->
+                            <!-- hashtag icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- settings svg -->
+                    {% if not current_user.is_authenticated %}
+                    <!-- url_for('user_settings.settings') -->
+                    <a href="" class="home-a">
+                        <div class="home-btn">
+                            <!-- settings icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                    </a>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'notifications' %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- notification icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="{% url 'messages' %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- message icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="{% url 'bookmarks' %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- bookmark icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                            </svg>
+                        </div>
+                    </a>
+                    <!-- url_for('user.profile_lists') -->
+                    <a href="" class="home-a">
+                        <div class="home-btn">
+                            <!-- list icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="{% url 'profile' handle=user.profile.handle %}" class="home-a">
+                        <div class="home-btn">
+                            <!-- profile icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                    </a>
+                    <a class="home-a cursor-pointer">
+                        <div class="home-btn active:bg-blue-900 active:bg-opacity-25">
+                            <!-- more icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'compose_chirp' %}">
+                        <div class="rounded-full p-2 m-2 bg-blue-500 hover:bg-blue-600">
+                            <!-- pen icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current w-8 h-8">
+                                <path
+                                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                        </div>
+                    </a>
+                    {% endif %}
+            </div>
+
+            {% if user.is_authenticated %}
+            <div class="flex flex-col items-center">
+                <!-- manage account -->
+                <a href="#">
+                    <button class="flex justify-center items-center focus:outline-none rounded-full hover:bg-gray-700 hover:bg-opacity-25
+                    w-16 h-16">
+                        <div class="flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
+                            <img src="{{ user.profile.profile_image.url }}"
+                                alt="profile pic" class="w-full h-full object-cover">
+                        </div>
+                    </button>
+                </a>
+
+                <!-- log out button -->
+                <a href="{% url 'logout' %}">
+                    <button
+                        class="text-xs px-2 rounded-full hover:bg-gray-800 bg-gray-700 bg-opacity-25 focus:outline-none">Log
+                        out</button>
+                </a>
+            </div>
+            {% endif %}
+
+        </nav>
+
+        <!-- nav bar @xl bp -->
+        <nav class="xs:hidden sm:hidden xl:flex flex-col h-full justify-between">
+            <div class="flex flex-col text-xl font-semibold space-y-3">
+                {% if user.is_authenticated %}
+                <a href=" {% url 'home' %}" class="rounded-full px-2">
+                    {% else %}
+                    <a href="{% url 'home_notauth' %}" class="rounded-full px-2">
+                        {% endif %}
+                        <!-- chirpy icon -->
+                        <div class="home-btn w-12">
+                            <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512"
+                                width="512" xmlns="http://www.w3.org/2000/svg" class="fill-current w-8 h-8">
+                                <g>
+                                    <path
+                                        d="m105.623 201.204c0 1.149.382 2.74 2.202 3.789l61.082 35.184v-77.947l-61.081 35.184c-1.821 1.048-2.203 2.639-2.203 3.79z" />
+                                    <path
+                                        d="m428.034 70.164c-26.196-26.197-60.866-40.624-97.624-40.624h-.698c-34.778 0-67.582 13.65-92.368 38.437s-38.437 57.591-38.437 92.369v132.412c0 58.142 22.813 112.976 64.237 154.399 20.686 20.686 44.716 36.729 70.831 47.61-.258-.255-.521-.502-.778-.759-30.652-30.652-47.533-71.253-47.533-114.324v-64.083c0-59.79 48.644-108.434 108.434-108.434h.527c26.968 0 52.263 7.288 74.031 19.987v-59.367c.001-36.757-14.426-71.427-40.622-97.623zm-94.501 83.862c-8.284 0-15-6.716-15-15 0-9.743-7.96-17.669-17.745-17.669s-17.745 7.926-17.745 17.669c0 8.284-6.716 15-15 15s-15-6.716-15-15c0-26.285 21.418-47.669 47.745-47.669s47.745 21.384 47.745 47.669c0 8.284-6.716 15-15 15z" />
+                                    <path
+                                        d="m477.509 271.66c-22.242-22.243-51.678-34.492-82.883-34.492h-.527c-43.248 0-78.434 35.186-78.434 78.434v64.083c0 35.058 13.761 68.125 38.746 93.11 24.985 24.986 58.054 38.746 93.111 38.746h50.427c7.748 0 14.051-6.303 14.051-14.051v-142.948c0-31.205-12.249-60.64-34.491-82.882z" />
+                                    <path
+                                        d="m101.433 87.27-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 2.931 2.937 6.774 4.406 10.619 4.406 3.833 0 7.666-1.46 10.594-4.381l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-78.035c0-8.284-6.716-15-15-15h-79.812c-8.284 0-15 6.716-15 15v71.811l-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 5.852 5.866 15.348 5.876 21.213.025l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-63.035h49.812z" />
+                                </g>
+                            </svg>
+                        </div>
+                    </a>
+
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'home' %}" class="home-a">
+                        <div class="home-btn space-x-4">
+                            <!-- home icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            <div class="pr-5">Home</div>
+                        </div>
+                    </a>
+                    {% endif %}
+                    
+                    <a href="{% url 'explore' %}" class="home-a">
+                        <!-- explore icon -->
+                        <div class="home-btn space-x-4">
+                            <!-- hashtag icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                            </svg>
+                            <div class="pr-5">Explore</div>
+                        </div>
+                    </a>
+
+                    {% if not current_user.is_authenticated %}
+                    <!-- url_for('user_settings.settings') -->
+                    <a href="" class="home-a">
+                        <div class="home-btn space-x-4">
+                            <!-- explore icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <div class="pr-5">Settings</div>
+                        </div>
+                    </a>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'notifications' %}" class="home-a">
+                        <div class="home-btn space-x-4">
+                            <!-- notification icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                            <div class="pr-5">Notifications</div>
+                        </div>
+                    </a>
+                    <a href="{% url 'messages' %}" class="home-a">
+                        <div class="home-btn space-x-4">
+                            <!-- message icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <div class="pr-5">Messages</div>
+                        </div>
+                    </a>
+                    <a href="{% url 'bookmarks' %}" class="home-a">
+                        <div class="home-btn space-x-4">
+                            <!-- bookmark icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                            </svg>
+                            <div class="pr-5">Bookmarks</div>
+                        </div>
+                    </a>
+                    <!-- url_for('user.profile_lists') -->
+                    <a href="" class="home-a">
+                        <div class="home-btn space-x-4">
+                            <!-- list icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                            </svg>
+                            <div class="pr-5">Lists</div>
+                        </div>
+                    </a>
+                    <a href="{% url 'profile' handle=user.profile.handle %}" class="home-a">
+                        <div class="home-btn space-x-4">
+                            <!-- profile icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            <div class="pr-5">Profile</div>
+                        </div>
+                    </a>
+                    <a class="home-a cursor-pointer">
+                        <div class="home-btn space-x-4 active:bg-blue-900 active:bg-opacity-25">
+                            <!-- more icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div class="pr-5">More</div>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'compose_chirp' %}" class="">
+                        <div class="w-56 h-12 m-2 rounded-full bg-blue-500 hover:bg-blue-600 font-semibold text-base
+                        flex flex-row justify-center items-center">Chirp</div>
+                    </a>
+                    {% endif %}
+            </div>
+
+            {% if user.is_authenticated %}
+            <div class="space-y-1">
+                <!-- manage account -->
+                <a href="#">
+                    <div class="flex flex-row justify-between items-center p-2
+                    rounded-full hover:bg-gray-700 hover:bg-opacity-25 active:bg-gray-600 cursor-pointer">
+                        <div class="flex flex-row space-x-2">
+                            <div class="flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
+                                <img src="{{ user.profile.profile_image.url }}"
+                                    alt="profile pic" class="w-full h-full object-cover">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <p class="font-bold">{{ current_user.name }}</p>
+                                <p class="text-gray-600">@{{ current_user.handle}}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="w-6 h-6 stroke-current">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- log out button -->
+                <a href="{% url 'logout' %}" class="flex flex-col">
+                    <button
+                        class="text-xs px-2 rounded-full hover:bg-gray-800 bg-gray-700 bg-opacity-25 focus:outline-none">Log
+                        out</button>
+                </a>
+            </div>
+            {% endif %}
+
+        </nav>
+    </div>
+    <main class="w-148 h-full border-l border-r border-gray-700 divide-y divide-gray-700 box-content">
+        <table>
+            <div class="fixed w-148 bg-gray-900 border-b border-gray-700">
+                <div class="flex justify-between items-center py-2 pl-4 pr-1 cursor-pointer">
+                    <div class="flex flex-row items-center">
+                        {% block presvg %}{% endblock presvg %}
+                        <h1 class="text-xl font-bold">
+                            {% block header %}{% endblock header %}
+                            {% block small %}{% endblock small%}
+                        </h1>
+                    </div>
+                    {% block svg %}{% endblock svg %}
+                </div>
+                <div>
+                    {% block tab %}{% endblock tab %}
+                </div>
+            </div>
+
+            <tbody>
+                <div class="mt-14 overflow-y-scroll h-screen">{% block content %}{% endblock content %}</div>
+            </tbody>
+
+        </table>
+
+    </main>
+
+    {% block aside %}{% endblock aside %}
+</body>
+
+</html>
