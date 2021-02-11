@@ -34,7 +34,7 @@ def profile_media(request, handle):
             context = {
                 'user_profile': user_profile
             }
-            return render(request, 'profile_likes.html', context)
+            return render(request, 'profile_media.html', context)
     except Profile.DoesNotExist:
         return page_not_found(request, None, 'errors/404.html')
 
