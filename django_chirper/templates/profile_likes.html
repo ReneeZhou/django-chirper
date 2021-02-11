@@ -1,7 +1,7 @@
 {% extends 'layout_profile.html' %}
 
 <!-- overwrite the ones in layout_profile.html -->
-{% block title %}Chirps liked by {{ current_user.name }} (@h{{ current_user.handle }}){% endblock title %}
+{% block title %}Chirps liked by {{ user_profile.user.username }} (@h{{ user_profile.handle }}){% endblock title %}
 {% block small %}
 <div class="text-gray-600 text-s font-normal">{{ posts_count }} Likes</div>
 {% endblock small %}
@@ -149,8 +149,9 @@
                                                                     <button
                                                                         class="modal-delete-close block w-32 font-bold focus:outline-none bg-gray-600 rounded-full h-10 bg-opacity-25 hover:bg-opacity-50 focus:bg-gray-500">Cancel</button>
                                                                     <div>
+                                                                        <!-- url_for('post.delete_chirp', handle = post.author.handle, post_id = post.id) -->
                                                                         <form
-                                                                            action="{{ url_for('post.delete_chirp', handle = post.author.handle, post_id = post.id) }}"
+                                                                            action=""
                                                                             method="POST">
                                                                             <input type="submit" value="Delete" class="block w-32 font-bold focus:outline-none bg-red-600 rounded-full h-10 hover:bg-opacity-75 focus:bg-red-700
                                                                                 cursor-pointer">
@@ -178,8 +179,9 @@
                                             </svg>
                                             <div>Pin to your profile</div>
                                         </div>
+                                        <!-- url_for('post.status_analytics', handle = current_user.handle, post_id = post.id) -->
                                         <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25"
-                                            href="{{ url_for('post.status_analytics', handle = current_user.handle, post_id = post.id) }}">
+                                            href="}">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                 class="fill-current text-gray-600 w-5 h-5 inline">
                                                 <path
@@ -191,7 +193,8 @@
                                     {% elif current_user.is_authenticated and current_user != post.author %}
                                     <div class="flex flex-col text-tiny bg-gray-900
                                         absolute right-0 top-0 w-full rounded-md shadow-msg xs:w-60 sm:w-60 z-50">
-                                        <form action="{{ url_for('user.unfollow', handle = post.author.handle) }}"
+                                        <!-- url_for('user.unfollow', handle = post.author.handle) -->
+                                        <form action=""
                                             method="POST">
                                             <button class="focus:outline-none">
                                                 <div
@@ -207,8 +210,9 @@
                                                 </div>
                                             </button>
                                         </form>
+                                        <!-- url_for('main.lists_addMember') -->
                                         <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25"
-                                            href="{{ url_for('main.lists_addMember') }}">
+                                            href="">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 class="stroke-current text-gray-600 w-5 h-5 inline">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -282,8 +286,9 @@
             <!-- chirp content section -->
             <div>
                 <p class="text-base">
+                    <!-- url_for('post.status', handle = post.author.handle, post_id = post.id) -->
                     <a
-                        href="{{ url_for('post.status', handle = post.author.handle, post_id = post.id) }}">{{ post.content }}</a>
+                        href="">{{ post.content }}</a>
                 </p>
             </div>
 
@@ -313,9 +318,10 @@
 
 
                 <!-- like button -->
-                {% if current_user.is_authenticated and current_user.has_liked_post(post) %}
+                {#{% if current_user.is_authenticated and current_user.has_liked_post(post) %}#}
                 <div>
-                    <form action="{{ url_for('post.unlike_chirp', handle = current_user.handle, post_id = post.id) }}"
+                    <!-- url_for('post.unlike_chirp', handle = current_user.handle, post_id = post.id) -->
+                    <form action=""
                         method="POST">
                         <button class="focus:outline-none flex flex-row items-center space-x-1">
                             <div class="rounded-full p-1 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
@@ -329,9 +335,10 @@
                         </button>
                     </form>
                 </div>
-                {% else %}
+                {#{% else %}#}
                 <div>
-                    <form action="{{ url_for('post.like_chirp', handle = current_user.handle, post_id = post.id) }}"
+                    <!-- url_for('post.like_chirp', handle = current_user.handle, post_id = post.id) -->
+                    <form action=""
                         method="POST">
                         <button class="focus:outline-none flex flex-row items-center space-x-1">
                             <div class="rounded-full p-1 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
@@ -345,7 +352,7 @@
                         </button>
                     </form>
                 </div>
-                {% endif %}
+                {#{% endif %}#}
 
 
                 <!-- share -->

@@ -1,7 +1,7 @@
 {% extends 'layout_profile.html' %}
 
 <!-- overwrite the ones in layout_profile.html -->
-{% block title %}Media Chirps by {{ current_user.name }} (@{{ current_user.handle }}){% endblock title %}
+{% block title %}Media Chirps by {{ user_profile.user.username }} (@{{ user_profile.handle }}){% endblock title %}
 {% block small %}
 <div class="text-gray-600 text-s font-normal">0 Photos & Videos</div>
 {% endblock small %}

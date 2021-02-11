@@ -1,35 +1,31 @@
 {% extends 'layout_profile.html' %}
 
 <!-- overwrite the one in layout_profile.html -->
-{% block title %}{{ user.username }} (@{{ user.handle }}){% endblock title %}
-{% block header %}{{ user.username }}{% endblock header %}
+{% block title %}{{ user_profile.user.username }} (@{{ user_profile.handle }}){% endblock title %}
+{% block header %}{{ user_profile.user.username }}{% endblock header %}
 
 
 <!-- 4 tabs -->
 {% block tabs %}
 <div class="flex flex-row justify-center h-12 text-gray-600 font-bold border-b border-gray-700 mt-4">
-    <!-- url_for('user.profile', handle = user.handle) -->
-    <a href="" class="w-40 flex flex-row justify-center items-center 
+    <a href="{% url 'profile' handle=user_profile.handle %}" class="w-40 flex flex-row justify-center items-center 
         hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2 text-blue-500 border-b-2 border-blue-500">
         <div>Chirps</div>
     </a>
-    <!-- url_for('user.profile_with_replies', handle = user.handle) -->
-    <a href="" class="w-56 flex flex-row justify-center items-center 
+    <a href="{% url 'profile_withReplies' handle=user_profile.handle %}" class="w-56 flex flex-row justify-center items-center 
         hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
         <div>Chirps & replies</div>
     </a>
 
     <!-- media modal -->
     <!-- <div class="w-40 flex flex-row justify-center items-center pb-3 pt-2 hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500"> -->
-    {% if current_user.is_authenticated %}
-    <!-- url_for('user.profile_media', handle = user.handle) -->
-    <a href="" class="w-40 flex flex-row justify-center items-center 
+    {% if user.is_authenticated %}
+    <a href="{% url 'profile_media' handle=user_profile.handle %}" class="w-40 flex flex-row justify-center items-center 
     hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
         <div>Media</div>
     </a>
     {% else %}
-    <!-- url_for('user.profile_media', handle = user.handle) -->
-    <a href="" class="modal-media-open w-40 flex flex-row justify-center items-center 
+    <a href="{% url 'profile_media' handle=user_profile.handle %}" class="modal-media-open w-40 flex flex-row justify-center items-center 
     hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
         <!-- media modal button -->
         <div>Media</div>
@@ -110,15 +106,13 @@
     <!-- </div> -->
 
     <!-- likes modal -->
-    {% if current_user.is_authenticated %}
-    <!-- url_for('user.profile_likes', handle = user.handle) -->
-    <a href="" class="w-40 flex flex-row justify-center items-center 
+    {% if user.is_authenticated %}
+    <a href="{% url 'profile_likes' handle=user_profile.handle %}" class="w-40 flex flex-row justify-center items-center 
     hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
         <div>Likes</div>
     </a>
     {% else %}
-    <!-- url_for('user.profile_likes', handle = user.handle) -->
-    <a href="" class="modal-media-open w-40 flex flex-row justify-center items-center 
+    <a href="{% url 'profile_likes' handle=user_profile.handle %}" class="modal-media-open w-40 flex flex-row justify-center items-center 
     hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
         <!-- media modal button -->
         <div>Likes</div>

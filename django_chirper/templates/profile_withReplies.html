@@ -1,7 +1,7 @@
 {% extends 'layout_profile.html' %}
 
 <!-- overwrite the one in layout_profile.html -->
-{% block title %}Chirps with replies by {{ user.name }} (@{{ user.handle}}){% endblock title %}
+{% block title %}Chirps with replies by {{ user_profile.user.username }} (@{{ user_profile.handle}}){% endblock title %}
 
 <!-- 4 tabs -->
 {% block tabs %}
