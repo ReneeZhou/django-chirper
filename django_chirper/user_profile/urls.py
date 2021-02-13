@@ -1,11 +1,11 @@
 from django.urls import path
 from . import views
-from .views import ProfilePostView
+from .views import ProfilePostView, ProfileRepliesView, ProfileMediaView, ProfileLikesView
 
 
 urlpatterns = [
     path('<str:handle>/', ProfilePostView.as_view(), name = 'profile'),
-    path('<str:handle>/with_replies/', views.profile_withReplies, name = 'profile_withReplies'),
-    path('<str:handle>/media/', views.profile_media, name = 'profile_media'), 
-    path('<str:handle>/likes', views.profile_likes, name = 'profile_likes')
+    path('<str:handle>/with_replies/', ProfileRepliesView.as_view(), name = 'profile_withReplies'),
+    path('<str:handle>/media/', ProfileMediaView.as_view(), name = 'profile_media'), 
+    path('<str:handle>/likes', ProfileLikesView.as_view(), name = 'profile_likes')
 ]

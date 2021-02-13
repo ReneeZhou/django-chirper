@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
-from django.views.defaults import page_not_found
 from user.models import Profile
 from blog.models import Post
 
@@ -18,37 +17,13 @@ class ProfilePostView(ListView):
         return context
 
 
-def profile_withReplies(request, handle):
-    try: 
-        user_profile = Profile.objects.get(handle = handle)
-        if user_profile:
-            context = {
-                'user_profile': user_profile
-            }
-            return render(request, 'profile_withReplies.html', context)
-    except Profile.DoesNotExist:
-        return page_not_found(request, None, 'errors/404.html')
+class ProfileRepliesView(ProfilePostView):
+    template_name = 'profile_withReplies.html'
 
 
-def profile_media(request, handle):
-    try: 
-        user_profile = Profile.objects.get(handle = handle)
-        if user_profile:
-            context = {
-                'user_profile': user_profile
-            }
-            return render(request, 'profile_media.html', context)
-    except Profile.DoesNotExist:
-        return page_not_found(request, None, 'errors/404.html')
+class ProfileMediaView(ProfilePostView):
+    template_name = 'profile_media.html'
 
 
-def profile_likes(request, handle):
-    try: 
-        user_profile = Profile.objects.get(handle = handle)
-        if user_profile:
-            context = {
-                'user_profile': user_profile
-            }
-            return render(request, 'profile_likes.html', context)
-    except Profile.DoesNotExist:
-        return page_not_found(request, None, 'errors/404.html')
+class ProfileLikesView(ProfilePostView):
+    template_name = 'profile_likes.html'
