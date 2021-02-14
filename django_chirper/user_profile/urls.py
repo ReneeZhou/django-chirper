@@ -4,8 +4,8 @@ from .views import ProfilePostView, ProfileRepliesView, ProfileMediaView, Profil
 
 
 urlpatterns = [
-    path('<str:handle>/', ProfilePostView.as_view(), name = 'profile'),
-    path('<str:handle>/with_replies/', ProfileRepliesView.as_view(), name = 'profile_withReplies'),
-    path('<str:handle>/media/', ProfileMediaView.as_view(), name = 'profile_media'), 
-    path('<str:handle>/likes', ProfileLikesView.as_view(), name = 'profile_likes')
+    path('', ProfilePostView.as_view(), name = 'profile'),
+    path('with_replies/', ProfileRepliesView.as_view(), name = 'profile_withReplies'),
+    path('media/', ProfileMediaView.as_view(), name = 'profile_media'), 
+    path('likes', ProfileLikesView.as_view(), name = 'profile_likes')
 ]

@@ -42,7 +42,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('', include('blog.urls')),
     path('', include('user.urls')),
-    path('', include('user_profile.urls')),
+    path('<str:handle>/', include('user_profile.urls')),
     path('', include('user_settings.urls'))
 ]
 
