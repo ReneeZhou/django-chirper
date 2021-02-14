@@ -14,6 +14,7 @@ class ProfilePostView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_profile'] = self.user_profile
+        context['posts'] = Post.objects.filter(author = self.user_profile.user.id)[::-1]
         return context
 
 
