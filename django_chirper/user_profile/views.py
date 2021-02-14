@@ -5,7 +5,7 @@ from blog.models import Post
 
 
 class ProfilePostView(ListView):
-    template_name = 'profile.html'
+    template_name = 'profile.html'      # <app>/<model>_<viewtype>.html
 
     def get_queryset(self):
         self.user_profile = get_object_or_404(Profile, handle = self.kwargs['handle'])    # from the url
