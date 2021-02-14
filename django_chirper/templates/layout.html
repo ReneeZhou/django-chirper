@@ -1311,7 +1311,7 @@
                         <div
                             class="py-2 px-4 flex justify-between hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer">
                             <div class="flex space-x-4">
-                                <a href="{% url 'profile' %}"
+                                <a href="{#{% url 'profile' %}#}"
                                     class="w-12 h-12 rounded-full overflow-hidden">
                                     <!-- url_for('user.profile', handle = person.handle) -->
                                     <img src=""
@@ -1319,7 +1319,7 @@
                                         <!-- url_for('static', filename = 'img/profile_pics/' + person.profile_image) -->
                                 </a>
                                 <div>
-                                    <a href="{% url 'profile' %}">
+                                    <a href="{#{% url 'profile' %}#}">
                                         <!-- url_for('user.profile', handle = person.handle) -->
                                         <p class="font-bold hover:underline">{{ person.name }}</p>
                                         <p class="text-gray-600 text-base">@{{ person.handle }}</p>

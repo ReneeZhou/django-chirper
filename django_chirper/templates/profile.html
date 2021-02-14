@@ -130,10 +130,8 @@
             <!-- user icon -->
             <div class="w-12 h-12">
                 <div class="w-12 h-12 rounded-full overflow-hidden">
-                    <!-- url_for('user.profile', handle = post.author.handle) -->
-                    <a href="">
-                        <!-- url_for('static', filename = 'img/profile_pics/' + post.author.profile_image) -->
-                        <img src="" alt="profile pic" class="w-full h-full object-cover">
+                    <a href="{% url 'profile' handle=user_profile.handle %}">
+                        <img src="{{ user_profile.profile_image.url }}" alt="profile pic" class="w-full h-full object-cover">
                     </a>
                 </div>
             </div>
@@ -145,11 +143,10 @@
                     <!-- author, handle, timestamp -->
                     <div class="flex flex-row space-x-2">
                         <!-- link to user page -->
-                        <!-- url_for('user.profile', handle = post.author.handle) -->
-                        <a href="">
+                        <a href="{% url 'profile' handle=user_profile.handle %}">
                             <div class="flex flex-row space-x-1">
-                                <div class="text-base font-bold hover:underline">{{ post.author.name }}</div>
-                                <div class="text-gray-600">@{{ post.author.handle }}</div>
+                                <div class="text-base font-bold hover:underline">{{ post.author.username }}</div>
+                                <div class="text-gray-600">@{{ post.author.profile.handle }}</div>
                             </div>
                         </a>
                         <div class="text-gray-600 font-bold">·</div>
@@ -189,7 +186,7 @@
                                         x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 top-0 w-full rounded-md  xs:w-60 sm:w-60 z-50
                                         text-white">
 
-                                        {% if current_user == post.author %}
+                                        {% if user == post.author %}
                                         <div class="flex flex-col text-tiny bg-gray-900
                                         absolute right-0 top-0 w-full rounded-md shadow-msg xs:w-48 sm:w-48 z-50">
                                             <!-- delete button -->
@@ -284,7 +281,7 @@
                                                 <div class="inline align-middle">View Chirp activity</div>
                                             </a>
                                         </div>
-                                        {% elif current_user.is_authenticated and current_user != post.author %}
+                                        {% elif user.is_authenticated and user != post.author %}
                                         <div class="flex flex-col text-tiny bg-gray-900
                                         absolute right-0 top-0 w-full rounded-md shadow-msg xs:w-60 sm:w-60 z-50">
                                             <!-- url_for('user.unfollow', handle = post.author.handle) -->
@@ -300,7 +297,7 @@
                                                                 stroke-width="2"
                                                                 d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
                                                         </svg>
-                                                        <div>Unfollow @{{ post.author.handle }}</div>
+                                                        <div>Unfollow @{{ post.author.profile.handle }}</div>
                                                     </div>
                                                 </button>
                                             </form>
@@ -325,7 +322,7 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
                                                 </svg>
-                                                <div>Mute @{{ post.author.handle }}</div>
+                                                <div>Mute @{{ post.author.profile.handle }}</div>
                                             </div>
                                             <div
                                                 class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
@@ -335,7 +332,7 @@
                                                         stroke-width="2"
                                                         d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                                                 </svg>
-                                                <div>Block @{{ post.author.handle }}</div>
+                                                <div>Block @{{ post.author.profile.handle }}</div>
                                             </div>
                                             <div
                                                 class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
@@ -391,8 +388,7 @@
                 <!-- svg group -->
                 <div class="flex flex-row justify-between pr-20">
                     <!-- comment -->
-                    <!-- url_for('post.compose_chirp') -->
-                    <a href="">
+                    <a href="{% url 'compose_chirp' %}">
                         <div class="rounded-full p-1 hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-500">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 class="w-5 h-5 stroke-current stroke-1 text-gray-500 hover:text-blue-500 ">
@@ -403,8 +399,7 @@
                     </a>
 
                     <!-- rechirp -->
-                    <!-- url_for('post.compose_chirp')  -->
-                    <a href="">
+                    <a href="{% url 'compose_chirp' %}">
                         <div class="rounded-full p-1 hover:bg-green-700 hover:bg-opacity-25 active:bg-green-500">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 class="w-5 h-5 stroke-current stroke-1 text-gray-500 hover:text-green-500 ">
