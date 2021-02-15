@@ -23,7 +23,7 @@
             <a href="{% url 'profile' handle=user_profile.handle %}">
                 <div class="w-12 h-12">
                     <div class="w-12 h-12 rounded-full overflow-hidden">
-                        <img src="{{ user_profile.profile_image.path }}"
+                        <img src="{{ user_profile.profile_image.url }}"
                             alt="profile pic" class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                         <!-- link to user page -->
                         <a href="{% url 'profile' handle=user_profile.handle %}">
                             <div class="flex flex-col">
-                                <div class="text-base font-bold hover:underline">{{ post.author.name }}</div>
+                                <div class="text-base font-bold hover:underline">{{ post.author.user.username }}</div>
                                 <div class="text-gray-600">@{{ post.author.handle }}</div>
                             </div>
                         </a>
@@ -45,7 +45,7 @@
 
                     <!-- buttons -->
                     <div class="-space-x-1 flex flex-row items-center">
-                        {% if post.author == current_user %}
+                        {% if post.author.user == user %}
                         <!-- edit button -->
                         <!-- url_for('post.update_chirp', handle = post.author.handle, post_id = post.id) -->
                         <a href="">
@@ -118,7 +118,7 @@
                                             x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 top-0 w-full rounded-md  xs:w-60 sm:w-60 z-50
                                         text-white">
 
-                                            {% if current_user == post.author %}
+                                            {% if user == post.author.user %}
                                             <div class="flex flex-col text-tiny bg-gray-900
                                         absolute right-0 top-0 w-full rounded-md shadow-msg xs:w-48 sm:w-48 z-50">
                                                 <!-- delete button -->
@@ -346,7 +346,7 @@
                 </div>
 
                 <!-- view analytics -->
-                {% if post.author.handle == current_user.handle %}
+                {% if post.author.handle == user.profile.handle %}
                 <!-- url_for('post.status_analytics', handle = post.author.handle, post_id = post.id) -->
                 <a href="">
                     <div class="flex flex-row items-center text-gray-600 border-b border-gray-600 py-4

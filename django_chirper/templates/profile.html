@@ -151,7 +151,7 @@
                         </a>
                         <div class="text-gray-600 font-bold">·</div>
                         <!-- link to that specific chirp -->
-                        <a href="#" class="text-gray-600 hover:underline">
+                        <a href="{% url 'status' handle=post.author.handle pk=post.id %}" class="text-gray-600 hover:underline">
                             <time class="">{{ post.show_time }}</time>
                             <!-- if less than a hour: do it backwards: e.g. 30min -->
                             <!-- if not the same year:  %d %b %Y-->
@@ -380,8 +380,7 @@
                 <!-- chirp content section -->
                 <div>
                     <p class="text-base">
-                        <!-- url_for('post.status', handle = post.author.handle, post_id = post.id) -->
-                        <a href="">{{ post.content }}</a>
+                        <a href="{% url 'status' handle=post.author.handle pk=post.id %}">{{ post.content }}</a>
                     </p>
                 </div>
 
