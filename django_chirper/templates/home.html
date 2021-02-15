@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block title %} Home {% endblock title %}
 {% block header %} Home {% endblock header%}
@@ -79,10 +80,10 @@
 {% block content %}
 <div class="flex flex-row my-2 mx-3 space-x-3">
     <!-- profile pic -->
-    <a href="#">  <!-- url_for('user.profile', handle = current_user.handle) -->
+    <a href="{% url 'profile' handle=user.profile.handle %}"> 
         <div class="w-12 h-12 rounded-full overflow-hidden">
-            <img src="#"
-                alt="profile pic" class="w-full h-full object-cover">  <!-- url_for('static', filename = 'img/profile_pics/' + current_user.profile_image) -->
+            <img src="{{ user.profile.profile_image.url }}"
+                alt="profile pic" class="w-full h-full object-cover">
         </div>
     </a>
 
@@ -176,8 +177,8 @@
         <!-- user icon -->
         <div class="w-12 h-12">
             <div class="w-12 h-12 rounded-full overflow-hidden">
-                <img src="#" alt="profile pic"
-                    class="w-full h-full object-cover">    <!-- url_for('static', filename = 'img/profile_pics/ocean4.jpg') -->
+                <img src="{% static 'img/profile_pics/ocean4.jpg' %}" alt="profile pic"
+                    class="w-full h-full object-cover">
             </div>
         </div>
 
@@ -289,9 +290,9 @@
             <!-- user icon -->
             <div class="w-12 h-12">
                 <div class="w-12 h-12 rounded-full overflow-hidden">
-                    <a href="#"> <!-- url_for('user.profile', handle = post.author.handle) -->
-                        <img src=""
-                            alt="profile pic" class="w-full h-full object-cover">    <!-- url_for('static', filename = 'img/profile_pics/' + post.author.profile_image) -->
+                    <a href="{% url 'profile' handle=post.author.handle %}">
+                        <img src="{{ post.author.profile_image.url }}"
+                            alt="profile pic" class="w-full h-full object-cover">
                     </a>
                 </div>
             </div>
@@ -303,11 +304,10 @@
                     <!-- author, handle, timestamp -->
                     <div class="flex flex-row space-x-2">
                         <!-- link to user page -->
-                        <a href="">
-                            <!-- url_for('user.profile', handle = post.author.handle)  -->
+                        <a href="{% url 'profile' handle=post.author.handle %}">
                             <div class="flex flex-row space-x-1">
                                 <div class="text-base font-bold hover:underline">{{ post.author }}</div>
-                                <div class="text-gray-600">@{{ post.author.handle }}</div>
+                                <div class="text-gray-600">@{{ post.author.profile.handle }}</div>
                                 <div></div>
                             </div>
                         </a>
@@ -323,7 +323,7 @@
 
                     <!-- setting button dropdown -->
                     <!-- post owner -->
-                    {% if post.author == current_user %}
+                    {% if post.author == user %}
                     <div class="text-gray-700">
                         <div x-data="{ open: false }" class="flex flex-col">
                             <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow 
@@ -578,7 +578,7 @@
                 <div>
                     <p class="text-base">
                         <a
-                            href="">{{ post.content }}</a>
+                            href="{% url 'status' handle=post.author.handle pk=post.id %}">{{ post.content }}</a>
                         <!-- url_for('post.status', handle = post.author.handle, post_id = post.id) -->
                     </p>
                 </div>

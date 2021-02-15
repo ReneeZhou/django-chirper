@@ -145,8 +145,8 @@
                         <!-- link to user page -->
                         <a href="{% url 'profile' handle=user_profile.handle %}">
                             <div class="flex flex-row space-x-1">
-                                <div class="text-base font-bold hover:underline">{{ post.author.username }}</div>
-                                <div class="text-gray-600">@{{ post.author.profile.handle }}</div>
+                                <div class="text-base font-bold hover:underline">{{ post.author.user.username }}</div>
+                                <div class="text-gray-600">@{{ post.author.handle }}</div>
                             </div>
                         </a>
                         <div class="text-gray-600 font-bold">·</div>
@@ -186,7 +186,7 @@
                                         x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 top-0 w-full rounded-md  xs:w-60 sm:w-60 z-50
                                         text-white">
 
-                                        {% if user == post.author %}
+                                        {% if user == post.author.user %}
                                         <div class="flex flex-col text-tiny bg-gray-900
                                         absolute right-0 top-0 w-full rounded-md shadow-msg xs:w-48 sm:w-48 z-50">
                                             <!-- delete button -->
@@ -281,7 +281,7 @@
                                                 <div class="inline align-middle">View Chirp activity</div>
                                             </a>
                                         </div>
-                                        {% elif user.is_authenticated and user != post.author %}
+                                        {% elif user.is_authenticated and user != post.author.user %}
                                         <div class="flex flex-col text-tiny bg-gray-900
                                         absolute right-0 top-0 w-full rounded-md shadow-msg xs:w-60 sm:w-60 z-50">
                                             <!-- url_for('user.unfollow', handle = post.author.handle) -->
@@ -297,7 +297,7 @@
                                                                 stroke-width="2"
                                                                 d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
                                                         </svg>
-                                                        <div>Unfollow @{{ post.author.profile.handle }}</div>
+                                                        <div>Unfollow @{{ post.author.handle }}</div>
                                                     </div>
                                                 </button>
                                             </form>
@@ -322,7 +322,7 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
                                                 </svg>
-                                                <div>Mute @{{ post.author.profile.handle }}</div>
+                                                <div>Mute @{{ post.author.handle }}</div>
                                             </div>
                                             <div
                                                 class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
@@ -332,7 +332,7 @@
                                                         stroke-width="2"
                                                         d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                                                 </svg>
-                                                <div>Block @{{ post.author.profile.handle }}</div>
+                                                <div>Block @{{ post.author.handle }}</div>
                                             </div>
                                             <div
                                                 class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
