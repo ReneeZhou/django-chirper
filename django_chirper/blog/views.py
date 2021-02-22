@@ -24,19 +24,23 @@ class StatusDetailView(DetailView):
         return context
 
 
-class StatusCreateView(CreateView):
-    # model = Post
-    # fields = ['content', 'author', 'created_at']
-    form_class = PostForm
-    template_name = 'compose_chirp.html'
+# class StatusCreateView(CreateView):
+#     # model = Post
+#     # fields = ['content', 'author', 'created_at']
+#     form_class = PostForm
+#     template_name = 'compose_chirp.html'
 
-    def form_valid(self, form):
-        self.object = form.save()
-        return super().form_valid(self, form)
+#     def form_valid(self, form):
+#         self.object = form.save()
+#         return super().form_valid(self, form)
 
 
 
-# @login_required
-# def compose_chirp(request):
-#     form = PostForm()
-#     return render(request, 'compose_chirp.html', {'form': form})
+@login_required
+def compose_chirp(request):
+    form = PostForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        
+    return render(request, 'compose_chirp.html', {'form': form})
