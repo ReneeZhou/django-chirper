@@ -19,7 +19,7 @@ class PostForm(ModelForm):
 
     class Meta:
         model = Post
-        fields = ['content', 'created_at', 'author']
+        fields = ['content']
         widgets = {
             'content': Textarea(attrs = {
                 'placeholder': "What's happening?",

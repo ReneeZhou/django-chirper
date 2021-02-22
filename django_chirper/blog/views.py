@@ -40,7 +40,13 @@ class StatusDetailView(DetailView):
 def compose_chirp(request):
     form = PostForm(request.POST or None)
 
+    print('*'*100)
     if form.is_valid():
+        form.instance.author = request.user.profile
         form.save()
-        
+        return redirect('home')
+    else:
+        print('Form is invalid. ')
+        print('Errors: ', form.errors)
+
     return render(request, 'compose_chirp.html', {'form': form})
