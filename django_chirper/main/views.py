@@ -1,16 +1,23 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from blog.models import Post
+from .forms import PostForm
 
 
 @login_required
 def home(request):
-    context = {
-        'posts': Post.objects.all()[::-1]
-    }
-
     if request.user.is_authenticated:
+        form = PostForm(request.POST or None)
+        context = {
+            'posts': Post.objects.all().order_by('-created_at'),
+            'form': form
+        }
+        if form.is_valid():
+            form.instance.author = request.user.profile
+            form.save()
+            return redirect('home')
         return render(request, 'home.html', context)
+        
     else: 
         return redirect('home_notauth')
 
