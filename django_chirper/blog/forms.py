@@ -5,25 +5,14 @@ from .models import Post
 
 
 class PostForm(ModelForm):
-    # content = CharField(
-    #     widget = Textarea(
-    #         attrs = {
-    #             'maxlength': 280, 
-    #             'rows': 6,
-    #             'placeholder': 'What\'s happening?',
-    #             'class': 'resize-none bg-gray-900 text-xl focus:outline-none p-2' 
-    #         }
-    #     )
-    # )
-
-
     class Meta:
         model = Post
         fields = ['content']
         widgets = {
             'content': Textarea(attrs = {
+                'rows': 6, 
                 'placeholder': "What's happening?",
-                'class': 'resize-none bg-gray-900 text-xl focus:outline-none p-2' 
+                'class': 'resize-none bg-gray-900 text-xl focus:outline-none p-2'
             })
         }
 
