@@ -47,3 +47,8 @@ class StatusDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('profile', kwargs = {'handle': self.kwargs['handle']})
+        
+    # class attributes evaluated on import
+    # if set success_url with reverse()
+    # the resolver wouldn't have all info to reverse yet
+    # must use reverse_lazy()
