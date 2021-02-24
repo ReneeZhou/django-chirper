@@ -1,9 +1,6 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, CreateView
-from django.forms.fields import CharField
-from django.forms.widgets import Textarea
-from django.urls import reverse
 from user.models import Profile
 from .forms import PostForm
 from .models import Post
@@ -24,29 +21,11 @@ class StatusDetailView(DetailView):
         return context
 
 
-# class StatusCreateView(CreateView):
-#     # model = Post
-#     # fields = ['content', 'author', 'created_at']
-#     form_class = PostForm
-#     template_name = 'compose_chirp.html'
+class StatusCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'compose_chirp.html'
 
-#     def form_valid(self, form):
-#         self.object = form.save()
-#         return super().form_valid(self, form)
-
-
-
-@login_required
-def compose_chirp(request):
-    form = PostForm(request.POST or None)
-
-    print('*'*100)
-    if form.is_valid():
-        form.instance.author = request.user.profile
-        form.save()
-        return redirect('home')
-    else:
-        print('Form is invalid. ')
-        print('Errors: ', form.errors)
-
-    return render(request, 'compose_chirp.html', {'form': form})
+    def form_valid(self, form):
+        form.instance.author = self.request.user.profile
+        return super().form_valid(form)
