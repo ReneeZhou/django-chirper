@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from user.models import Profile
 from .forms import PostForm
 from .models import Post
@@ -22,10 +23,16 @@ class StatusDetailView(DetailView):
 
 
 class StatusCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    form_class = PostForm
+    model = Post                                                # model still needed even if 
+    form_class = PostForm                                       # form_class is ModelForm
     template_name = 'compose_chirp.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
         return super().form_valid(form)
+
+
+class StatusUpdateView(LoginRequiredMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'compose_chirp.html'
