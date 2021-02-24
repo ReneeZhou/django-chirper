@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from user.models import Profile
@@ -36,3 +36,11 @@ class StatusUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'compose_chirp.html'
+
+
+class StatusDeleteView(LoginRequiredMixin, DeleteView):
+    http_method_names = ['post']
+    model = Post
+
+    def get_success_url(self):
+        return reverse('profile', kwargs = {'handle': self.kwargs['handle']})

@@ -5,5 +5,6 @@ from .views import StatusDetailView, StatusCreateView, StatusUpdateView, StatusD
 urlpatterns = [
     path('<str:handle>/status/<int:pk>/', StatusDetailView.as_view(), name = 'status'),
     path('<str:handle>/status/<int:pk>/update/', StatusUpdateView.as_view(), name = 'update_chirp'),
+    path('<str:handle>/status/<int:pk>/delete/', StatusDeleteView.as_view(), name = 'delete_chirp'),
     path('compose/chirp/', StatusCreateView.as_view(), name = 'compose_chirp'),
 ]
