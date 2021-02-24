@@ -84,13 +84,12 @@
                         <!-- buttons -->
                         <div
                             class="flex flex-col justify-center items-center text-center font-bold space-y-4 pt-2 pb-2">
-                            <!-- url_for('auth.login') -->
-                            <a href="">
+                            <a href="{% url 'login' %}">
                                 <button class="w-80 bg-blue-500 rounded-full h-12 font-semibold 
                         hover:bg-blue-600 focus:outline-none">Log in</button>
                             </a>
                             <!-- url_for('auth.signup_1')  -->
-                            <a href="">
+                            <a href="{% url 'signup' %}">
                                 <button class="w-80 border border-blue-500 rounded-full h-12 text-blue-500 font-semibold
                          hover:bg-gray-800 hover:bg-opacity-50 focus:outline-none">Sign up</button>
                             </a>
@@ -240,8 +239,7 @@
                                                                         <button
                                                                             class="modal-delete-close block w-32 font-bold focus:outline-none bg-gray-600 rounded-full h-10 bg-opacity-25 hover:bg-opacity-50 focus:bg-gray-500">Cancel</button>
                                                                         <div>
-                                                                            <!-- url_for('post.delete_chirp', handle = post.author.handle, post_id = post.id) -->
-                                                                            <form action="{% url 'delete_chirp' handle=request.user.profile.handle pk=post.id %}" method="POST">
+                                                                            <form action="{% url 'delete_chirp' handle=user.profile.handle pk=post.id %}" method="POST">
                                                                                 {% csrf_token %}
                                                                                 <input type="submit" value="Delete"
                                                                                     class="block w-32 font-bold focus:outline-none bg-red-600 rounded-full h-10 hover:bg-opacity-75 focus:bg-red-700

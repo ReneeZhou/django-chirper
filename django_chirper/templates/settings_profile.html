@@ -12,8 +12,7 @@
                     <!-- justify left -->
                     <div class="flex flex-row items-center">
                         <!-- close svg -->
-                        <!-- url_for('user.profile', handle = current_user.handle) -->
-                        <a href="{% url 'profile'  handle=request.user.profile.handle %}">
+                        <a href="{% url 'profile'  handle=user.profile.handle %}">
                             <div class="svg-bg-div mr-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     class="w-6 h-8 stroke-current text-blue-500">

@@ -47,8 +47,7 @@
                     <div class="-space-x-1 flex flex-row items-center">
                         {% if post.author.user == user %}
                         <!-- edit button -->
-                        <!-- url_for('post.update_chirp', handle = post.author.handle, post_id = post.id) -->
-                        <a href="">
+                        <a href="{% url 'update_chirp' handle=user.profile.handle pk=post.id %}">
                             <button class="focus:outline-none block">
                                 <div class="rounded-full p-2 hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -62,9 +61,8 @@
 
 
                         <!-- delete button -->
-                        <!-- url_for('post.delete_chirp', handle = post.author.handle, post_id = post.id) -->
                         <form
-                            action="{% url 'delete_chirp' handle=request.user.profile.handle pk=post.id %}"
+                            action="{% url 'delete_chirp' handle=user.profile.handle pk=post.id %}"
                             method="POST" class="inline">
                             {% csrf_token %}
                             <button class="focus:outline-none">
@@ -177,9 +175,8 @@
                                                                             <button
                                                                                 class="modal-delete-close block w-32 font-bold focus:outline-none bg-gray-600 rounded-full h-10 bg-opacity-25 hover:bg-opacity-50 focus:bg-gray-500">Cancel</button>
                                                                             <div>
-                                                                                <!-- url_for('post.delete_chirp', handle = post.author.handle, post_id = post.id) -->
                                                                                 <form
-                                                                                    action="{% url 'delete_chirp' handle=request.user.profile.handle pk=post.id %}"
+                                                                                    action="{% url 'delete_chirp' handle=user.profile.handle pk=post.id %}"
                                                                                     method="POST">
                                                                                     {% csrf_token %}
                                                                                     <input type="submit" value="Delete"
@@ -348,7 +345,7 @@
                 </div>
 
                 <!-- view analytics -->
-                {% if post.author.handle == user.profile.handle %}
+                {% if post.author == user.profile %}
                 <!-- url_for('post.status_analytics', handle = post.author.handle, post_id = post.id) -->
                 <a href="">
                     <div class="flex flex-row items-center text-gray-600 border-b border-gray-600 py-4

@@ -82,7 +82,8 @@
     <!-- profile pic -->
     <a href="{% url 'profile' handle=user.profile.handle %}">
         <div class="w-12 h-12 rounded-full overflow-hidden">
-            <img src="{{ user.profile.profile_image.url }}" alt="profile pic" class="w-full h-full object-cover">
+            <img src="{{ user.profile.profile_image.url }}" alt="profile pic"
+                class="w-full h-full object-cover">
         </div>
     </a>
 
@@ -303,8 +304,8 @@
                         <!-- link to user page -->
                         <a href="{% url 'profile' handle=post.author.handle %}">
                             <div class="flex flex-row space-x-1">
-                                <div class="text-base font-bold hover:underline">{{ post.author }}</div>
-                                <div class="text-gray-600">@{{ post.author.profile.handle }}</div>
+                                <div class="text-base font-bold hover:underline">{{ post.author.user.username }}</div>
+                                <div class="text-gray-600">@{{ post.author.handle }}</div>
                                 <div></div>
                             </div>
                         </a>
@@ -321,7 +322,7 @@
 
                     <!-- setting button dropdown -->
                     <!-- post owner -->
-                    {% if post.author == user %}
+                    {% if post.author.user == user %}
                     <div class="text-gray-700">
                         <div x-data="{ open: false }" class="flex flex-col">
                             <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow 
@@ -402,8 +403,10 @@
                                                                             class="modal-delete-close block w-32 font-bold focus:outline-none bg-gray-600 rounded-full h-10 bg-opacity-25 hover:bg-opacity-50 focus:bg-gray-500">Cancel</button>
                                                                         <!-- delete button -->
                                                                         <div>
-                                                                            <form action="#" method="POST">
-                                                                                <!-- url_for('post.delete_chirp', handle = post.author.handle, post_id = post.id) -->
+                                                                            <form
+                                                                                action="{% url 'delete_chirp' handle=post.author.handle pk=post.id %}"
+                                                                                method="POST">
+                                                                                {% csrf_token %}
                                                                                 <input type="submit" value="Delete"
                                                                                     class="block w-32 font-bold focus:outline-none bg-red-600 rounded-full h-10 hover:bg-opacity-75 focus:bg-red-700
                                                                                 cursor-pointer">
@@ -580,8 +583,7 @@
                 <!-- svg group -->
                 <div class="flex flex-row justify-between pr-20">
                     <!-- comment -->
-                    <a href="">
-                        <!-- url_for('post.compose_chirp') -->
+                    <a href="{% url 'compose_chirp' %}">
                         <div class="rounded-full p-1 hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-500">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 class="w-5 h-5 stroke-current stroke-1 text-gray-500 hover:text-blue-500 ">
@@ -592,8 +594,7 @@
                     </a>
 
                     <!-- rechirp -->
-                    <a href="#">
-                        <!-- url_for('post.compose_chirp') -->
+                    <a href="{% url 'compose_chirp' %}">
                         <div class="rounded-full p-1 hover:bg-green-700 hover:bg-opacity-25 active:bg-green-500">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 class="w-5 h-5 stroke-current stroke-1 text-gray-500 hover:text-green-500 ">
