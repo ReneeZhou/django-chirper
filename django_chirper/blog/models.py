@@ -1,6 +1,8 @@
 from secrets import randbits
+from django.http import HttpResponse
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 from user.models import Profile
 
 
@@ -17,3 +19,6 @@ class Post(models.Model):
 
     def __repr__(self):
         return f'{self.content} by {self.author};'
+
+    def get_absolute_url(self):
+        return reverse('status', kwargs = {'handle': self.author.handle, 'pk': self.id})
