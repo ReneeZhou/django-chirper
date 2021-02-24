@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
-from django.urls import reverse, reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from user.models import Profile
 from .forms import PostForm
@@ -32,10 +32,13 @@ class StatusCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class StatusUpdateView(LoginRequiredMixin, UpdateView):
+class StatusUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'compose_chirp.html'
+
+    def test_func(self):
+        return self.request.user.profile.handle == self.kwargs['handle']
 
 
 class StatusDeleteView(LoginRequiredMixin, DeleteView):
