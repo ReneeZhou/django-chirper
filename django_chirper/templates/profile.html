@@ -241,7 +241,8 @@
                                                                             class="modal-delete-close block w-32 font-bold focus:outline-none bg-gray-600 rounded-full h-10 bg-opacity-25 hover:bg-opacity-50 focus:bg-gray-500">Cancel</button>
                                                                         <div>
                                                                             <!-- url_for('post.delete_chirp', handle = post.author.handle, post_id = post.id) -->
-                                                                            <form action="" method="POST">
+                                                                            <form action="{% url 'delete_chirp' handle=request.user.profile.handle pk=post.id %}" method="POST">
+                                                                                {% csrf_token %}
                                                                                 <input type="submit" value="Delete"
                                                                                     class="block w-32 font-bold focus:outline-none bg-red-600 rounded-full h-10 hover:bg-opacity-75 focus:bg-red-700
                                                                                 cursor-pointer">

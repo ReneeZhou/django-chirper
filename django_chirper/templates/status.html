@@ -64,8 +64,9 @@
                         <!-- delete button -->
                         <!-- url_for('post.delete_chirp', handle = post.author.handle, post_id = post.id) -->
                         <form
-                            action=""
+                            action="{% url 'delete_chirp' handle=request.user.profile.handle pk=post.id %}"
                             method="POST" class="inline">
+                            {% csrf_token %}
                             <button class="focus:outline-none">
                                 <div class="rounded-full p-2 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -178,8 +179,9 @@
                                                                             <div>
                                                                                 <!-- url_for('post.delete_chirp', handle = post.author.handle, post_id = post.id) -->
                                                                                 <form
-                                                                                    action=""
+                                                                                    action="{% url 'delete_chirp' handle=request.user.profile.handle pk=post.id %}"
                                                                                     method="POST">
+                                                                                    {% csrf_token %}
                                                                                     <input type="submit" value="Delete"
                                                                                         class="block w-32 font-bold focus:outline-none bg-red-600 rounded-full h-10 hover:bg-opacity-75 focus:bg-red-700
                                                                                 cursor-pointer">
