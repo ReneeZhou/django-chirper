@@ -1,5 +1,4 @@
 from django.forms import ModelForm
-from django.forms.fields import CharField
 from django.forms.widgets import Textarea
 from .models import Post
 
