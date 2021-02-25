@@ -29,16 +29,16 @@ urlpatterns = [
         auth_views.LoginView.as_view(
             template_name = 'login.html', 
             authentication_form = LoginForm
-            ), 
+        ), 
         name = 'login'
-        ),
+    ),
     path(
         'logout/', 
         auth_views.LogoutView.as_view(
             template_name = 'logout.html'
-            ), 
-            name = 'logout'
-        ),
+        ), 
+        name = 'logout'
+    ),
     path('', include('main.urls')),
     path('', include('blog.urls')),
     path('', include('user.urls')),
