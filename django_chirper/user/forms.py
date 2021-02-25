@@ -14,13 +14,17 @@ class RegistrationForm(UserCreationForm):
             'email': 'Email',
         }
         widgets = {
-            'username': TextInput(attrs = {
-                'class': input_field_class,
-            }),
-            'email': TextInput(attrs = {
-                'class': input_field_class
-            })
-        }
+            'username': TextInput(
+                attrs = {
+                    'class': input_field_class
+                }
+            ),
+            'email': TextInput(
+                attrs = {
+                    'class': input_field_class
+                }
+            )
+        },
         #  to change username max_length
         #  will need custom User model
         #  current max_length = 150
@@ -42,7 +46,6 @@ class LoginForm(AuthenticationForm):
     input_field_class = 'ml-2 h-10 bg-gray-700 bg-opacity-0 outline-none text-white'
 
     username = CharField(
-        max_length = 50,
         label = 'Phone, email, or username',
         widget = TextInput(
             attrs = {
@@ -52,7 +55,6 @@ class LoginForm(AuthenticationForm):
     )
 
     password = CharField(
-        max_length = 250,
         label = 'Password',
         widget = PasswordInput(
             attrs = {
@@ -66,10 +68,5 @@ class LoginForm(AuthenticationForm):
     #     To help keep your account safe, please enter your phone number 
     #     or email address to verify it’s you.
     # ''')
-
-    class Meta: 
-        model = User
-        fields = ('username', 'password')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    
+    # no class Meta here as AuthenticationForm is not a ModelForm
