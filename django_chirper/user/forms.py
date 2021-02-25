@@ -5,53 +5,37 @@ from django.forms.fields import CharField, EmailField
 
 
 class RegistrationForm(UserCreationForm):
-    input_field_class = 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'
-
-    username = CharField(
-        max_length = 50, 
-        label = 'Name',
-        widget = TextInput(
-            attrs = {
-                'class': input_field_class
-            }
-        )
-    )
-
-    email = EmailField(
-        label = 'Email', 
-        widget = EmailInput(
-            attrs = {
-                'class': input_field_class
-            }
-        )
-    )
-
-    password1 = CharField(
-        max_length = 250,
-        label = 'Password',
-        widget = PasswordInput(
-            attrs = {
-                'class': input_field_class
-            }
-        )
-    )
-
-    password2 = CharField(
-        max_length = 250, 
-        label = 'Confirm Password',
-        widget = PasswordInput(
-            attrs = {
-                'class': input_field_class
-            }
-        )
-    )
-
     class Meta:
+        input_field_class = 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'
         model = User
         fields = ('username', 'email', 'password1', 'password2')
-    
+        labels = {
+            'username': 'Name',
+            'email': 'Email',
+        }
+        widgets = {
+            'username': TextInput(attrs = {
+                'class': input_field_class,
+            }),
+            'email': TextInput(attrs = {
+                'class': input_field_class
+            })
+        }
+        #  to change username max_length
+        #  will need custom User model
+        #  current max_length = 150
+        #  unless generate field using Form instead of ModelForm
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['password1'].label = 'Password'
+        self.fields['password2'].label = 'Confirm Password'
+
+        self.fields['password1'].widget = PasswordInput(attrs = {'class': 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'})
+        self.fields['password2'].widget = PasswordInput(attrs = {'class': 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'})
+        # Username is an actual field on User model, overriding Meta works
+        # Password1 & Password2 are fields defined only in form
+        # therefore, overriding Meta would not work
 
 
 class LoginForm(AuthenticationForm):
