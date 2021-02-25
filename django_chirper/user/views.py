@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render
-from django.contrib import messages
+from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.views.generic.edit import CreateView
 from .forms import LoginForm, RegistrationForm
 
 
@@ -30,15 +32,8 @@ def home_notauth(request):
             return redirect('login')
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            # messages.success(request, f'Account created for {username}!')
-            return redirect('login')
-    else:
-        form = RegistrationForm()
-
-    return render(request, 'signup.html', {'form': form})
+class UserCreateView(CreateView):
+    model = User
+    template_name = 'signup.html'
+    form_class = RegistrationForm
+    success_url = reverse_lazy('login')
