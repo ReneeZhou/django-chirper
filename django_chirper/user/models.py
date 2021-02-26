@@ -1,7 +1,7 @@
 from secrets import randbits, token_urlsafe
 from PIL import Image
 from django.db import models
-from django.utils import timezone
+from django.db.models.query_utils import Q
 from django.contrib.auth.models import User
 
 
@@ -27,6 +27,13 @@ class Profile(models.Model):
     location = models.TextField(max_length = 30, blank = True)
     website = models.URLField(max_length = 100, blank = True)
 
+    following = models.ManyToManyField(
+        'self', 
+        symmetrical = False,
+        through = 'Follower',
+        # through_fields = ('profile', 'profile')     # not needed to itself w/ 2 ForeignKey
+    )
+
     # override save() in the Model class
     def save(self, *args, **kwargs):
         super().save()                                                      # first run the parent's save method
@@ -47,3 +54,16 @@ class Profile(models.Model):
 
     def __repr__(self):
         return f'{self.user.username}\'s Profile' 
+
+
+class Follower(models.Model):
+    follower = models.ForeignKey(Profile, on_delete = models.CASCADE, related_name = 'is_following')
+    following = models.ForeignKey(Profile, on_delete = models.CASCADE, related_name = 'followed_by')
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields = ['follower', 'following'], name = 'unique_relationship'),
+        ]
+
+    def __repr__(self):
+        return f'{self.follower} is following {self.following}.'
