@@ -16,6 +16,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(default = timezone.now)
     author = models.ForeignKey(Profile, on_delete = models.CASCADE)
     # if the author is deleted, so will all its posts; one-way only
+    liker = models.ManyToManyField(Profile, related_name = 'liked_posts')
 
     def __repr__(self):
         return f'{self.content} by {self.author};'
