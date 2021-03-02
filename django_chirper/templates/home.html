@@ -608,8 +608,10 @@
                     <!-- like button -->
 
                     <!-- jinja - if current_user.liked_post(post) -->
+                    {% if user.profile in post.liker.all %}
                     <div>
                         <form action="" method="POST">
+                            {% csrf_token %}
                             <!-- url_for('post.unlike_chirp', handle = current_user.handle, post_id = post.id) -->
                             <button class="focus:outline-none flex flex-row items-center space-x-2">
                                 <div class="rounded-full p-1 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
@@ -625,8 +627,10 @@
                         </form>
                     </div>
                     <!-- jinja - else  -->
+                    {% else %}
                     <div>
-                        <form action="#" method="POST">
+                        <form action="{% url 'like_chirp' handle=post.author.handle pk=post.id %}" method="POST">
+                            {% csrf_token %}
                             <!-- url_for('post.like_chirp', handle = current_user.handle, post_id = post.id) -->
                             <button class="focus:outline-none flex flex-row items-center space-x-2">
                                 <div class="rounded-full p-1 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
@@ -641,6 +645,7 @@
                             </button>
                         </form>
                     </div>
+                    {% endif %}
                     <!-- jinja - endif  -->
 
 

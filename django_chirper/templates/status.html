@@ -399,7 +399,7 @@
 
 
                 <!-- like button -->
-                {#{% if current_user.has_liked_post(post) %}#}
+                {% if user.profile in post.liker.all %}
                 <div>
                     <!-- url_for('post.unlike_chirp', handle = current_user.handle, post_id = post.id) -->
                     <form action=""
@@ -416,7 +416,7 @@
                         </button>
                     </form>
                 </div>
-                {#{% else %}#}
+                {% else %}
                 <div>
                     <!-- url_for('post.like_chirp', handle = current_user.handle, post_id = post.id) -->
                     <form action=""
@@ -433,7 +433,7 @@
                         </button>
                     </form>
                 </div>
-                {#{% endif %}#}
+                {% endif %}
 
 
                 <!-- share -->

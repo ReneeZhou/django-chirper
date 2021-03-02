@@ -409,8 +409,7 @@
 
 
                     <!-- like button -->
-                    {#{% if current_user.is_authenticated and current_user.has_liked_post(post) %}#}
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated and user.profile in post.liker.all %}
                     <div>
                         <!-- url_for('post.unlike_chirp', handle = current_user.handle, post_id = post.id)  -->
                         <form action="" method="POST">
