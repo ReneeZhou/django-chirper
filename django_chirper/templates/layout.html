@@ -89,7 +89,7 @@
                         </div>
                     </a>
 
-                    <!-- jinja - if current_user.new_messages() == 0  -->
+                    {% if not user.profile.new_message %}
                     <a href="{% url 'messages' %}" class="home-a">
                         <div class="home-btn">
                             <!-- message icon -->
@@ -321,7 +321,7 @@
                             </svg>
                         </div>
                     </a>
-                    <!-- jinja - endif  -->
+                    {% endif %}
             </div>
             {% if user.is_authenticated %}
             <div class="flex flex-col items-center">
@@ -330,8 +330,8 @@
                     <button class="flex justify-center items-center focus:outline-none rounded-full hover:bg-gray-700 hover:bg-opacity-25
                     w-16 h-16">
                         <div class="flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
-                            <img src="{{ user.profile.profile_image.url }}"
-                                alt="profile pic" class="w-full h-full object-cover">
+                            <img src="{{ user.profile.profile_image.url }}" alt="profile pic"
+                                class="w-full h-full object-cover">
                             <!-- profile_image we passed into the template from routes.py home() -->
                         </div>
                     </button>
@@ -384,7 +384,6 @@
                     {% endif %}
 
                     <a href="{% url 'explore' %}" class="home-a">
-                        <!-- url_for('main.explore') -->
                         <div class="home-btn">
                             <!-- explore icon -->
                             <!-- hashtag icon -->
@@ -410,7 +409,7 @@
                     </a>
                     {% endif %}
 
-                    <!-- jinja - if current_user.is_authenticated -->
+                    {% if user.is_authenticated %}
                     <a href="{% url 'notifications' %}" class="home-a">
                         <div class="home-btn">
                             <!-- notification icon -->
@@ -421,7 +420,7 @@
                         </div>
                     </a>
 
-                    <!-- jinja - if current_user.new_messages() == 0   -->
+                    {% if not user.profile.new_message %}
                     <a href="{% url 'messages' %}" class="home-a">
                         <div class="home-btn">
                             <!-- message icon -->
@@ -431,7 +430,7 @@
                             </svg>
                         </div>
                     </a>
-                    <!-- jinja - else  -->
+                    {% else %}
                     <a href="{% url 'messages' %}" class="home-a">
                         <div class="home-btn">
                             <!-- message icon -->
@@ -458,7 +457,7 @@
                             </svg>
                         </div>
                     </a>
-                    <!-- jinja - endif -->
+                    {% endif %}
 
                     <a href="{% url 'bookmarks' %}" class="home-a">
                         <div class="home-btn">
@@ -586,7 +585,7 @@
                                             <div class="flex flex-col">
                                                 <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25"
                                                     href="">
-                                                <!-- url_for('user_settings.settings') -->
+                                                    <!-- url_for('user_settings.settings') -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24"
                                                         class="stroke-current text-gray-600 w-5 h-5 inline">
@@ -654,7 +653,7 @@
                         </div>
 
                     </a>
-                    <!-- jinja - endif  -->
+                    {% endif %}
             </div>
             {% if user.is_authenticated %}
             <div class="flex flex-col items-center">
@@ -663,8 +662,8 @@
                     <button class="flex justify-center items-center focus:outline-none rounded-full hover:bg-gray-700 hover:bg-opacity-25
                     w-16 h-16">
                         <div class="flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
-                            <img src="{{ user.profile.profile_image.url }}"
-                                alt="profile pic" class="w-full h-full object-cover">
+                            <img src="{{ user.profile.profile_image.url }}" alt="profile pic"
+                                class="w-full h-full object-cover">
                         </div>
                     </button>
                 </a>
@@ -757,7 +756,7 @@
                         </div>
                     </a>
 
-                    <!-- jinja - if current_user.new_messages() == 0  -->
+                    {% if not user.profile.new_message %}
                     <a href="{% url 'messages' %}" class="home-a">
                         <div class="home-btn space-x-4">
                             <!-- message icon -->
@@ -797,7 +796,6 @@
                         </div>
                     </a>
                     {% endif %}
-
 
                     <a href="{% url 'bookmarks' %}" class="home-a">
                         <div class="home-btn space-x-4">
@@ -991,7 +989,7 @@
                         <div class="w-56 h-12 m-2 rounded-full bg-blue-500 hover:bg-blue-600 font-semibold text-base
                         flex flex-row justify-center items-center">Chirp</div>
                     </a>
-                    <!-- jinja - endif  -->
+                    {% endif %}
             </div>
             {% if user.is_authenticated %}
             <div class="space-y-1">
@@ -1001,8 +999,8 @@
                     rounded-full hover:bg-gray-700 hover:bg-opacity-25 active:bg-gray-600 cursor-pointer">
                         <div class="flex flex-row space-x-2">
                             <div class="flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
-                                <img src="{{ user.profile.profile_image.url }}"
-                                    alt="profile pic" class="w-full h-full object-cover">
+                                <img src="{{ user.profile.profile_image.url }}" alt="profile pic"
+                                    class="w-full h-full object-cover">
                             </div>
 
                             <div class="flex flex-col">
@@ -1059,7 +1057,8 @@
                     </div>
 
                     <tbody>
-                        <div class="mt-14 pb-14 overflow-y-scroll h-screen">{% block content %}{% endblock content %}</div>
+                        <div class="mt-14 pb-14 overflow-y-scroll h-screen">{% block content %}{% endblock content %}
+                        </div>
                     </tbody>
 
             </table>
@@ -1166,8 +1165,8 @@
                             class="py-2 px-4 flex justify-between hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer">
                             <div class="flex space-x-4">
                                 <a href="#" class="w-12 h-12 rounded-full overflow-hidden">
-                                    <img src="{% static 'img/profile_pics/ocean2.jpg' %}"
-                                        alt="profile pic" class="w-full h-full object-cover">
+                                    <img src="{% static 'img/profile_pics/ocean2.jpg' %}" alt="profile pic"
+                                        class="w-full h-full object-cover">
                                 </a>
                                 <div>
                                     <a href="#" class="font-bold hover:underline">Renee Zhou</a>
@@ -1289,8 +1288,8 @@
                             class="py-2 px-4 flex justify-between hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer">
                             <div class="flex space-x-4">
                                 <a href="#" class="w-12 h-12 rounded-full overflow-hidden">
-                                    <img src="{% static 'img/profile_pics/ocean2.jpg' %}"
-                                        alt="profile pic" class="w-full h-full object-cover">
+                                    <img src="{% static 'img/profile_pics/ocean2.jpg' %}" alt="profile pic"
+                                        class="w-full h-full object-cover">
                                 </a>
                                 <div>
                                     <a href="#" class="font-bold hover:underline">Renee Zhou</a>
@@ -1308,12 +1307,10 @@
                         <div
                             class="py-2 px-4 flex justify-between hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer">
                             <div class="flex space-x-4">
-                                <a href="{#{% url 'profile' %}#}"
-                                    class="w-12 h-12 rounded-full overflow-hidden">
+                                <a href="{#{% url 'profile' %}#}" class="w-12 h-12 rounded-full overflow-hidden">
                                     <!-- url_for('user.profile', handle = person.handle) -->
-                                    <img src=""
-                                        alt="profile pic" class="w-full h-full object-cover">
-                                        <!-- url_for('static', filename = 'img/profile_pics/' + person.profile_image) -->
+                                    <img src="" alt="profile pic" class="w-full h-full object-cover">
+                                    <!-- url_for('static', filename = 'img/profile_pics/' + person.profile_image) -->
                                 </a>
                                 <div>
                                     <a href="{#{% url 'profile' %}#}">

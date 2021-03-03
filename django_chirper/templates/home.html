@@ -437,8 +437,7 @@
                                                 <div>Pin to your profile</div>
                                             </div>
                                             <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25"
-                                                href="">
-                                                <!-- url_for('post.status_analytics', handle = current_user.handle, post_id = post.id) -->
+                                                href="{% url 'status_analytics' handle=user.profile.handle pk=post.id %}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                     class="fill-current text-gray-600 w-5 h-5 inline">
                                                     <path
