@@ -31,7 +31,7 @@ class Profile(models.Model):
     following = models.ManyToManyField(
         'self', 
         symmetrical = False,
-        through = 'Follower',
+        through = 'Following',
         # through_fields = ('profile', 'profile')     # not needed to itself w/ 2 ForeignKey
     )
 
@@ -64,9 +64,9 @@ class Profile(models.Model):
         return f'{self.user.username}\'s Profile' 
 
 
-class Follower(models.Model):
-    follower = models.ForeignKey(Profile, on_delete = models.CASCADE, related_name = 'followed_by')
-    following = models.ForeignKey(Profile, on_delete = models.CASCADE, related_name = 'is_following')
+class Following(models.Model):
+    follower = models.ForeignKey(Profile, on_delete = models.CASCADE, related_name = 'is_following')
+    following = models.ForeignKey(Profile, on_delete = models.CASCADE, related_name = 'followed_by')
     
     class Meta:
         constraints = [
