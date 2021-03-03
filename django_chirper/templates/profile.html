@@ -130,7 +130,8 @@
             <div class="w-12 h-12">
                 <div class="w-12 h-12 rounded-full overflow-hidden">
                     <a href="{% url 'profile' handle=user_profile.handle %}">
-                        <img src="{{ user_profile.profile_image.url }}" alt="profile pic" class="w-full h-full object-cover">
+                        <img src="{{ user_profile.profile_image.url }}" alt="profile pic"
+                            class="w-full h-full object-cover">
                     </a>
                 </div>
             </div>
@@ -150,7 +151,8 @@
                         </a>
                         <div class="text-gray-600 font-bold">·</div>
                         <!-- link to that specific chirp -->
-                        <a href="{% url 'status' handle=post.author.handle pk=post.id %}" class="text-gray-600 hover:underline">
+                        <a href="{% url 'status' handle=post.author.handle pk=post.id %}"
+                            class="text-gray-600 hover:underline">
                             <time class="">{{ post.show_time }}</time>
                             <!-- if less than a hour: do it backwards: e.g. 30min -->
                             <!-- if not the same year:  %d %b %Y-->
@@ -239,7 +241,9 @@
                                                                         <button
                                                                             class="modal-delete-close block w-32 font-bold focus:outline-none bg-gray-600 rounded-full h-10 bg-opacity-25 hover:bg-opacity-50 focus:bg-gray-500">Cancel</button>
                                                                         <div>
-                                                                            <form action="{% url 'delete_chirp' handle=user.profile.handle pk=post.id %}" method="POST">
+                                                                            <form
+                                                                                action="{% url 'delete_chirp' handle=user.profile.handle pk=post.id %}"
+                                                                                method="POST">
                                                                                 {% csrf_token %}
                                                                                 <input type="submit" value="Delete"
                                                                                     class="block w-32 font-bold focus:outline-none bg-red-600 rounded-full h-10 hover:bg-opacity-75 focus:bg-red-700
@@ -284,8 +288,7 @@
                                         <div class="flex flex-col text-tiny bg-gray-900
                                         absolute right-0 top-0 w-full rounded-md shadow-msg xs:w-60 sm:w-60 z-50">
                                             <!-- url_for('user.unfollow', handle = post.author.handle) -->
-                                            <form action=""
-                                                method="POST">
+                                            <form action="" method="POST">
                                                 <button class="focus:outline-none">
                                                     <div
                                                         class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
@@ -411,8 +414,8 @@
                     <!-- like button -->
                     {% if user.is_authenticated and user.profile in post.liker.all %}
                     <div>
-                        <!-- url_for('post.unlike_chirp', handle = current_user.handle, post_id = post.id)  -->
-                        <form action="" method="POST">
+                        <form action="{% url 'unlike_chirp' handle=post.author.handle pk=post.id %}" method="POST">
+                            {% csrf_token %}
                             <button class="focus:outline-none flex flex-row items-center space-x-1">
                                 <div class="rounded-full p-1 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -427,9 +430,8 @@
                     </div>
                     {% else %}
                     <div>
-                        <!-- url_for('post.like_chirp', handle = current_user.handle, post_id = post.id) -->
-                        <form action=""
-                            method="POST">
+                        <form action="{% url 'like_chirp' handle=post.author.handle pk=post.id %}" method="POST">
+                            {% csrf_token %}
                             <button class="focus:outline-none flex flex-row items-center space-x-1">
                                 <div class="rounded-full p-1 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

@@ -1,5 +1,7 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from user.models import Profile
@@ -52,3 +54,19 @@ class StatusDeleteView(LoginRequiredMixin, DeleteView):
     # if set success_url with reverse()
     # the resolver wouldn't have all info to reverse yet
     # must use reverse_lazy()
+
+
+@login_required
+@require_POST
+def like_chirp(request, handle, pk):
+    post = Post.objects.get(pk = pk)
+    post.liker.add(request.user.profile)
+    return redirect('home')
+
+
+@login_required
+@require_POST
+def unlike_chirp(request, handle, pk):
+    post = Post.objects.get(pk = pk)
+    post.liker.remove(request.user.profile)
+    return redirect('home')
