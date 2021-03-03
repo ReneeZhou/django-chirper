@@ -1,0 +1,185 @@
+{% extends 'layout.html' %}
+
+{% block title %}Messages{% endblock title %}
+{% block header %}Messages{% endblock header %}
+
+{% block svg %}
+<a href="{{ url_for('main.messages_compose') }}">
+    <div class="svg-bg-div">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-6 h-6 stroke-current text-blue-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+    </div>
+</a>
+{% endblock svg %}
+
+
+{% block content %}
+<div class="divide-y divide-gray-700 overflow-y-auto h-screen">
+
+    <!-- search bar -->
+    <div class="flex items-center mx-2 my-3 text-gray-600 bg-gray-800 bg-opacity-75 rounded-full overflow-hidden
+        px-4 py-2 border border-transparent focus-within:border-blue-500 focus-within:text-blue-500">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-5 h-5 stroke-current focus:text-blue-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <form class="ml-4">
+            <label for="search"></label>
+            <input name="search" type="text" placeholder="Search for people and groups"
+                class="bg-gray-800 bg-opacity-0 outline-none w-full text-white text-tiny">
+        </form>
+    </div>
+
+    <!-- list of folloing users/contacts -->
+    <div class="mt-3">
+        {% for user in current_user.following.all() %}
+        <div class="flex flex-row border-b border-gray-700
+                hover:bg-gray-800 hover:bg-opacity-25 pl-1 pt-2 pb-2">
+            <!-- user icon -->
+            <a href="{{ url_for('user.profile', handle = user.handle) }}">
+                <div class="w-12 h-12 mx-3 my-2">
+                    <div class="w-12 h-12 rounded-full overflow-hidden">
+                        <img src="{{ url_for('static', filename = 'img/profile_pics/' + user.profile_image) }}"
+                            alt="profile pic" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </a>
+            <!-- link to user -->
+            <a
+                href="{{ url_for('main.messages_counterpart', counterpart_id = user.id, currentuser_id = current_user.id) }}">
+                <div class="flex flex-col text-gray-600 mr-3 xs:w-128 sm:w-128 lg:w-96">
+                    <div class="flex flex-row space-x-1 mt-2 pr-2 justify-between w-full">
+                        <div class="flex flex-row justify-start space-x-1 truncate">
+                            <div class="text-white text-tiny font-bold">{{ user.name }}</div>
+                            <div class="text-sm truncate">@{{ user.handle }}</div>
+                        </div>
+                        <!-- timestamp -->
+                        <div class="text-tiny whitespace-no-wrap">Nov 13, 2020</div>
+                    </div>
+
+                    <div class="text-tiny whitespace-no-wrap truncate xs:w-108 sm:w-108 lg:w-76">This is the last
+                        message in this chat and it is about how we are spending
+                        our cny this this year. :)
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- end list -->
+
+</div>
+{% endblock content %}
+
+{% block messages %}
+<div class="border-r border-gray-700 h-full flex flex-col -ml-8">
+
+    <!-- header -->
+    <div class="fixed flex flex-row items-center bg-gray-900 border-b border-r border-gray-700 py-2 pr-3 w-152">
+        <!-- back svg -->
+        <div>
+            <div onclick="history.go(-1)">
+                <!-- svg redirects to whatever last page user was on -->
+                <div class="svg-bg-div ml-4 mr-6 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        class="w-6 h-6 stroke-current text-blue-500">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="font-bold text-xl">Conversation info</div>
+    </div>
+    <!-- header ends -->
+
+
+    <!-- counterpart info -->
+    <div class="flex flex-col mt-12 space-y-4 text-tiny">
+        <!-- user icon -->
+        <a href="{{ url_for('user.profile', handle = counterpart.handle) }}">
+            <div class="flex flex-row w-full items-center space-x-2 mt-3 pt-2 pb-3 px-3
+            hover:bg-gray-800 hover:bg-opacity-25">
+                <!-- counterpart icon -->
+                <div class="w-12 h-12 ">
+                    <div class="w-12 h-12 rounded-full overflow-hidden">
+                        <img src="{{ url_for('static', filename = 'img/profile_pics/' + counterpart.profile_image) }}"
+                            alt="profile pic" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <!-- icon end -->
+
+                <!-- counterpart name, handle -->
+                <div class="flex flex-col justify-start">
+                    <div class="text-white text-lg font-bold">{{ counterpart.name }}</div>
+                    <div class="flex flex-row space-x-1 items-center">
+                        <div class="text-gray-600">@{{ counterpart.handle }}</div>
+                        <div class="text-gray-600 bg-gray-800 text-s rounded-md px-1">Follows you</div>
+                    </div>
+                </div>
+                <!-- counterpart name, handle end -->
+            </div>
+        </a>
+
+
+    </div>
+    <!-- counterpartinfo ends -->
+
+    <div class="h-3 bg-gray-800 bg-opacity-50 border-t border-b border-gray-700"></div>
+
+    <div class="divide-y divide-gray-700">
+        <div class="font-bold text-xl h-12 flex items-center p-4">Notifications</div>
+        <!-- snooze user -->
+        <div class="flex flex-row justify-between">
+            <div class="h-12 flex items-center p-4">Snooze notifications from {{ counterpart.name }}</div>
+
+            <!-- toggle component by github @r-freeman -->
+            <div class="flex justify-center items-center pr-3 mt-1" x-data="{toggle: '0'}">
+                <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+
+                <div class="relative rounded-full w-10 h-5 transition duration-200 ease-linear mb-1"
+                    :class="[toggle === '1' ? 'bg-blue-500' : 'bg-gray-600']">
+                    <label for="toggle"
+                        class="absolute left-0 bg-white border-2 w-5 h-5 rounded-full transition transform duration-100 ease-linear cursor-pointer"
+                        :class="[toggle === '1' ? 'translate-x-full' : 'translate-x-0']"></label>
+                    <input type="checkbox" id="toggle" name="toggle"
+                        class="appearance-none w-full h-full active:outline-none focus:outline-none"
+                        @click="toggle === '0' ? toggle = '1' : toggle = '0'" />
+                </div>
+            </div>
+            <!-- toggle comp ends -->
+        </div>
+        <!-- snooze ends -->
+    </div>
+
+    <div class="h-3 bg-gray-800 bg-opacity-50 border-t border-b border-gray-700"></div>
+
+    <!-- action buttons -->
+    <div class="text-tiny">
+        <a href="#">
+            <div class="text-center text-blue-500 py-4 border-b border-gray-700 
+                hover:bg-opacity-25 hover:bg-blue-800 active:bg-blue-700">
+                Block @{{ counterpart.handle }}
+            </div>
+        </a>
+        <a href="#">
+            <div class="text-center text-blue-500 py-4 border-b border-gray-700 
+                hover:bg-opacity-25 hover:bg-blue-800  active:bg-blue-700">
+                Report @{{ counterpart.handle }}
+            </div>
+        </a>
+        <a href="#">
+            <div class="text-center text-red-600 py-4 border-b border-gray-700 
+                hover:bg-opacity-25 hover:bg-red-800  active:bg-red-700">
+                Leave conversation
+            </div>
+        </a>
+    </div>
+    <!-- action buttons end -->
+</div>
+{% endblock messages %}
