@@ -56,6 +56,16 @@ class StatusDeleteView(LoginRequiredMixin, DeleteView):
     # must use reverse_lazy()
 
 
+class StatusAnalyticsView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Post
+    template_name = 'status_analytics.html'
+
+    def test_func(self):
+        post = Post.objects.get(pk = self.kwargs['pk'])
+        if self.request.user.profile == post.author:
+            return True
+
+
 @login_required
 @require_POST
 def like_chirp(request, handle, pk):

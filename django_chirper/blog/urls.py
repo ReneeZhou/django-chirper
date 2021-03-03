@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (
     StatusDetailView, StatusCreateView, StatusUpdateView, StatusDeleteView,
-    like_chirp, unlike_chirp
+    like_chirp, unlike_chirp, 
+    StatusAnalyticsView
 )
 
 
@@ -11,5 +12,6 @@ urlpatterns = [
     path('<str:handle>/status/<int:pk>/delete/', StatusDeleteView.as_view(), name = 'delete_chirp'),
     path('<str:handle>/status/<int:pk>/like_chirp/', like_chirp, name = 'like_chirp'),
     path('<str:handle>/status/<int:pk>/unlike_chirp/', unlike_chirp, name = 'unlike_chirp'),
+    path('<str:handle>/status/<int:pk>/analytics/', StatusAnalyticsView.as_view(), name = 'status_analytics'),
     path('compose/chirp/', StatusCreateView.as_view(), name = 'compose_chirp'),
 ]

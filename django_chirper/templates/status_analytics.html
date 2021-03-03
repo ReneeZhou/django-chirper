@@ -1,0 +1,77 @@
+{% extends 'layout_form.html' %}
+{% block title %}Chirp analytics{% endblock title %}
+
+{% block content %}
+<div class="h-screen sm:bg-gray-900 md:bg-gray-800 md:bg-opacity-100 flex flex-col items-center md:justify-center">
+    <div class="flex flex-col bg-gray-900 md:rounded-2xl pb-32 pt-2 h-160">
+        <!-- add a special encoding type to our form in order for our to pass our image data properly -->
+        <div class="flex flex-col w-148">
+            <!-- header -->
+            <div class="flex flex-row items-center justify-between border-b border-gray-700 pb-2 px-2">
+                <!-- justify left -->
+                <div class="flex flex-row items-center">
+                    <!-- close svg -->
+                    <div onclick="history.go(-1)" class="cursor-pointer">
+                        <div class="svg-bg-div mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="w-6 h-6 stroke-current text-blue-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-xl font-bold tracking-wide">Chirp Analytics</div>
+                </div>
+            </div>
+
+            <!-- analytics content -->
+            <div class="h-144 overflow-y-scroll">
+                <div class="flex flex-col border border-gray-700 rounded-sm mx-3 my-5 p-2">
+                    <div class="flex flex-row space-x-1 items-center">
+                        <div class="font-bold">{{ user.username }}</div>
+                        <div class="text-gray-600 text-sm">@{{ user.profile.handle }}</div>
+                    </div>
+                    <div class="text-tiny">{{ post.content }}</div>
+                </div>
+                
+                <div class="flex flex-col m-3 divide-y divide-gray-700">
+                    <div class="text-xl px-1 py-4 space-y-6">
+                        <div class="flex flex-row justify-between items-center">
+                            <div class="flex flex-col -space-y-1"> 
+                                <div class="font-thin">Impressions</div>
+                                <div class="text-tiny text-gray-600">times people saw this Chirp on Chirper</div>
+                            </div>
+                            <div class="font-hairline">40</div>
+                        </div>
+
+                        <div class="flex flex-row justify-between items-center">
+                            <div class="flex flex-col -space-y-1">
+                                <div class="font-thin">Total engagements</div>
+                                <div class="text-tiny text-gray-600">times people interacted with this Chirp</div>
+                            </div>
+                            <div class="font-hairline">13</div>
+                        </div>
+                    </div>
+
+                    <div class="text-tiny px-1 py-4 space-y-5">
+                        <div class="flex flex-row justify-between items-center">
+                            <div class="flex flex-col -space-y-1">
+                                <div class="font-light">Details expands</div>
+                                <div class="text-tiny text-gray-600">times people viewed the details about this Chirp</div>
+                            </div>
+                            <div>12</div>
+                        </div>
+                        <div class="flex flex-row justify-between items-center">
+                            <div class="flex flex-col -space-y-1">
+                                <div class="font-light">Likes</div>
+                                <div class="text-tiny text-gray-600">times people liked this Chirp</div>
+                            </div>
+                            <div>1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
