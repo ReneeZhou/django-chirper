@@ -1,8 +1,9 @@
 from secrets import randbits, token_urlsafe
 from PIL import Image
 from django.db import models
-from django.db.models.query_utils import Q
+from django.db.models.fields import DateTimeField
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 def gen_key(bits = 60):
@@ -33,6 +34,13 @@ class Profile(models.Model):
         through = 'Follower',
         # through_fields = ('profile', 'profile')     # not needed to itself w/ 2 ForeignKey
     )
+
+    last_checked_message_at = DateTimeField(default = timezone.now)
+
+    @property
+    def new_message(self):
+        if self.received.order_by('-created_at').first().created_at > self.last_checked_message_at:
+            return True
 
     # override save() in the Model class
     def save(self, *args, **kwargs):
