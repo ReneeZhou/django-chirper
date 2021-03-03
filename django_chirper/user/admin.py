@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Profile, Follower
+from .models import Profile, Following
 
-class FollowerInline(admin.TabularInline):
-    model = Follower
+class FollowingInline(admin.TabularInline):
+    model = Following
     fk_name = 'following'
 
 class ProfileAdmin(admin.ModelAdmin):
-    inlines = [FollowerInline]
+    inlines = [FollowingInline]
 
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Follower)
+admin.site.register(Following)
