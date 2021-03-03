@@ -41,11 +41,6 @@ def notifications_mentions(request):
 
 
 @login_required
-def messages(request):
-    return render(request, 'messages.html')
-
-
-@login_required
 def messages_compose(request):
     return render(request, 'messages_compose.html')
 

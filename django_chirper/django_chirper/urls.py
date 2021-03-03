@@ -40,6 +40,7 @@ urlpatterns = [
         name = 'logout'
     ),
     path('', include('main.urls')),
+    path('', include('message.urls')),
     path('', include('blog.urls')),
     path('', include('user.urls')),
     path('<str:handle>/', include('user_profile.urls')),
