@@ -1,0 +1,51 @@
+{% load static %}
+<div class="w-88 bg-gray-800 bg-opacity-50 rounded-xl divide-y divide-gray-700">
+    <div class="text-xl font-bold px-4 py-2">Who to follow</div>
+
+    <div class="py-2 px-4 flex justify-between hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer">
+        <div class="flex space-x-4">
+            <a href="#" class="w-12 h-12 rounded-full overflow-hidden">
+                <img src="{% static 'img/profile_pics/ocean2.jpg' %}" alt="profile pic"
+                    class="w-full h-full object-cover">
+            </a>
+            <div>
+                <a href="#" class="font-bold hover:underline">Renee Zhou</a>
+                <p class="text-gray-600 text-base">@handle</p>
+            </div>
+        </div>
+
+        <button class="self-center rounded-full font-bold text-blue-500 px-4 h-8
+border border-blue-500 focus:outline-none hover:bg-blue-800 hover:bg-opacity-25 active:bg-blue-700">Follow</button>
+    </div>
+
+    <!-- recommended users to follow -->
+    {% for person in follow_recommendation %}
+    <div class="py-2 px-4 flex justify-between hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer">
+        <div class="flex space-x-4">
+            <a href="{#{% url 'profile' %}#}" class="w-12 h-12 rounded-full overflow-hidden">
+                <!-- url_for('user.profile', handle = person.handle) -->
+                <img src="" alt="profile pic" class="w-full h-full object-cover">
+                <!-- url_for('static', filename = 'img/profile_pics/' + person.profile_image) -->
+            </a>
+            <div>
+                <a href="{#{% url 'profile' %}#}">
+                    <!-- url_for('user.profile', handle = person.handle) -->
+                    <p class="font-bold hover:underline">{{ person.name }}</p>
+                    <p class="text-gray-600 text-base">@{{ person.handle }}</p>
+                </a>
+            </div>
+        </div>
+
+        <form action="" method="POST">
+            <!-- url_for('user.follow', handle = person.handle) -->
+            <input type="submit" value="Follow" class="self-center rounded-full font-bold text-blue-500 px-4 h-8 bg-transparent cursor-pointer
+border border-blue-500 focus:outline-none hover:bg-blue-800 hover:bg-opacity-25 active:bg-blue-700">
+        </form>
+    </div>
+    {% endfor %}
+    <!-- end recommendations -->
+
+    <div class="py-3 px-4 text-sm text-blue-500 hover:bg-gray-800 hover:bg-opacity-50 rounded-b-xl cursor-pointer">
+        <a href="{% url 'connectPeople' %}">Show more</a>
+    </div>
+</div>

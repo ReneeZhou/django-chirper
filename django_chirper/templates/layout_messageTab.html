@@ -1,0 +1,26 @@
+<div class="fixed bottom-0 right-0 px-4 h-12 xs:hidden sm:hidden lg:flex cursor-pointer">
+    <div class="flex flex-row w-100 justify-between items-center rounded-t-2xl py-4 pl-4 pr-2 shadow-msg bg-gray-900">
+        <a href="{% url 'messages' %}">
+            <p class="text-xl font-bold w-72">Messages</p>
+        </a>
+        <div class="flex flex-row">
+            <a href="{% url 'messages_compose' %}">
+                <div
+                    class="rounded-full hover:bg-blue-800 hover:bg-opacity-25 active:bg-blue-700 w-10 h-10 flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        class="w-6 h-6 stroke-current text-blue-500 stroke-2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+            </a>
+            <div
+                class="rounded-full hover:bg-blue-800 hover:bg-opacity-25 active:bg-blue-700 w-10 h-10 flex justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    class="w-6 h-6 stroke-current text-blue-500 stroke-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="fixed inset-x-0 bottom-0 flex flex-row justify-center items-center xs:h-16 sm:h-16 md:h-18 bg-blue-500 z-50">
+    <!-- xs, sm buttons -->
+    <div class="flex-row items-center md:hidden space-x-3">
+        <!-- login -->
+        <a href="{% url 'login' %}">
+            <button class="w-56 border border-white rounded-full h-10 text-white font-semibold
+                     hover:bg-blue-400 hover:bg-opacity-50 focus:outline-none">Log in</button>
+        </a>
+        <!-- signup -->
+        <a href="{% url 'signup' %}">
+            <!-- url_for('auth.signup_1') -->
+            <button class="w-56 bg-white rounded-full h-10 text-blue-500 font-semibold 
+                    hover:bg-gray-300 focus:outline-none">Sign up</button>
+        </a>
+
+    </div>
+
+    <!-- md and above -->
+    <div class="xs:hidden sm:hidden md:flex flex-row justify-between lg:ml-20 xl:ml-48">
+        <div class="flex flex-col justify-self-center -space-y-1 md:w-148 lg:w-196">
+            <p class="text-2xl font-bold">Don’t miss what’s happening</p>
+            <p class="text-tiny">People on Chirper are the first to know.</p>
+        </div>
+
+        <!-- buttons -->
+        <div class="flex flex-row items-center space-x-3 mr-4">
+            <!-- login -->
+            <a href="{% url 'login' %}">
+                <button class="w-20 border border-white rounded-full h-10 text-white font-semibold
+                 hover:bg-blue-400 hover:bg-opacity-50 focus:outline-none">Log in</button>
+            </a>
+            <!-- signup -->
+            <a href="{% url 'signup' %}">
+                <!-- url_for('auth.signup_1') -->
+                <button class="w-20 bg-white rounded-full h-10 text-blue-500 font-semibold 
+                hover:bg-gray-300 focus:outline-none">Sign up</button>
+            </a>
+        </div>
+    </div>
+</div>

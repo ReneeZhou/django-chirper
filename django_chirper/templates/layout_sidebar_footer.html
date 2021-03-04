@@ -1,0 +1,68 @@
+<footer class="text-left w-88 text-gray-600 text-xs tracking-wide leading-loose">
+    <a href="#" class="hover:underline whitespace-no-wrap px-2">Terms of Service</a>
+    <a href="#" class="hover:underline whitespace-no-wrap px-2">Privacy Policy</a>
+    <a href="#" class="hover:underline whitespace-no-wrap px-2">Cookie Policy</a>
+    <a href="#" class="hover:underline whitespace-no-wrap px-2">Ads info</a>
+
+    <!--  more button dropdown -->
+    <div class="inline-flex flex-row items-center space-x-1 px-2 z-0">
+        <div x-data="{ open: false }" class="flex flex-col">
+            <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow 
+                        sm:pb-0 sm:flex sm:justify-end sm:flex-row
+                        xs:pb-0 xs:flex xs:justify-end xs:flex-row">
+                <div @click.away="open = false" class="relative" x-data="{ open: false }">
+                    <button @click="open = !open" class="flex flex-row items-center z-10 focus:outline-none p-1 hover:underline whitespace-no-wrap
+                    rounded-full">More
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="w-3 h-3 stroke-current ">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                        </svg>
+                    </button>
+                    <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="transform opacity-0 scale-95"
+                        x-transition:enter-end="transform opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="transform opacity-100 scale-100"
+                        x-transition:leave-end="transform opacity-0 scale-95" class="absolute left-0 top-0 w-full rounded-md shadow-msg xs:w-40 sm:w-40 z-50
+                                text-white">
+                        <div class="flex flex-col text-sm bg-gray-900 rounded-md shadow">
+                            <div
+                                class="flex flex-row items-center space-x-3 py-3 pl-3 pr-1 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                                <div>About</div>
+                            </div>
+                            <div
+                                class="flex flex-row items-center space-x-3 py-3 pl-3 pr-1 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                                <div>Status</div>
+                            </div>
+                            <div
+                                class="flex flex-row items-center space-x-3 py-3 pl-3 pr-1 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                                <div>Chirper for Business</div>
+                            </div>
+                            <div
+                                class="flex flex-row items-center space-x-3 py-3 pl-3 pr-1 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                                <div>Develpers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- dropdown ends -->
+
+
+    <p class="inline whitespace-no-wrap px-2">© 2020 Chirper, Inc</p>
+
+    <!-- credit for bird icon -->
+    <div class="text-xxs px-2 text-gray-800">Bird icon made by
+        <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from
+        <a href="https://www.flaticon.com/" title="Flaticon">Flaticon</a>
+    </div>
+    <!-- credit for msg notification icon -->
+    <div class="text-xxs px-2 text-gray-800">Email@ icon made by
+        <a href="https://www.flaticon.com/authors/those-icons" title="Freepik">Those Icons</a> from
+        <a href="https://www.flaticon.com/" title="Flaticon">Flaticon</a>
+    </div>
+
+</footer>
