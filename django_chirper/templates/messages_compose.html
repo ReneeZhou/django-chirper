@@ -44,27 +44,25 @@ px-4 py-2 border border-transparent focus-within:text-blue-500">
 
                     <!-- list of folloing users/contacts -->
                     <div class="mt-10">
-                        {# {% for user in current_user.following.all() %} #}
-                        <!-- url_for('main.messages_counterpart', counterpart_id = user.id, currentuser_id = current_user.id) -->
-                        <a href="">
+                        {% for following_profile in following_profiles %}
+                        <a href="{% url 'messages_counterpart' counterpart_id=following_profile.id currentuser_id=user.profile.id %}">
                             <div class="flex flex-row border-b border-gray-700 
                             hover:bg-gray-800 hover:bg-opacity-25">
                                 <!-- user icon -->
                                 <div class="w-12 h-12 ml-4 mr-3 my-3">
                                     <div class="w-12 h-12 rounded-full overflow-hidden">
-                                        <!-- url_for('static', filename = 'img/profile_pics/' + user.profile_image) -->
-                                        <img src=""
+                                        <img src="{{ following_profile.profile_image.url }}"
                                             alt="profile pic" class="w-full h-full object-cover">
                                     </div>
                                 </div>
                                 <!-- link to user page -->
                                 <div class="flex flex-col justify-center -space-y-1">
-                                    <div class="text-tiny font-bold">{{ user.name }}</div>
-                                    <div class="text-gray-600 text-tiny">@{{ user.handle }}</div>
+                                    <div class="text-tiny font-bold">{{ following_profile.user.username }}</div>
+                                    <div class="text-gray-600 text-tiny">@{{ following_profile.handle }}</div>
                                 </div>
                             </div>
                         </a>
-                        {# {% endfor %} #}
+                        {% endfor %}
                     </div>
                     <!-- end list -->
                 </div>

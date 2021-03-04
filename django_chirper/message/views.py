@@ -53,3 +53,12 @@ def messages_counterpart_info(request, counterpart_id, currentuser_id):
         }
 
     return render(request, 'messages_counterpart_info.html', context)
+
+
+@login_required
+def messages_compose(request):
+    following_profiles = request.user.profile.following.all()
+    context = {
+        'following_profiles': following_profiles
+    }
+    return render(request, 'messages_compose.html', context)

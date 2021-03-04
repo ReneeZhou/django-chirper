@@ -13,5 +13,6 @@ urlpatterns = [
         'messages/<int:counterpart_id>-<int:currentuser_id>/info/', 
         views.messages_counterpart_info, 
         name = 'messages_counterpart_info'
-    )
+    ),
+    path('messages/compose/', views.messages_compose, name = 'messages_compose')
 ]
