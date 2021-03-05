@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from user.models import Profile
 from message.models import Message
+from message.forms import MessageForm
 
 
 class MessageView(LoginRequiredMixin, ListView):
@@ -30,7 +31,8 @@ def messages_counterpart(request, counterpart_id, currentuser_id):
         return redirect('messages')
     else: 
         following_profiles = request.user.profile.following.all()
-        
+        form = MessageForm(request.POST or None)
+
         msg_f = Message.objects.filter(sender_id = counterpart_id, recipient_id = currentuser_id)
         msg_t = Message.objects.filter(sender_id = currentuser_id, recipient_id = counterpart_id)
         message_history = (msg_t | msg_f).order_by('created_at') 
@@ -38,8 +40,15 @@ def messages_counterpart(request, counterpart_id, currentuser_id):
         context = {
             'counterpart': counterpart,
             'following_profiles': following_profiles,
-            'message_history': message_history
+            'message_history': message_history,
+            'form': form
         }
+
+        if form.is_valid():
+            form.instance.sender_id = currentuser_id
+            form.instance.recipient_id = counterpart_id
+            form.save()
+            return redirect('messages_counterpart', counterpart_id = counterpart.id, currentuser_id = request.user.profile.id)
 
     return render(request, 'messages_counterpart.html', context)
 
