@@ -1,9 +1,10 @@
 from django.urls import path
 from . import views
+from .views import MessagesView
 
 
 urlpatterns = [
-    path('messages/', views.messages, name = 'messages'),
+    path('messages/', MessagesView.as_view(), name = 'messages'),
     path(
         'messages/<int:counterpart_id>-<int:currentuser_id>/', 
         views.messages_counterpart, 
