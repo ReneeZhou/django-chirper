@@ -9,7 +9,7 @@ from user.models import Profile
 from message.models import Message
 
 
-class MessagesView(LoginRequiredMixin, ListView):
+class MessageView(LoginRequiredMixin, ListView):
     model = Message
     template_name = 'messages.html'
 
@@ -63,10 +63,11 @@ def messages_counterpart_info(request, counterpart_id, currentuser_id):
     return render(request, 'messages_counterpart_info.html', context)
 
 
-@login_required
-def messages_compose(request):
-    following_profiles = request.user.profile.following.all()
-    context = {
-        'following_profiles': following_profiles
-    }
-    return render(request, 'messages_compose.html', context)
+class MessageComposeView(LoginRequiredMixin, ListView):
+    model = Profile
+    template_name = 'messages_compose.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['following_profiles'] = self.request.user.profile.following.all()
+        return context

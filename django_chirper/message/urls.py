@@ -1,10 +1,10 @@
 from django.urls import path
 from . import views
-from .views import MessagesView
+from .views import MessageView, MessageComposeView
 
 
 urlpatterns = [
-    path('messages/', MessagesView.as_view(), name = 'messages'),
+    path('messages/', MessageView.as_view(), name = 'messages'),
     path(
         'messages/<int:counterpart_id>-<int:currentuser_id>/', 
         views.messages_counterpart, 
@@ -15,5 +15,5 @@ urlpatterns = [
         views.messages_counterpart_info, 
         name = 'messages_counterpart_info'
     ),
-    path('messages/compose/', views.messages_compose, name = 'messages_compose')
+    path('messages/compose/', MessageComposeView.as_view(), name = 'messages_compose')
 ]
