@@ -3,14 +3,11 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
-
-
 from user.models import Profile
 from message.models import Message
 
 
 class MessageView(LoginRequiredMixin, ListView):
-    model = Message
     template_name = 'messages.html'
 
     # update timestamp everytime user check msg page, need to cascade down to messages/.../
@@ -47,24 +44,21 @@ def messages_counterpart(request, counterpart_id, currentuser_id):
     return render(request, 'messages_counterpart.html', context)
 
 
-@login_required
-def messages_counterpart_info(request, counterpart_id, currentuser_id):
-    counterpart = Profile.objects.get(id = counterpart_id)
+class MessageCounterpartInfoView(LoginRequiredMixin, ListView):
+    template_name = 'messages_counterpart_info.html'
+    
+    def get_queryset(self):
+        self.counterpart_id = self.kwargs['counterpart_id']
+        return 
 
-    if counterpart is None: 
-        return redirect('messages')
-    else: 
-        following_profiles = request.user.profile.following.all()
-        context = {
-            'counterpart': counterpart,
-            'following_profiles': following_profiles
-        }
-
-    return render(request, 'messages_counterpart_info.html', context)
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['following_profiles'] = self.request.user.profile.following.all()
+        context['counterpart'] = Profile.objects.get(id = self.counterpart_id)
+        return context
+        
 
 class MessageComposeView(LoginRequiredMixin, ListView):
-    model = Profile
     template_name = 'messages_compose.html'
 
     def get_context_data(self, **kwargs):
