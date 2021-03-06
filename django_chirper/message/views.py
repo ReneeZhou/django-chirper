@@ -71,9 +71,10 @@ class MessageComposeView(LoginRequiredMixin, ListView):
     template_name = 'messages_compose.html'
 
     def get_queryset(self):
-        return self.request.user.profile.following.all()
+        self.following_profiles = self.request.user.profile.following.all()
+        return self.following_profiles
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['following_profiles'] = self.request.user.profile.following.all()
+        context['following_profiles'] = self.following_profiles
         return context
