@@ -39,7 +39,9 @@ class Profile(models.Model):
 
     @property
     def new_message(self):
-        if self.received.order_by('-created_at').first().created_at > self.last_checked_message_at:
+        if len(self.received.all()) == 0:
+            return False
+        elif self.received.order_by('-created_at').first().created_at > self.last_checked_message_at:
             return True
 
     # override save() in the Model class
