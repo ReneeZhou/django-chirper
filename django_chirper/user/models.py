@@ -59,11 +59,11 @@ class Profile(models.Model):
             b_img.thumbnail(output_size.get('background'))
             b_img.save(self.background_image.path)
 
-    def __str__(self):
-        return f'{self.user.username}\'s Profile'
-
     def __repr__(self):
-        return f'{self.user.username}\'s Profile' 
+        return f'{self.user.username.title()}'
+
+    def __str__(self):
+        return f'{self.user.username.title()}'
 
 
 class Following(models.Model):
@@ -76,4 +76,15 @@ class Following(models.Model):
         ]
 
     def __repr__(self):
-        return f'{self.follower} is following {self.following}.'
+        return f'''
+        {self.follower.user.username.title()} 
+        | 
+        {self.following.user.username.title()}
+        '''
+
+    def __str__(self):
+        return f'''
+        {self.follower.user.username.title()} 
+        | 
+        {self.following.user.username.title()}
+        '''

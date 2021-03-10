@@ -19,7 +19,10 @@ class Post(models.Model):
     liker = models.ManyToManyField(Profile, related_name = 'liked_posts')
 
     def __repr__(self):
-        return f'{self.content} by {self.author};'
+        return f'{self.author.user.username.title()} | {self.content}'
+
+    def __str__(self):
+        return f'{self.author.user.username.title()} | {self.content}'
 
     def get_absolute_url(self):
         return reverse('status', kwargs = {'handle': self.author.handle, 'pk': self.id})

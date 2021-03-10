@@ -10,4 +10,13 @@ class Message(models.Model):
     created_at = models.DateTimeField(default = timezone.now)
 
     def __repr__(self):
-        return f'{self.sender} sent "{self.body}" to {self.recipient}.'
+        return f'''
+        {self.sender.user.username.title()} | {self.recipient.user.username.title()}: 
+        {self.body}
+        '''
+
+    def __str__(self):
+        return f'''
+        {self.sender.user.username.title()} | {self.recipient.user.username.title()}: 
+        {self.body}
+        '''
