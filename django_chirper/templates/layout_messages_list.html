@@ -17,26 +17,26 @@
 
     <!-- list of folloing users/contacts -->
     <div class="mt-3">
-        {% for following_profile in following_profiles %}
+        {% for counterpart in history_counterparts %}
         <div class="flex flex-row border-b border-gray-700
                 hover:bg-gray-800 hover:bg-opacity-25 pl-1 pt-2 pb-2">
             <!-- user icon -->
-            <a href="{% url 'profile' handle=following_profile.handle %}">
+            <a href="{% url 'profile' handle=counterpart.handle %}">
                 <div class="w-12 h-12 mx-3 my-2">
                     <div class="w-12 h-12 rounded-full overflow-hidden">
-                        <img src="{{ following_profile.profile_image.url }}"
+                        <img src="{{ counterpart.profile_image.url }}"
                             alt="profile pic" class="w-full h-full object-cover">
                     </div>
                 </div>
             </a>
             <!-- link to user -->
             <a
-                href="{% url 'messages_counterpart' counterpart_id=following_profile.id currentuser_id=user.profile.id %}">
+                href="{% url 'messages_counterpart' counterpart_id=counterpart.id currentuser_id=user.profile.id %}">
                 <div class="flex flex-col text-gray-600 mr-3 xs:w-128 sm:w-128 lg:w-96">
                     <div class="flex flex-row space-x-1 mt-2 pr-2 justify-between w-full">
                         <div class="flex flex-row justify-start space-x-1 truncate">
-                            <div class="text-white text-tiny font-bold">{{ following_profile.user.username }}</div>
-                            <div class="text-sm truncate">@{{ following_profile.handle }}</div>
+                            <div class="text-white text-tiny font-bold">{{ counterpart.user.username }}</div>
+                            <div class="text-sm truncate">@{{ counterpart.handle }}</div>
                         </div>
                         <!-- timestamp -->
                         <div class="text-tiny whitespace-no-wrap">Nov 13, 2020</div>

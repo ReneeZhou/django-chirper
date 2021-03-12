@@ -1,7 +1,7 @@
 from django.db.models.expressions import OuterRef
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from django.db.models import Q, When, Case
+from django.db.models import F, Q, When, Case
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
@@ -13,6 +13,28 @@ from message.forms import MessageForm
 class BaseMessageView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        t = Message.objects.filter(
+            sender_id = self.request.user.profile.id
+            ).annotate(
+                counterpart_id = F('recipient_id')
+            ).values(
+                'counterpart_id'
+            )
+        t = set(q.get('counterpart_id') for q in t)
+        
+        f = Message.objects.filter(
+            recipient_id = self.request.user.profile.id
+            ).annotate(
+                counterpart_id = F('sender_id')
+            ).values(
+                'counterpart_id'
+            )
+        f = set(q.get('counterpart_id') for q in f)
+
+        history_counterparts = Profile.objects.filter(id__in = t.union(f))
+
+        context['history_counterparts'] = history_counterparts
         context['following_profiles'] = self.request.user.profile.following.all()
         return context
 
