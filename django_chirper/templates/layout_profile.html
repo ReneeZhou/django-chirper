@@ -14,7 +14,7 @@
 {% endblock presvg %}
 
 {% block small %}
-<div class="text-gray-600 text-s font-normal">{{ posts_count }} Chirps</div>
+<div class="text-gray-600 text-s font-normal">{{ user_profile.post_set.count }} Chirps</div>
 {% endblock small %}
 
 
@@ -24,7 +24,7 @@
     <div class="flex flex-col justify-between">
         <!-- user background -->
         <div class="w-148 h-48 bg-gray-800 overflow-hidden">
-            {% if user.profile.background_image != '' %}
+            {% if user_profile.user.profile.background_image != '' %}
             <div style="background-image: url({{ user_profile.background_image.url }})"
                 class="w-full h-full bg-no-repeat bg-center bg-cover"></div>
             {% endif %}
@@ -34,9 +34,9 @@
                 <div class="flex flex-row justify-between items-end">
                     <!-- profile pic -->
                     <div class="w-36 h-36 rounded-full overflow-hidden border-4 border-gray-900">
-                        {% if user.profile.profile_image != '' %}
-                        <img src="{{ user_profile.profile_image.url }}"
-                            alt="profile pic" class="w-full h-full object-cover">
+                        {% if user_profile.user.profile.profile_image != '' %}
+                        <img src="{{ user_profile.profile_image.url }}" alt="profile pic"
+                            class="w-full h-full object-cover">
                         <!-- not necessarily going to be current_user-->
                         {% endif %}
                     </div>
@@ -113,7 +113,8 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                         <!-- body -->
                                         <div class="w-108 flex flex-col">
                                             <div class="flex flex-col justify-center items-center pb-16">
-                                                <p class="font-bold text-2xl text-center">Follow {{ user_profile.user.username}} to see
+                                                <p class="font-bold text-2xl text-center">Follow
+                                                    {{ user_profile.user.username}} to see
                                                     what they share on Chirper.
                                                 </p>
                                                 <p class="text-gray-600 text-tiny">Sing up so you never miss their
@@ -154,14 +155,13 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                         <div class="text-gray-600 text-tiny leading-tight">@{{ user_profile.handle }}</div>
                     </div>
                     <!-- user bio -->
-                    {% if user.profile.bio != '' %}
+                    {% if user_profile.bio != '' %}
                     <div>{{ user_profile.bio }}</div>
                     {% endif %}
 
-
                     <div class="flex flex-row items-center flex-wrap">
                         <!-- user location -->
-                        {% if user.profile.location != '' %}
+                        {% if user_profile.location != '' %}
                         <div class="flex flex-row space-x-1 mr-2">
                             <!-- calendar svg -->
                             <div class="flex items-center">
@@ -177,7 +177,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                         </div>
                         {% endif %}
                         <!-- user website -->
-                        {% if user.profile.website != '' %}
+                        {% if user_profile.website != '' %}
                         <div class="flex flex-row space-x-1 mr-2">
                             <!-- calendar svg -->
                             <div class="flex items-center">
@@ -187,11 +187,12 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                         d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                                 </svg>
                             </div>
-                            <div class="text-gray-600 text-tin truncate ... w-48">{{ user_profile.website }}</div>
+                            <div class="text-blue-500 text-tiny truncate ... w-48 hover:underline"><a
+                                    href="{{ user_profile.website }}">{{ user_profile.website }}</a></div>
                         </div>
                         {% endif %}
                         <!-- user birthday -->
-                        {% if user.birthday != '' %}
+                        {% if user_profile.birthday != '' %}
                         <div class="flex flex-row space-x-1 mr-2">
                             <!-- calendar svg -->
                             <div class="flex items-center">
@@ -202,7 +203,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                 </svg>
                             </div>
                             <div class="text-gray-600 text-tiny whitespace-no-wrap">Born
-                                {#{{ user_birthdate.strftime('%B %d, %Y') }}#}</div>
+                                {{ user_profile.birthdate|date:"F j"}}</div>
                         </div>
                         {% endif %}
                         <!-- user joined date -->
@@ -216,7 +217,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                 </svg>
                             </div>
                             <div class="text-gray-600 text-tiny whitespace-no-wrap">Joined
-                                {#{{ user.created_at.strftime('%B %Y') }}#}</div>
+                                {{ user_profile.user.date_joined|date:"F Y"  }}</div>
                         </div>
                     </div>
 
@@ -225,7 +226,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                         <a href="" class="hover:underline">
                             <div class="flex flex-row items-center">
                                 <span class="text-gray-600">
-                                    <b class="text-white">{#{{ user.following.count() }}#}</b>
+                                    <b class="text-white">{{ user_profile.is_following.count }}</b>
                                     Following
                                 </span>
                             </div>
@@ -234,7 +235,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                         <a href="" class="hover:underline">
                             <div class="flex flex-row items-center">
                                 <span class="text-gray-600">
-                                    <b class="text-white">{#{{ user.follower.count() }}#}</b>
+                                    <b class="text-white">{{ user_profile.followed_by.count }}</b>
                                     Followers
                                 </span>
                             </div>

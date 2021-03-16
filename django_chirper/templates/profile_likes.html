@@ -1,7 +1,7 @@
 {% extends 'layout_profile.html' %}
 
 <!-- overwrite the ones in layout_profile.html -->
-{% block title %}Chirps liked by {{ user_profile.user.username }} (@h{{ user_profile.handle }}){% endblock title %}
+{% block title %}Chirps liked by {{ user_profile.user.username }} (@{{ user_profile.handle }}){% endblock title %}
 {% block small %}
 <div class="text-gray-600 text-s font-normal">{{ posts_count }} Likes</div>
 {% endblock small %}
@@ -387,7 +387,7 @@
 </div>
 {% else %}
 <div class="pt-10 flex flex-col items-center space-y-2">
-    <h1 class="text-white text-xl font-bold">@{{ user.handle }}hasn’t liked any Chirps</h1>
+    <h1 class="text-white text-xl font-bold">@{{ user_profile.handle }} hasn’t liked any Chirps</h1>
     <p class="text-sm font-medium text-gray-600">When they do, those Chirps will show up here.</p>
 </div>
 {% endif %}
