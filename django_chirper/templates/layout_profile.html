@@ -43,23 +43,22 @@
 
                     <!-- edit button -->
                     {% if user.is_authenticated and user.profile.handle == user_profile.handle %}
-                    <!-- url_for('user_settings.settings_profile') -->
-                    <a href="">
+                    <a href="{% url 'settings_profile' %}">
                         <div class="text-blue-500 font-bold px-3 py-2 mb-2 rounded-full border
                             border-blue-500 hover:bg-blue-800 hover:bg-opacity-25">Edit Profile</div>
                     </a>
 
                     {% elif user.is_authenticated and user.profile.handle != user_profile.handle %}
-                    {% if following_status != True %}
-                    <!-- url_for('user.follow', handle = user.handle) -->
-                    <form action="" method="POST">
+                    {% if user_profile not in user.profile.following.all %}
+                    <form action="{% url 'follow' handle=user_profile.handle %}" method="POST">
+                        {% csrf_token %}
                         <input type="submit" value="Follow"
                             class="bg-gray-900 border border-blue-500 text-blue-500 
                         hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focus:outline-none cursor-pointer">
                     </form>
                     {% else %}
-                    <!-- url_for('user.unfollow', handle = user.handle) -->
-                    <form action="" method="POST">
+                    <form action="{% url 'unfollow' handle=user_profile.handle %}" method="POST">
+                        {% csrf_token %}
                         <input type="submit" value="Following" class="bg-blue-500 text-white font-bold py-2 px-4 mb-2 rounded-full
                         hover:bg-red-700 focus:bg-opacity-75 focus:outline-none cursor-pointer">
                     </form>
@@ -114,7 +113,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                                         <div class="w-108 flex flex-col">
                                             <div class="flex flex-col justify-center items-center pb-16">
                                                 <p class="font-bold text-2xl text-center">Follow
-                                                    {{ user_profile.user.username}} to see
+                                                    {{ user_profile.user.username }} to see
                                                     what they share on Chirper.
                                                 </p>
                                                 <p class="text-gray-600 text-tiny">Sing up so you never miss their

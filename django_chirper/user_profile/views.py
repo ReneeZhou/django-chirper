@@ -1,4 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 from user.models import Profile
 from blog.models import Post
@@ -28,3 +30,23 @@ class ProfileMediaView(ProfilePostView):
 
 class ProfileLikesView(ProfilePostView):
     template_name = 'profile_likes.html'
+
+
+@login_required
+@require_POST
+def follow(request, handle):
+    counterpart = Profile.objects.get(handle = handle)
+    currentuser = Profile.objects.get(handle = request.user.profile.handle)
+    if counterpart not in currentuser.following.all():
+        currentuser.following.add(counterpart)
+        return redirect('profile', handle = counterpart.handle)
+
+
+@login_required
+@require_POST
+def unfollow(request, handle):
+    counterpart = Profile.objects.get(handle = handle)
+    currentuser = Profile.objects.get(handle = request.user.profile.handle)
+    if counterpart in currentuser.following.all():
+        currentuser.following.remove(counterpart)
+        return redirect('profile', handle = counterpart.handle)
