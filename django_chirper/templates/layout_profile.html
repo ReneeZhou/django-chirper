@@ -161,7 +161,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
 
                     <div class="flex flex-row items-center flex-wrap">
                         <!-- user location -->
-                        {% if user_profile.location != '' %}
+                        {% if user_profile.location is not None and user_profile.location != '' %}
                         <div class="flex flex-row space-x-1 mr-2">
                             <!-- calendar svg -->
                             <div class="flex items-center">
@@ -177,7 +177,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                         </div>
                         {% endif %}
                         <!-- user website -->
-                        {% if user_profile.website != '' %}
+                        {% if user_profile.website is not None and user_profile.website != '' %}
                         <div class="flex flex-row space-x-1 mr-2">
                             <!-- calendar svg -->
                             <div class="flex items-center">
@@ -192,7 +192,7 @@ hover:bg-gray-700 hover:bg-opacity-25 font-bold py-2 px-4 mb-2 rounded-full focu
                         </div>
                         {% endif %}
                         <!-- user birthday -->
-                        {% if user_profile.birthday != '' %}
+                        {% if user_profile.birthdate is not None and user_profile.birthdate != '' %}
                         <div class="flex flex-row space-x-1 mr-2">
                             <!-- calendar svg -->
                             <div class="flex items-center">
