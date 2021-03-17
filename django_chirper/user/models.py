@@ -24,9 +24,9 @@ class Profile(models.Model):
 
     profile_image = models.ImageField(default = 'default_profile.png', upload_to = 'profile_pics')
     background_image = models.ImageField(default = 'default_background.png', upload_to = 'background_pics')
-    bio = models.TextField(max_length = 160, default = '', blank = True)
-    location = models.TextField(max_length = 30, default = '', blank = True)
-    website = models.URLField(max_length = 100, default = '', blank = True)
+    bio = models.TextField(max_length = 160, null = True, blank = True)
+    location = models.TextField(max_length = 30, null = True, blank = True)
+    website = models.URLField(max_length = 100, null = True, blank = True)
 
     following = models.ManyToManyField(
         'self', 
