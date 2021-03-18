@@ -13,12 +13,15 @@ class StatusDetailView(DetailView):
     template_name = 'status.html'
 
     def get_queryset(self):
+        # capture dynamic parameters and save them in self
         self.user_profile = get_object_or_404(Profile, handle = self.kwargs['handle'])
         self.post = get_object_or_404(Post, id = self.kwargs['pk'])
+        # return the queryset we want
         return Post.objects.filter(id = self.post.id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # making the dynamic parameters we saved earlier available to templates
         context['post'] = self.post
         context['user_profile'] = self.user_profile
         return context

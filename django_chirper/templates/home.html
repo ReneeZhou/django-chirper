@@ -492,8 +492,8 @@
                                                 </svg>
                                                 <div>Not interested in this Chirp</div>
                                             </div>
-                                            <form action="" method="POST">
-                                                <!-- url_for('user.unfollow', handle = post.author.handle) -->
+                                            <form action="{% url 'unfollow' handle=post.author.handle %}" method="POST">
+                                                {% csrf_token %}
                                                 <button type="submit" class="focus:outline-none">
                                                     <div
                                                         class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">

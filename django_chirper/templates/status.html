@@ -218,13 +218,13 @@
                                                     <div class="inline align-middle">View Chirp activity</div>
                                                 </a>
                                             </div>
-                                            {% elif current_user.is_authenticated and current_user != post.author %}
+                                            {% elif user.is_authenticated and user.profile != post.author %}
                                             <div class="flex flex-col text-tiny bg-gray-900
                                         absolute right-0 top-0 w-full rounded-md shadow-msg xs:w-60 sm:w-60 z-50">
-                                        <!-- url_for('user.unfollow', handle = post.author.handle) -->
                                                 <form
-                                                    action=""
+                                                    action="{% url 'unfollow' handle=post.author.handle %}"
                                                     method="POST">
+                                                    {% csrf_token %}
                                                     <button class="focus:outline-none">
                                                         <div
                                                             class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
