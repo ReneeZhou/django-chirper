@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from blog.models import Post
 from .forms import PostForm
 
@@ -8,8 +9,12 @@ from .forms import PostForm
 def home(request):
     if request.user.is_authenticated:
         form = PostForm(request.POST or None)
+        posts = Post.objects.filter(
+            Q(author = request.user.profile) |
+            Q(author__in = request.user.profile.following.all())
+        ).order_by('-created_at')
         context = {
-            'posts': Post.objects.all().order_by('-created_at'),
+            'posts': posts,
             'form': form
         }
         if form.is_valid():
