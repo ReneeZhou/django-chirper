@@ -2,7 +2,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
-from user.models import Profile
+from user.models import Profile, Following
 from blog.models import Post
 
 
@@ -30,6 +30,22 @@ class ProfileMediaView(ProfilePostView):
 
 class ProfileLikesView(ProfilePostView):
     template_name = 'profile_likes.html'
+
+
+class ProfileFollowersView(ProfilePostView):
+    template_name = 'profile_followers.html'
+
+
+class ProfileFollowingView(ProfilePostView):
+    template_name = 'profile_following.html'
+
+
+class ProfileFollowersYouKnowView(ProfilePostView):
+    template_name = 'profile_followersYouKnow.html'
+
+
+class ProfileSuggestedView(ProfilePostView):
+    template_name = 'profile_suggested.html'
 
 
 @login_required
