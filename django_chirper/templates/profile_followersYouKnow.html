@@ -1,16 +1,16 @@
 {% extends 'layout.html' %}
 
-{% block title %}People following {{ user.name }} (@{{ user.handle }}){% endblock title %}
-{% block header %}{{ user.name }}{% endblock header %}
+{% block title %}People following {{ user_profile.user.username }} (@{{ user_profile.handle }}){% endblock title %}
+{% block header %}{{ user_profile.user.username }}{% endblock header %}
 
 
 {% block small %}
-<div class="text-gray-600 text-s font-normal">@{{ user.handle }}</div>
+<div class="text-gray-600 text-s font-normal">@{{ user_profile.handle }}</div>
 {% endblock small %}
 
 
 {% block presvg %}
-<a href="{{ url_for('user.profile', handle = user.handle) }}">
+<a href="{% url 'profile' handle=user_profile.handle %}">
     <!-- svg redirects to whatever last page user was on -->
     <div class="svg-bg-div mr-6 cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -24,36 +24,36 @@
 
 
 {% block tab %}
-{% if user != current_user %}
+{% if user_profile != user.profile %}
 <div class="flex flex-row text-gray-600 font-bold">
-    <a href="{{ url_for('user.profile_followersYouKnow', handle = user.handle) }}" class="w-52 h-12 flex justify-center items-center
+    <a href="{% url 'profile_followersYouKnow' handle=user_profile.handle %}" class="w-52 h-12 flex justify-center items-center
     hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 whitespace-no-wrap text-blue-500 border-b-2 border-blue-500">
         <div class="flex justify-center">Followers you know</div>
     </a>
-    <a href="{{ url_for('user.profile_followers', handle = user.handle) }}" class="w-36 h-12 flex justify-center items-center
+    <a href="{% url 'profile_followers' handle=user_profile.handle %}" class="w-36 h-12 flex justify-center items-center
     hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500">
         <div class="flex justify-center">Followers</div>
     </a>
-    <a href="{{ url_for('user.profile_following', handle = user.handle) }}" class="w-36 h-12 flex justify-center items-center
+    <a href="{% url 'profile_following' handle=user_profile.handle %}" class="w-36 h-12 flex justify-center items-center
      hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500">
         <div class="">Following</div>
     </a>
-    <a href="{{ url_for('user.profile_suggested', handle = user.handle) }}" class="w-36 h-12 flex justify-center items-center
+    <a href="{% url 'profile_suggested' handle=user_profile.handle %}" class="w-36 h-12 flex justify-center items-center
     hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500">
         <div class="flex justify-center">Suggested</div>
     </a>
 </div>
 {% else %}
 <div class="flex flex-row text-gray-600 font-bold">
-    <a href="{{ url_for('user.profile_followers', handle = user.handle) }}" class="w-1/3 h-12 flex justify-center items-center
+    <a href="{% url 'profile_followers' handle=user_profile.handle %}" class="w-1/3 h-12 flex justify-center items-center
     hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500">
         <div class="flex justify-center">Followers</div>
     </a>
-    <a href="{{ url_for('user.profile_following', handle = user.handle) }}" class="w-1/3 h-12 flex justify-center items-center
+    <a href="{% url 'profile_following' handle=user_profile.handle %}" class="w-1/3 h-12 flex justify-center items-center
      hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500">
         <div class="">Following</div>
     </a>
-    <a href="{{ url_for('user.profile_suggested', handle = user.handle) }}" class="w-1/3 h-12 flex justify-center items-center
+    <a href="{% url 'profile_suggested' handle=user_profile.handle %}" class="w-1/3 h-12 flex justify-center items-center
     hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500">
         <div class="flex justify-center">Suggested</div>
     </a>

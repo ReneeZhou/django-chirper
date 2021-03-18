@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
-{% block title %}People following {{ user.name }} (@{{ user_profile.handle }}){% endblock title %}
-{% block header %}{{ user.name }}{% endblock header %}
+{% block title %}People following {{ user_profile.user.username }} (@{{ user_profile.handle }}){% endblock title %}
+{% block header %}{{ user_profile.user.username }}{% endblock header %}
 
 
 {% block small %}
@@ -11,7 +11,6 @@
 
 {% block presvg %}
 <a href="{% url 'profile' handle=user_profile.handle %}">
-    <!-- url_for('user.profile', handle = user.handle) -->
     <!-- svg redirects to whatever last page user was on -->
     <div class="svg-bg-div mr-6 cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -65,5 +64,8 @@
 
 {% block content %}
 <div class="mt-12">
+    {% for follower in user.profile.followed_by.all %}
+    {{ follower }}
+    {% endfor %}
 </div>
 {% endblock content %}
