@@ -15,8 +15,7 @@
     <div class="svg-bg-div mr-6 cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
             class="w-6 h-6 stroke-current text-blue-500">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
     </div>
 </a>
@@ -63,6 +62,45 @@
 
 
 {% block content %}
-<div class="mt-12">
+<div class="mt-14">
+    {% for following in user_profile.is_following.all %}
+    <div class="py-2 px-4 flex justify-between hover:bg-gray-800 hover:bg-opacity-50 cursor-pointer
+    border-b border-gray-700">
+        <div class="flex space-x-4">
+            <a href="{% url 'profile' handle=following.following.handle %}"
+                class="w-12 h-12 rounded-full overflow-hidden">
+                <img src="{{ following.following.profile_image.url }}" alt="profile pic"
+                    class="w-full h-full object-cover">
+            </a>
+            <div>
+                <a href="{% url 'profile' handle=following.following.handle %}"
+                    class="font-bold hover:underline">{{ following.following.user.username }}</a>
+                <div class="flex flex-row space-x-1 items-center">
+                    <p class="text-gray-600 text-sm">@{{ following.following.handle }}</p>
+                    {% if user.profile in following.following.following.all %}
+                    <div class="text-gray-600 bg-gray-800 text-s rounded-md px-1">Follows you</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if user.profile != following.following %}
+        {% if following.following not in user.profile.following.all %}
+        <form method="POST" action="{% url 'follow' handle=following.following.handle %}">
+            {% csrf_token %}
+            <button class="self-center rounded-full font-bold text-blue-500 px-4 h-8 
+        border border-blue-500 focus:outline-none hover:bg-blue-800 hover:bg-opacity-25
+         active:bg-blue-700">Follow</button>
+        </form>
+        {% else %}
+        <form method="POST" action="{% url 'unfollow' handle=following.following.handle %}">
+            {% csrf_token %}
+            <button class="self-center bg-blue-500 text-white font-bold px-4 h-8 mb-2 rounded-full
+            hover:bg-red-700 focus:bg-opacity-75 focus:outline-none cursor-pointer">Following</button>
+        </form>
+        {% endif %}
+        {% endif %}
+    </div>
+    {% endfor %}
 </div>
 {% endblock content %}
