@@ -50,7 +50,9 @@
                     <div class="text-white text-lg font-bold">{{ counterpart.user.username }}</div>
                     <div class="flex flex-row space-x-1 items-center">
                         <div class="text-gray-600">@{{ counterpart.handle }}</div>
+                        {% if user.profile in counterpart.following.all %}
                         <div class="text-gray-600 bg-gray-800 text-s rounded-md px-1">Follows you</div>
+                        {% endif %}
                     </div>
                 </div>
                 <!-- counterpart name, handle end -->
