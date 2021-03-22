@@ -222,7 +222,6 @@
             <div class="flex flex-row justify-between pr-20">
                 <!-- comment -->
                 <a href="{% url 'compose_chirp' %}">
-                    <!-- url_for('post.compose_chirp') -->
                     <div class="rounded-full p-1 hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             class="w-5 h-5 stroke-current stroke-1 text-gray-500 hover:text-blue-500 ">
@@ -234,7 +233,6 @@
 
                 <!-- rechirp -->
                 <a href="{% url 'compose_chirp' %}">
-                    <!-- url_for('post.compose_chirp') -->
                     <div class="rounded-full p-1 hover:bg-green-700 hover:bg-opacity-25 active:bg-green-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             class="w-5 h-5 stroke-current stroke-1 text-gray-500 hover:text-green-500 ">
@@ -575,7 +573,6 @@
                 <div>
                     <p class="text-base">
                         <a href="{% url 'status' handle=post.author.handle pk=post.id %}">{{ post.content }}</a>
-                        <!-- url_for('post.status', handle = post.author.handle, post_id = post.id) -->
                     </p>
                 </div>
 

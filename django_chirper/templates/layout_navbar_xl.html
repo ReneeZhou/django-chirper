@@ -125,8 +125,7 @@
                     <div class="pr-5">Bookmarks</div>
                 </div>
             </a>
-            <a href="" class="home-a">
-                <!-- url_for('user.profile_lists') -->
+            <a href="{% url 'profile_lists' handle=user.profile.handle %}" class="home-a">
                 <div class="home-btn space-x-4">
                     <!-- list icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
@@ -280,7 +279,6 @@
             <!-- setting dropdown ends -->
 
             <a href="{% url 'compose_chirp' %}" class="">
-                <!-- url_for('post.compose_chirp') -->
                 <div class="w-56 h-12 m-2 rounded-full bg-blue-500 hover:bg-blue-600 font-semibold text-base
                 flex flex-row justify-center items-center">Chirp</div>
             </a>
