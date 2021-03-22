@@ -48,6 +48,10 @@ class ProfileSuggestedView(ProfilePostView):
     template_name = 'profile_suggested.html'
 
 
+class ProfileListsView(ProfilePostView):
+    template_name = 'profile_lists.html'
+
+
 @login_required
 @require_POST
 def follow(request, handle):

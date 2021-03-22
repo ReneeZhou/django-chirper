@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block title %}Lists created by @{{ current_user.handle }}{% endblock title %}
+{% block header %}Lists{% endblock header %}
+
+{% block presvg %}
+<div onclick="history.go(-1)">
+    <div class="svg-bg-div mr-4">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-6 h-6 stroke-current text-blue-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </div>
+</div>
+{% endblock presvg %}
+
+{% block small %}
+<div class="text-gray-600 text-s font-normal">@{{ user_profile.handle }}</div>
+{% endblock small %}
+
+{% block svg %}
+<div class="flex flex-row">
+    {% if user_profile == user.profile %}
+    <a href="{% url 'lists_create' %}">
+        <div class="svg-bg-div">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                class="w-6 h-6 stroke-current text-blue-500">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+            </svg>
+        </div>
+    </a>
+    {% endif %}
+    <div class="svg-bg-div">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-6 h-6 stroke-current text-blue-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+        </svg>
+    </div>
+</div>
+
+{% endblock svg %}
+
+{% block content %}
+<div class="mt-2 divide-y-8 divide-gray-800">
+    {% if user_profile == user.profile %}
+    <div>
+        <h1 class="text-xl font-bold border-b border-gray-700 px-4 py-2">Pinned</h1>
+        <div class="text-gray-600 text-tiny text-center px-5 py-8">Nothing to see here yet — pin up to five of your
+            favorite Lists to access them quickly.</div>
+    </div>
+    <div>
+        <h1 class="text-xl font-bold border-b border-gray-700 p-4 py-2">Your Lists</h1>
+        <div class="flex flex-col items-center mt-8 space-y-4">
+            <div class="flex flex-col items-center space-y-1">
+                <h2 class="text-xl font-bold">You haven't created any Lists yet</h2>
+                <div class="text-gray-600">When you do, it'll show up here.</div>
+            </div>
+            <a href="{% url 'lists_create' %}" class="rounded-full bg-blue-500 hover:bg-blue-600 px-4 py-2">
+                <div class="font-bold">Create a List</div>
+            </a>
+        </div>
+    </div>
+    {% else %}
+    <div>
+        <div class="flex flex-col items-center mt-8 space-y-4">
+            <div class="flex flex-col items-center space-y-1">
+                <h2 class="text-xl font-bold">@{{ user_profile }} hasn't created any Lists yet</h2>
+                <div class="text-gray-600">When they do, it'll show up here.</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

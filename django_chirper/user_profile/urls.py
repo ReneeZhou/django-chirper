@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 from .views import (ProfilePostView, ProfileRepliesView, ProfileMediaView, ProfileLikesView,
-    ProfileFollowersView, ProfileFollowingView, ProfileFollowersYouKnowView, ProfileSuggestedView)
+    ProfileFollowersView, ProfileFollowingView, ProfileFollowersYouKnowView, ProfileSuggestedView,
+    ProfileListsView)
 
 
 urlpatterns = [
@@ -13,6 +14,7 @@ urlpatterns = [
     path('following/', ProfileFollowingView.as_view(), name = 'profile_following'),
     path('followers_you_know/', ProfileFollowersYouKnowView.as_view(), name = 'profile_followersYouKnow'),
     path('suggested/', ProfileSuggestedView.as_view(), name = 'profile_suggested'),
+    path('lists/', ProfileListsView.as_view(), name = 'profile_lists'),
     path('follow/', views.follow, name = 'follow'),
     path('unfollow/', views.unfollow, name = 'unfollow')
 ]
