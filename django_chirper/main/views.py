@@ -13,12 +13,12 @@ def home(request):
             Q(author = request.user.profile) |
             Q(author__in = request.user.profile.following.all())
         ).order_by('-created_at')
+
         follow_recommendation = Profile.objects.exclude(
-            handle = request.user.profile.handle
-        ).difference(
-            request.user.profile.following.all()
-        )
-        # want to order the result randomly and only select the first 2-3
+            Q(handle__in = request.user.profile.following.values('handle')) |
+            Q(handle = request.user.profile.handle)
+        ).order_by('?')[:3]
+
         context = {
             'posts': posts,
             'form': form.add_error,
