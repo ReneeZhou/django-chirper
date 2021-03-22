@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from blog.models import Post
+from blog.models import Post, Profile
 from .forms import PostForm
 
 
@@ -13,9 +13,16 @@ def home(request):
             Q(author = request.user.profile) |
             Q(author__in = request.user.profile.following.all())
         ).order_by('-created_at')
+        follow_recommendation = Profile.objects.exclude(
+            handle = request.user.profile.handle
+        ).difference(
+            request.user.profile.following.all()
+        )
+        # want to order the result randomly and only select the first 2-3
         context = {
             'posts': posts,
-            'form': form
+            'form': form.add_error,
+            'follow_recommendation': follow_recommendation
         }
         if form.is_valid():
             form.instance.author = request.user.profile
