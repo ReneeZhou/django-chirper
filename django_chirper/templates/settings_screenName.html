@@ -1,0 +1,41 @@
+{% extends 'layout_settings.html' %}
+{% block title %}Change username{% endblock title %}
+{% block header %}Change username{% endblock header %}
+
+{% block presvg %}
+<div onclick="history.go(-1)">
+    <!-- svg redirects to whatever last page user was on -->
+    <div class="svg-bg-div mr-4">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-6 h-6 stroke-current text-blue-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </div>
+</div>
+{% endblock presvg %}
+
+{% block content %}
+<div class="flex flex-col mx-4 mt-3 space-y-4 text-tiny">
+    <form action="" method="POST">
+        <div>
+            {{ form.hidden_tag() }}
+            <div
+                class="flex flex-col  bg-gray-800 border-b-2 border-gray-600 bg-opacity-25 w-140 h-16 text-gray-600 focus-within:text-blue-500 focus-within:border-blue-500">
+                {{ form.screen_name.label(class="my-1 ml-2") }}
+                {{ form.screen_name(class="ml-2 bg-gray-800 bg-opacity-0 text-lg text-white outline-none") }}
+            </div>
+            {% if form.screen_name.errors %}
+            {% for error in form.screen_name.errors %}
+            <div class="text-tiny text-red-600 mt-1 mb-2">{{ error }}</div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="h-3 bg-gray-800 bg-opacity-50 border-t border-b border-gray-700 -mx-4"></div>
+        <div class="space-y-5 py-1">
+            <div class="font-bold text-xl">Suggestions</div>
+        </div>
+        <div class="h-3 bg-gray-800 bg-opacity-50 border-t border-b border-gray-700 -mx-4"></div>
+        {{ form.submit(class="font-semibold bg-blue-500 cursor-pointer rounded-full py-2 px-4 focus:outline-none self-end") }}
+    </form>
+</div>
+{% endblock content %}

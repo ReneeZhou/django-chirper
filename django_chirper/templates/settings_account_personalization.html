@@ -1,0 +1,29 @@
+{% extends 'layout_settings_notauth.html' %}
+
+{% block title %}Personalization and data{% endblock title%}
+{% block header %}Personalization and data{% endblock header %}
+
+{% block presvg %}
+<div onclick="history.go(-1)">
+    <!-- svg redirects to whatever last page user was on -->
+    <div class="svg-bg-div w-7 h-7 mr-4">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-6 h-6 stroke-current text-blue-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </div>
+</div>
+{% endblock presvg %}
+
+{% block content %}
+<div class="text-gray-600 text-s divide-y divide-gray-700 mt-1 border-b border-gray-700">
+    <div class="p-3">
+        These settings apply to this browser or device while you’re logged out. They don’t have any effect when you’re logged in.
+    </div>
+    <div class="h-3 bg-gray-800 bg-opacity-50"></div>
+    <div class="text-white text-lg font-bold p-3">Personalization</div>
+    <div class="h-3 bg-gray-800 bg-opacity-50"></div>
+    <div class="text-white text-lg font-bold p-3">Data</div>
+</div>
+
+{% endblock content %}

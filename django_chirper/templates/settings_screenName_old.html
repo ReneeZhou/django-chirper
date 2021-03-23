@@ -1,0 +1,80 @@
+{% extends 'layout_form.html' %}
+{% block title %}Edit profile{% endblock title %}
+{% block content %}
+<div class="h-screen sm:bg-gray-900 md:bg-gray-800 md:bg-opacity-100 flex flex-col items-center md:justify-center">
+    <div class="flex flex-col bg-gray-900 md:rounded-2xl pb-32 pt-2 h-100">
+        <form method="POST" action="" class="">
+            {{ form.hidden_tag() }}
+            <div class="flex flex-col w-148">
+                <!-- header -->
+                <div class="flex flex-row items-center justify-between border-b border-gray-700 pb-2 px-2">
+                    <!-- justify left -->
+                    <div class="flex flex-row items-center">
+                        <!-- close svg -->
+                        <a href="{{ url_for('user.profile', handle = current_user.handle) }}">
+                            <div class="svg-bg-div mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="w-6 h-8 stroke-current text-blue-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </div>
+                        </a>
+                        <div class="text-xl font-bold tracking-wide">Edit account information</div>
+                    </div>
+                    <!-- justify right -->
+                    <!-- save button -->
+                    <div>
+                        {{ form.submit(class="font-bold rounded-full bg-blue-500 hover:bg-blue-600 px-3 py-1 mr-3 cursor-pointer
+                        focus:outline-none") }}
+                    </div>
+                </div>
+
+                <!-- scrollable area -->
+                <div class="overflow-y-scroll pt-5">
+                    <!-- form  fields-->
+                    <div class="flex flex-col space-y-8 text-gray-600 px-4">
+                        <!-- handle -->
+                        <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                                    focus-within:border-blue-500 focus-within:text-blue-50">
+                            {{ form.handle.label(for="handle", class="bg-gray-700 bg-opacity-0 ml-2 mt-2") }}
+                            {{ form.handle(maxlength="50", placeholder="Choose your handle",
+                                    class="bg-gray-700 bg-opacity-0 ml-2 pb-1 outline-none text-white placeholder-gray-600") }}
+                            
+                            {% if form.handle.errors %}
+                            {% for error in form.handle.errors %}
+                            <span class="flash_warning">{{ error }}</span>
+                            {% endfor %}
+                            {% endif %}
+
+                        </div>
+
+                        <!-- email -->
+                        <div class="flex flex-col  bg-gray-700 bg-opacity-25 border-b-2 border-gray-600 
+                                    focus-within:border-blue-500 focus-within:text-blue-500">
+                            {{ form.email.label(for="email", class="bg-gray-700 bg-opacity-0 ml-2 mt-2") }}
+                            {{ form.email(rows="3", maxlength="160", placeholder="Choose your email",
+                                    class="resize-none bg-gray-700 bg-opacity-0 ml-2 pb-1 outline-none text-white placeholder-gray-600") }}
+                        
+                            {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                            <span class="flash_warning">{{ error }}</span>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- flash message - account update success -->
+            {% with messages = get_flashed_messages(with_categories = True) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="justify-self-end flash_success">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </form>
+    </div>
+</div>
+{% endblock content %}

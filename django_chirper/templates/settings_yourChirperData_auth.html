@@ -1,0 +1,60 @@
+{% extends 'layout_settings.html' %}
+
+{% block title %}Account information{% endblock title%}
+{% block header %}Account information{% endblock header %}
+
+{% block presvg %}
+<div onclick="history.go(-1)">
+    <!-- svg redirects to whatever last page user was on -->
+    <div class="svg-bg-div w-7 h-7 mr-4">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-6 h-6 stroke-current text-blue-500">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </div>
+</div>
+{% endblock presvg %}
+
+
+{% block content %}
+<div class="text-gray-600 text-s divide-y divide-gray-700 mt-1 border-b border-gray-700">
+    <div class="text-white text-lg font-bold p-3">Confirm your password</div>
+    <div class="p-3">
+        Please enter your password in order to get this.
+    </div>
+</div>
+
+<div class="flex flex-col mx-4 my-3">
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div
+                class="flex flex-col bg-gray-800 border-b-2 border-red-700 bg-opacity-25 w-140 h-16 text-red-700 focus-within:text-red-600 focus-within:border-red-600">
+                {{ form.password.label(class="my-1 ml-2") }}
+                {{ form.password(class="ml-2 bg-gray-800 bg-opacity-0 text-lg text-white outline-none") }}
+            </div>
+            <div class="text-red-700 text-s mt-1 ml-2">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+
+            </div>
+            {% else %}
+            <div
+                class="flex flex-col bg-gray-800 border-b-2 border-gray-600 bg-opacity-25 w-140 h-16 text-gray-600 focus-within:text-blue-500 focus-within:border-blue-500">
+                {{ form.password.label(class="my-1 ml-2") }}
+                {{ form.password(class="ml-2 bg-gray-800 bg-opacity-0 text-lg text-white outline-none") }}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <a href="{{ url_for('account.account_beginPasswordReset') }}"
+                class="text-blue-500 text-xs mt-2 ml-2 no-underline hover:underline">Forgot
+                password?</a>
+        </div>
+        {{ form.submit(class="font-semibold bg-blue-500 cursor-pointer rounded-full w-24 h-10 focus:outline-none self-end") }}
+    </form>
+
+</div>
+{% endblock content %}
