@@ -54,12 +54,10 @@ def settings_about(request):
     return render(request, 'settings_about.html')
 
 
-@login_required
 def settings_yourChirperData(request):
-    return render(request, 'settings_yourChirperDate.html')
+    return render(request, 'settings_yourChirperData.html')
 
 
-@login_required
 def settings_yourChirperData_account(request):
     return render(request, 'settings_yourChirperData_account.html')
 
@@ -110,17 +108,14 @@ def settings_country(request):
     return render(request, 'settings_country.html')
 
 
-@login_required
 def settings_languages(request):
     return render(request, 'settings_languages.html')
 
 
-@login_required
 def settings_yourChirperData_gender(request):
     return render(request, 'settings_yourChirperData_gender.html')
 
 
-@login_required
 def settings_yourChirperData_age(request):
     return render(request, 'settings_yourChirperData_age.html')
 
