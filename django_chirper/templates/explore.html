@@ -61,7 +61,7 @@
             hover:bg-gray-800 hover:bg-opacity-25">
                 <div class="flex flex-row items-center justify-between">
                     <div class="flex flex-row text-sm text-gray-600 space-x-1">
-                        <div>{{ trend.label }}</div>
+                        <div>{{ topic.label }}</div>
                         <div>⋅</div>
                         <div>Trending</div>
                     </div>
@@ -78,9 +78,9 @@
                     </button>
 
                 </div>
-                <div class="text-base font-bold">{{ trend.content }}</div>
+                <div class="text-base font-bold">{{ topic.content }}</div>
                 <!-- chirp count -->
-                <div class="text-sm text-gray-600">{{ trend.chirp_count }} Chirps</div>
+                <div class="text-sm text-gray-600">{{ topic.chirp_count }} Chirps</div>
             </div>
         </div>
         {% endfor %}

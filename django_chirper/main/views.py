@@ -17,6 +17,7 @@ def home(request):
         context = {
             'posts': posts,
             'form': form.add_error,
+            'topics': topics
         }
         if form.is_valid():
             form.instance.author = request.user.profile
