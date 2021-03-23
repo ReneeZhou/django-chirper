@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title%} / Chirper</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+</head>
+
+<body class="flex place-content-center bg-gray-900 text-white relative">
+    <!-- nav bar -->
+    <div class="justify-self-end flex flex-col items-center p-2 h-screen">
+        <!-- nav bar @xs bp -->
+        <nav class="xs:flex sm:flex flex-col lg:hidden h-full justify-between">
+            <div class="flex flex-col text-xl font-semibold space-y-3">
+                <a href="{% url 'home_notauth' %}" class="rounded-full px-2">
+                    <div class="home-btn">
+                        <!-- chirpy icon -->
+                        <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512"
+                            width="512" xmlns="http://www.w3.org/2000/svg" class="fill-current w-8 h-8">
+                            <g>
+                                <path
+                                    d="m105.623 201.204c0 1.149.382 2.74 2.202 3.789l61.082 35.184v-77.947l-61.081 35.184c-1.821 1.048-2.203 2.639-2.203 3.79z" />
+                                <path
+                                    d="m428.034 70.164c-26.196-26.197-60.866-40.624-97.624-40.624h-.698c-34.778 0-67.582 13.65-92.368 38.437s-38.437 57.591-38.437 92.369v132.412c0 58.142 22.813 112.976 64.237 154.399 20.686 20.686 44.716 36.729 70.831 47.61-.258-.255-.521-.502-.778-.759-30.652-30.652-47.533-71.253-47.533-114.324v-64.083c0-59.79 48.644-108.434 108.434-108.434h.527c26.968 0 52.263 7.288 74.031 19.987v-59.367c.001-36.757-14.426-71.427-40.622-97.623zm-94.501 83.862c-8.284 0-15-6.716-15-15 0-9.743-7.96-17.669-17.745-17.669s-17.745 7.926-17.745 17.669c0 8.284-6.716 15-15 15s-15-6.716-15-15c0-26.285 21.418-47.669 47.745-47.669s47.745 21.384 47.745 47.669c0 8.284-6.716 15-15 15z" />
+                                <path
+                                    d="m477.509 271.66c-22.242-22.243-51.678-34.492-82.883-34.492h-.527c-43.248 0-78.434 35.186-78.434 78.434v64.083c0 35.058 13.761 68.125 38.746 93.11 24.985 24.986 58.054 38.746 93.111 38.746h50.427c7.748 0 14.051-6.303 14.051-14.051v-142.948c0-31.205-12.249-60.64-34.491-82.882z" />
+                                <path
+                                    d="m101.433 87.27-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 2.931 2.937 6.774 4.406 10.619 4.406 3.833 0 7.666-1.46 10.594-4.381l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-78.035c0-8.284-6.716-15-15-15h-79.812c-8.284 0-15 6.716-15 15v71.811l-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 5.852 5.866 15.348 5.876 21.213.025l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-63.035h49.812z" />
+                            </g>
+                        </svg>
+                    </div>
+                </a>
+
+                <a href="{% url 'explore' %}" class="home-a">
+                    <div class="home-btn">
+                        <!-- explore icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </a>
+
+                <!-- settings svg -->
+                <a href="{% url 'settings' %}" class="home-a">
+                    <div class="home-btn">
+                        <!-- explore icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                </a>
+
+            </div>
+        </nav>
+
+        <!-- nav bar @lg bp -->
+        <nav class="xs:hidden sm:hidden lg:flex flex-col xl:hidden h-full justify-between">
+            <div class="flex flex-col text-xl font-semibold space-y-3">
+                <a href="{% url 'home_notauth' %}" class="rounded-full px-2">
+                    <div class="home-btn">
+                        <!-- chirpy icon -->
+                        <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512"
+                            width="512" xmlns="http://www.w3.org/2000/svg" class="fill-current w-8 h-8">
+                            <g>
+                                <path
+                                    d="m105.623 201.204c0 1.149.382 2.74 2.202 3.789l61.082 35.184v-77.947l-61.081 35.184c-1.821 1.048-2.203 2.639-2.203 3.79z" />
+                                <path
+                                    d="m428.034 70.164c-26.196-26.197-60.866-40.624-97.624-40.624h-.698c-34.778 0-67.582 13.65-92.368 38.437s-38.437 57.591-38.437 92.369v132.412c0 58.142 22.813 112.976 64.237 154.399 20.686 20.686 44.716 36.729 70.831 47.61-.258-.255-.521-.502-.778-.759-30.652-30.652-47.533-71.253-47.533-114.324v-64.083c0-59.79 48.644-108.434 108.434-108.434h.527c26.968 0 52.263 7.288 74.031 19.987v-59.367c.001-36.757-14.426-71.427-40.622-97.623zm-94.501 83.862c-8.284 0-15-6.716-15-15 0-9.743-7.96-17.669-17.745-17.669s-17.745 7.926-17.745 17.669c0 8.284-6.716 15-15 15s-15-6.716-15-15c0-26.285 21.418-47.669 47.745-47.669s47.745 21.384 47.745 47.669c0 8.284-6.716 15-15 15z" />
+                                <path
+                                    d="m477.509 271.66c-22.242-22.243-51.678-34.492-82.883-34.492h-.527c-43.248 0-78.434 35.186-78.434 78.434v64.083c0 35.058 13.761 68.125 38.746 93.11 24.985 24.986 58.054 38.746 93.111 38.746h50.427c7.748 0 14.051-6.303 14.051-14.051v-142.948c0-31.205-12.249-60.64-34.491-82.882z" />
+                                <path
+                                    d="m101.433 87.27-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 2.931 2.937 6.774 4.406 10.619 4.406 3.833 0 7.666-1.46 10.594-4.381l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-78.035c0-8.284-6.716-15-15-15h-79.812c-8.284 0-15 6.716-15 15v71.811l-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 5.852 5.866 15.348 5.876 21.213.025l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-63.035h49.812z" />
+                            </g>
+                        </svg>
+                    </div>
+                </a>
+
+                <a href="{% url 'explore' %}" class="home-a">
+                    <div class="home-btn">
+                        <!-- explore icon -->
+                        <!-- hashtag icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                        </svg>
+                    </div>
+                </a>
+
+                <a href="{% url 'settings' %}" class="home-a">
+                    <div class="home-btn">
+                        <!-- settings icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                </a>
+            </div>
+        </nav>
+
+        <!-- nav bar @xl bp -->
+        <nav class="xs:hidden sm:hidden xl:flex flex-col h-full justify-between">
+            <div class="flex flex-col text-xl font-semibold space-y-3">
+                <a href="{% url 'home_notauth' %}" class="rounded-full px-2">
+                    <!-- chirpy icon -->
+                    <div class="home-btn w-12">
+                        <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512"
+                            width="512" xmlns="http://www.w3.org/2000/svg" class="fill-current w-8 h-8">
+                            <g>
+                                <path
+                                    d="m105.623 201.204c0 1.149.382 2.74 2.202 3.789l61.082 35.184v-77.947l-61.081 35.184c-1.821 1.048-2.203 2.639-2.203 3.79z" />
+                                <path
+                                    d="m428.034 70.164c-26.196-26.197-60.866-40.624-97.624-40.624h-.698c-34.778 0-67.582 13.65-92.368 38.437s-38.437 57.591-38.437 92.369v132.412c0 58.142 22.813 112.976 64.237 154.399 20.686 20.686 44.716 36.729 70.831 47.61-.258-.255-.521-.502-.778-.759-30.652-30.652-47.533-71.253-47.533-114.324v-64.083c0-59.79 48.644-108.434 108.434-108.434h.527c26.968 0 52.263 7.288 74.031 19.987v-59.367c.001-36.757-14.426-71.427-40.622-97.623zm-94.501 83.862c-8.284 0-15-6.716-15-15 0-9.743-7.96-17.669-17.745-17.669s-17.745 7.926-17.745 17.669c0 8.284-6.716 15-15 15s-15-6.716-15-15c0-26.285 21.418-47.669 47.745-47.669s47.745 21.384 47.745 47.669c0 8.284-6.716 15-15 15z" />
+                                <path
+                                    d="m477.509 271.66c-22.242-22.243-51.678-34.492-82.883-34.492h-.527c-43.248 0-78.434 35.186-78.434 78.434v64.083c0 35.058 13.761 68.125 38.746 93.11 24.985 24.986 58.054 38.746 93.111 38.746h50.427c7.748 0 14.051-6.303 14.051-14.051v-142.948c0-31.205-12.249-60.64-34.491-82.882z" />
+                                <path
+                                    d="m101.433 87.27-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 2.931 2.937 6.774 4.406 10.619 4.406 3.833 0 7.666-1.46 10.594-4.381l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-78.035c0-8.284-6.716-15-15-15h-79.812c-8.284 0-15 6.716-15 15v71.811l-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 5.852 5.866 15.348 5.876 21.213.025l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-63.035h49.812z" />
+                            </g>
+                        </svg>
+                    </div>
+                </a>
+
+                <a href="{% url 'explore' %}" class="home-a">
+                    <!-- explore icon -->
+                    <div class="home-btn space-x-4">
+                        <!-- hashtag icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                        </svg>
+                        <div class="pr-5">Explore</div>
+                    </div>
+                </a>
+
+                <a href="{% url 'settings' %}" class="home-a">
+                    <div class="home-btn space-x-4">
+                        <!-- explore icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <div class="pr-5">Settings</div>
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- settings nav bar -->
+    <div class="xs:hidden sm:hidden lg:flex lg:flex-col w-96 h-screen border-l border-gray-700">
+        <div class=" divide-y divide-gray-700 flex flex-col text-tiny border-b border-gray-700">
+            <div class="font-bold text-xl px-3 py-2 ">Settings</div>
+            <div class="font-bold text-xl px-3 py-2 ">Privacy</div>
+            <!-- personalization and data -->
+            <a href="{% url 'settings_account_personalization' %}"
+                class="flex flex-row items-center justify-between py-3 px-3 hover:bg-gray-800 hover:bg-opacity-50">
+                <div class="text-white text-tiny">
+                    <div>Personalization and data</div>
+                    <div class="text-gray-600 text-s">Allow all</div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+            <!-- your chirper data -->
+            <a href="{% url 'settings_yourChirperData' %}"
+                class="flex flex-row items-center justify-between py-3 px-3 hover:bg-gray-800 hover:bg-opacity-50">
+                <div class="text-white text-tiny">Your Chirper data</div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+            <!-- description -->
+            <div class="px-3 py-2 text-sm">
+                These settings apply to this browser or device while you’re logged out. They don’t have any effect when
+                you’re logged in.
+            </div>
+            <div class="h-3 bg-gray-800 bg-opacity-50"></div>
+            <div class="font-bold text-xl px-3 py-2 border-blue-500">General</div>
+            <a href="{% url 'settings_about' %}"
+                class="flex flex-row items-center justify-between py-3 px-3 hover:bg-gray-800 hover:bg-opacity-50">
+                <div class="text-white text-tiny">Additional resources</div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- settings nav bar content -->
+    <main class="w-148 h-full border-l border-r border-gray-700 divide-y divide-gray-700 box-content">
+        <table>
+            <div class="fixed w-148 bg-gray-900 border-b border-gray-700">
+                <div class="flex justify-between items-center py-2 pl-4 pr-1 cursor-pointer">
+                    <div class="flex flex-row items-center">
+                        {% block presvg %}{% endblock presvg %}
+                        <h1 class="text-xl font-bold">
+                            {% block header %}{% endblock header %}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+
+            <tbody>
+                <div class="mt-10 overflow-y-scroll h-screen">{% block content %}{% endblock content %}</div>
+            </tbody>
+
+        </table>
+
+        <!-- banner -->
+        <div
+            class="fixed inset-x-0 bottom-0 flex flex-row justify-center items-center xs:h-16 sm:h-16 md:h-18 bg-blue-500">
+            <!-- xs, sm buttons -->
+            <div class="flex-row items-center md:hidden space-x-3">
+                <!-- login -->
+                <a href="{% url 'login' %}">
+                    <button class="w-56 border border-white rounded-full h-10 text-white font-semibold
+                     hover:bg-blue-400 hover:bg-opacity-50 focus:outline-none">Log in</button>
+                </a>
+                <!-- signup -->
+                <a href="{# {{ url_for('auth.signup_1') }} #}">
+                    <button class="w-56 bg-white rounded-full h-10 text-blue-500 font-semibold 
+                    hover:bg-gray-300 focus:outline-none">Sign up</button>
+                </a>
+
+            </div>
+
+            <!-- md and above -->
+            <div class="xs:hidden sm:hidden md:flex flex-row justify-between lg:ml-20 xl:ml-48">
+                <div class="flex flex-col justify-self-center -space-y-1 md:w-148 lg:w-196">
+                    <p class="text-2xl font-bold">Don’t miss what’s happening</p>
+                    <p class="text-tiny">People on Chirper are the first to know.</p>
+                </div>
+
+                <!-- buttons -->
+                <div class="flex flex-row items-center space-x-3 mr-4">
+                    <!-- login -->
+                    <a href="{% url 'login' %}">
+                        <button class="w-20 border border-white rounded-full h-10 text-white font-semibold
+                 hover:bg-blue-400 hover:bg-opacity-50 focus:outline-none">Log in</button>
+                    </a>
+                    <!-- signup -->
+                    <a href="{# {{ url_for('auth.signup_1') }} #}">
+                        <button class="w-20 bg-white rounded-full h-10 text-blue-500 font-semibold 
+                hover:bg-gray-300 focus:outline-none">Sign up</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+</body>
+
+</html>
