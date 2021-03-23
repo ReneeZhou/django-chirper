@@ -1,0 +1,100 @@
+<div class=" divide-y divide-gray-700 flex flex-col text-tiny border-b border-gray-700">
+    <div class="font-bold text-xl px-3 py-2 border-blue-500">Settings</div>
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'settings_account' %}">
+        <div class="flex flex-row items-center justify-between px-4 py-3 hover:bg-gray-800 hover:bg-opacity-50">
+            <div>Your account</div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </div>
+    </a>
+    <a href="{% url 'settings_securityAndAccountAccess' %}">
+        <div class="flex flex-row items-center justify-between px-4 py-3 hover:bg-gray-800 hover:bg-opacity-50">
+            <div>Security and account access</div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </div>
+    </a>
+    <a href="{% url 'settings_privacyAndSafety' %}">
+        <div class="flex flex-row items-center justify-between px-4 py-3 hover:bg-gray-800 hover:bg-opacity-50">
+            <div>Privacy and safety</div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </div>
+    </a>
+    <a href="{% url 'settings_notifications' %}">
+        <div class="flex flex-row items-center justify-between px-4 py-3 hover:bg-gray-800 hover:bg-opacity-50">
+            <div>Notifications</div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </div>
+    </a>
+    <a href="{% url 'settings_accessibilityDisplayAndLanguages' %}">
+        <div class="flex flex-row items-center justify-between px-4 py-3 hover:bg-gray-800 hover:bg-opacity-50">
+            <div>Accessibility, display, and languages</div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </div>
+    </a>
+    <a href="{% url 'settings_about' %}">
+        <div class="flex flex-row items-center justify-between px-4 py-3 hover:bg-gray-800 hover:bg-opacity-50">
+            <div>Additional resources</div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </div>
+    </a>
+
+    <!-- nav bar for not_auth -->
+    {% else %}
+    <!-- settings nav bar -->
+    <div class="font-bold text-xl px-3 py-2 ">Privacy</div>
+    <a href="{% url 'settings_account_personalization' %}"
+        class="flex flex-row items-center justify-between py-3 px-3 hover:bg-gray-800 hover:bg-opacity-50">
+        <div class="text-white text-tiny">
+            <div>Personalization and data</div>
+            <div class="text-gray-600 text-s">Allow all</div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+    <a href="{% url 'settings_yourChirperData' %}" class="flex flex-row items-center justify-between py-3 px-3 hover:bg-gray-800 hover:bg-opacity-50">
+        <div class="text-white text-tiny">Your Chirper data</div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+    <div class="px-3 py-2 text-sm">
+        These settings apply to this browser or device while you’re logged out. They don’t have any
+        effect when
+        you’re logged in.
+    </div>
+    <div class="h-3 bg-gray-800 bg-opacity-50"></div>
+    <div class="font-bold text-xl px-3 py-2 border-blue-500">General</div>
+    <a href="{% url 'settings_about' %}"
+        class="flex flex-row items-center justify-between py-3 px-3 hover:bg-gray-800 hover:bg-opacity-50">
+        <div class="text-white text-tiny">
+            <div>Additional resources</div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="w-5 h-5 stroke-current text-gray-600 justify-self-end">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+    {% endif %}
+</div>
