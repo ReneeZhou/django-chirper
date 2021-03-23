@@ -46,7 +46,7 @@
             </a>
 
             {% if not user.is_authenticated %}
-            <a href="" class="home-a">
+            <a href="{% url 'settings' %}" class="home-a">
                 <!-- url_for('user_settings.settings') -->
                 <div class="home-btn">
                     <!-- settings icon -->
@@ -219,7 +219,8 @@
 
                                     <!-- bottom section -->
                                     <div class="flex flex-col">
-                                        <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25" href="">
+                                        <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25"
+                                            href="{% url 'settings' %}">
                                             <!-- url_for('user_settings.settings') -->
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 class="stroke-current text-gray-600 w-5 h-5 inline">

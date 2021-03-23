@@ -63,7 +63,7 @@
                     <!-- settings svg -->
                     {% if not current_user.is_authenticated %}
                     <!-- url_for('user_settings.settings') -->
-                    <a href="" class="home-a">
+                    <a href="{% url 'settings' %}" class="home-a">
                         <div class="home-btn">
                             <!-- settings icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
@@ -220,7 +220,7 @@
                     <!-- settings svg -->
                     {% if not current_user.is_authenticated %}
                     <!-- url_for('user_settings.settings') -->
-                    <a href="" class="home-a">
+                    <a href="{% url 'settings' %}" class="home-a">
                         <div class="home-btn">
                             <!-- settings icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
@@ -379,7 +379,7 @@
 
                     {% if not current_user.is_authenticated %}
                     <!-- url_for('user_settings.settings') -->
-                    <a href="" class="home-a">
+                    <a href="{% url 'settings' %}" class="home-a">
                         <div class="home-btn space-x-4">
                             <!-- explore icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="home-svg">
