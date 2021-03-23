@@ -187,8 +187,8 @@
                                             </svg>
                                             <div class="inline align-middle">Follower requests</div>
                                         </a>
-                                        <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25" href="">
-                                            <!-- url_for('user.profile_topics', handle = current_user.handle) -->
+                                        <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25"
+                                            href="{% url 'profile_topics' handle=user.profile.handle %}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 class="stroke-current text-gray-600 w-5 h-5 inline">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -196,8 +196,8 @@
                                             </svg>
                                             <div class="inline align-middle">Topics</div>
                                         </a>
-                                        <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25" href="">
-                                            <!-- url_for('user.profile_moments', handle = current_user.handle) -->
+                                        <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25"
+                                            href="{% url 'profile_moments' handle=user.profile.handle %}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 class="stroke-current text-gray-600 w-5 h-5 inline">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

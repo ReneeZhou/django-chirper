@@ -52,6 +52,15 @@ class ProfileListsView(ProfilePostView):
     template_name = 'profile_lists.html'
 
 
+class ProfileTopicsView(ProfilePostView):
+    template_name = 'profile_topics.html'
+
+
+class ProfileMomentsView(ProfilePostView):
+    template_name = 'profile_moments.html'
+
+
+
 @login_required
 @require_POST
 def follow(request, handle):
