@@ -79,22 +79,28 @@
                     {% endif %}
 
                     <!-- user media -->
-                    {% if not user.is_authenticated %}
+                    {% if request.resolver_match.url_name == 'profile' %}
                     {% include 'layout_sidebar_userMedia.html' %}
                     {% endif %}
 
-                    <!-- user recommendation template -->
-                    {% if not user.is_authenticated %}
+                    <!-- you might like template -->
+                    {% if request.resolver_match.url_name == 'profile' %}
                     {% include 'layout_sidebar_youMightLike.html' %}
                     {% endif %}
 
                     <!-- trends template -->
                     {% if not user.is_authenticated %}
+                    {% if not request.resolver_match.url_name == 'explore' %}
                     {% include 'layout_sidebar_trends.html' %}
                     {% endif %}
+                    {% else %}
+                    {% if not request.resolver_match.url_name == 'explore' %}
+                    {% include 'layout_sidebar_trends.html' %}
+                    {% endif %}
+                    {% endif %}
 
-                    <!-- user recommendation template -->
-                    {% if user.is_authenticated %}
+                    <!-- who to follow, user recommendation template -->
+                    {% if user.is_authenticated and user_profile.handle != user.profile.handle %}
                     {% include 'layout_sidebar_whoToFollow.html' %}
                     {% endif %}
 
