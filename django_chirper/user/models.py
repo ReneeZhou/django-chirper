@@ -1,6 +1,7 @@
 from secrets import randbits, token_urlsafe
 from PIL import Image
 from django.db import models
+from django.db.models.expressions import Q
 from django.db.models.fields import DateTimeField
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -43,6 +44,15 @@ class Profile(models.Model):
             return False
         elif self.received.order_by('-created_at').first().created_at > self.last_checked_message_at:
             return True
+
+    @property
+    def follow_recommendation(self):
+        recommendation = Profile.objects.exclude(
+            Q(handle__in = self.following.values('handle')) |
+            Q(handle = self.handle)
+        ).order_by('?')[:3]
+        return recommendation
+
 
     # override save() in the Model class
     def save(self, *args, **kwargs):

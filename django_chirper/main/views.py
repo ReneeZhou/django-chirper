@@ -14,15 +14,9 @@ def home(request):
             Q(author__in = request.user.profile.following.all())
         ).order_by('-created_at')
 
-        follow_recommendation = Profile.objects.exclude(
-            Q(handle__in = request.user.profile.following.values('handle')) |
-            Q(handle = request.user.profile.handle)
-        ).order_by('?')[:3]
-
         context = {
             'posts': posts,
             'form': form.add_error,
-            'follow_recommendation': follow_recommendation
         }
         if form.is_valid():
             form.instance.author = request.user.profile
