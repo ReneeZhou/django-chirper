@@ -198,7 +198,7 @@ def settings_profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            return redirect('home')
+            return redirect('profile', handle = request.user.profile.handle)
         
 
     elif request.method == 'GET':
