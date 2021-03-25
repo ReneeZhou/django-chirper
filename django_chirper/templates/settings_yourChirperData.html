@@ -1,14 +1,14 @@
 {% extends 'layout_settings.html' %}
 
 {% block title %}
-{% if current_user.is_authenticated %}
+{% if user.is_authenticated %}
 Download an archive of your data
 {% else %}
 Your Chirper data
 {% endif %}
 {% endblock title %}
 {% block header %}
-{% if current_user.is_authenticated %}
+{% if user.is_authenticated %}
 Download an archive of your data
 {% else %}
 Your Chirper data
