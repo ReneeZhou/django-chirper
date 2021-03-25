@@ -26,34 +26,31 @@
 
 <div class="flex flex-col mx-4 my-3">
     <form action="" method="POST">
-        {{ form.hidden_tag() }}
+        {% csrf_token %}
         <div>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
+            {% if form.non_field_errors %}
             <div
                 class="flex flex-col bg-gray-800 border-b-2 border-red-700 bg-opacity-25 w-140 h-16 text-red-700 focus-within:text-red-600 focus-within:border-red-600">
-                {{ form.password.label(class="my-1 ml-2") }}
-                {{ form.password(class="ml-2 bg-gray-800 bg-opacity-0 text-lg text-white outline-none") }}
+                <div class="my-1 ml-2">{{ form.password.label }}</div>
+                {{ form.password }}
             </div>
             <div class="text-red-700 text-s mt-1 ml-2">
-                {% for message in messages %}
-                {{ message }}
-                {% endfor %}
+                {{ form.non_field_errors }}
 
             </div>
             {% else %}
             <div
                 class="flex flex-col bg-gray-800 border-b-2 border-gray-600 bg-opacity-25 w-140 h-16 text-gray-600 focus-within:text-blue-500 focus-within:border-blue-500">
-                {{ form.password.label(class="my-1 ml-2") }}
-                {{ form.password(class="ml-2 bg-gray-800 bg-opacity-0 text-lg text-white outline-none") }}
+                <div class="my-1 ml-2">{{ form.password.label }}</div>
+                {{ form.password }}
             </div>
             {% endif %}
-            {% endwith %}
-            <a href="{{ url_for('account.account_beginPasswordReset') }}"
+            <a href="{#{{ url_for('account.account_beginPasswordReset') }}#}"
                 class="text-blue-500 text-xs mt-2 ml-2 no-underline hover:underline">Forgot
                 password?</a>
         </div>
-        {{ form.submit(class="font-semibold bg-blue-500 cursor-pointer rounded-full w-24 h-10 focus:outline-none self-end") }}
+        <button
+            class="font-semibold bg-blue-500 cursor-pointer rounded-full w-24 h-10 focus:outline-none self-end">Confirm</button>
     </form>
 
 </div>
