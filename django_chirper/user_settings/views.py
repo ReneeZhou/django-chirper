@@ -1,7 +1,8 @@
-from django.contrib.auth import login
 from django.shortcuts import render, redirect
+from django.utils import timezone, timesince
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import UpdateUsernameForm, UpdateProfileForm
+from .forms import SettingsAuthForm, UpdateUsernameForm, UpdateProfileForm
 
 
 def settings(request):
@@ -13,7 +14,19 @@ def settings(request):
 
 @login_required
 def settings_account(request):
-    return render(request, 'settings_account.html')
+
+    form = SettingsAuthForm(request.POST or None)
+
+    if form.is_valid():
+        password = form.cleaned_data.get('password')
+        username = request.user.username
+        if authenticate(request, username = username, password = password):
+            return redirect('home')
+        else:
+            form.add_error(field = None, error = 'The password you entered was incorrect.')
+
+    context = {'form': form}
+    return render(request, 'settings_yourChirperData_auth.html', context)
 
 
 def settings_account_personalization(request):
