@@ -1,8 +1,21 @@
-from django.forms import ModelForm
+from django.core.exceptions import ValidationError
+from django.forms import ModelForm, Form
 from django.forms.fields import CharField, ImageField, URLField
-from django.forms.widgets import TextInput, Textarea, URLInput, FileInput
+from django.forms.widgets import TextInput, Textarea, URLInput, FileInput, PasswordInput
 from django.contrib.auth.models import User
 from user.models import Profile
+
+
+class SettingsAuthForm(Form):
+    input_field_class = 'ml-2 bg-gray-800 bg-opacity-0 text-lg text-white outline-none'
+    password = CharField(
+        label = 'Password',
+        widget = PasswordInput(
+            attrs = {
+                'class': input_field_class,
+            }
+        ),
+    )
 
 
 class UpdateUsernameForm(ModelForm):
