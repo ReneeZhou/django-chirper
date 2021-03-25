@@ -1,5 +1,7 @@
+from datetime import datetime
 from django.shortcuts import render, redirect
-from django.utils import timezone, timesince
+from django.utils import timezone
+from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import SettingsAuthForm, UpdateUsernameForm, UpdateProfileForm
@@ -14,19 +16,66 @@ def settings(request):
 
 @login_required
 def settings_account(request):
+    return render(request, 'settings_account.html')
 
-    form = SettingsAuthForm(request.POST or None)
 
-    if form.is_valid():
-        password = form.cleaned_data.get('password')
-        username = request.user.username
-        if authenticate(request, username = username, password = password):
-            return redirect('home')
+def settings_yourChirperData_account(request):
+    if request.user.is_authenticated:
+        if 'auth_timestamp' not in request.session.keys():
+            form = SettingsAuthForm(request.POST or None)
+
+            if form.is_valid():
+                password = form.cleaned_data.get('password')
+                username = request.user.username
+                if authenticate(request, username = username, password = password):
+                    encoded_auth_timestamp = DjangoJSONEncoder().encode(timezone.now())
+                    request.session['auth_timestamp'] = encoded_auth_timestamp
+                    return render(request, 'settings_yourChirperData_account.html')
+                else:
+                    form.add_error(field = None, error = 'The password you entered was incorrect.')
+
+            context = {'form': form}
+            return render(request, 'settings_yourChirperData_auth.html', context)
+
         else:
-            form.add_error(field = None, error = 'The password you entered was incorrect.')
+            datetime_auth_timestamp = datetime.strptime(
+                request.session.get('auth_timestamp')[1:-1], 
+                "%Y-%m-%dT%H:%M:%S.%fZ"
+            )
+            if (timezone.now().replace(tzinfo = None) - datetime_auth_timestamp).total_seconds() > 300:
+                request.session.pop('auth_timestamp')
+                return redirect('settings_yourChirperData_account')
 
-    context = {'form': form}
-    return render(request, 'settings_yourChirperData_auth.html', context)
+    return render(request, 'settings_yourChirperData_account.html')
+
+
+def settings_yourChirperData(request):
+    if request.user.is_authenticated:
+        if 'auth_timestamp' not in request.session.keys():
+            form = SettingsAuthForm(request.POST or None)
+
+            if form.is_valid():
+                password = form.cleaned_data.get('password')
+                username = request.user.username
+                if authenticate(request, username = username, password = password):
+                    encoded_auth_timestamp = DjangoJSONEncoder().encode(timezone.now())
+                    request.session['auth_timestamp'] = encoded_auth_timestamp
+                    return render(request, 'settings_yourChirperData.html')
+                else:
+                    form.add_error(field = None, error = 'The password you entered was incorrect.')
+
+            context = {'form': form}
+            return render(request, 'settings_yourChirperData_auth.html', context)
+
+        else:
+            datetime_auth_timestamp = datetime.strptime(
+                request.session.get('auth_timestamp')[1:-1], 
+                "%Y-%m-%dT%H:%M:%S.%fZ"
+            )
+            if (timezone.now().replace(tzinfo = None) - datetime_auth_timestamp).total_seconds() > 300:
+                request.session.pop('auth_timestamp')
+                return redirect('settings_yourChirperData')
+    return render(request, 'settings_yourChirperData.html')
 
 
 def settings_account_personalization(request):
@@ -65,14 +114,6 @@ def settings_accessibilityDisplayAndLanguages(request):
 
 def settings_about(request):
     return render(request, 'settings_about.html')
-
-
-def settings_yourChirperData(request):
-    return render(request, 'settings_yourChirperData.html')
-
-
-def settings_yourChirperData_account(request):
-    return render(request, 'settings_yourChirperData_account.html')
 
 
 @login_required
