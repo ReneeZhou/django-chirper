@@ -62,6 +62,7 @@ class UpdateProfileForm(ModelForm):
     )
 
     bio = CharField(
+        required = False,
         widget = Textarea(
             attrs = {
                 'class': input_field_class + ' resize-none',
@@ -72,6 +73,7 @@ class UpdateProfileForm(ModelForm):
     )
 
     location = CharField(
+        required = False,
         widget = TextInput(
             attrs = {
                 'class': input_field_class,
@@ -81,6 +83,7 @@ class UpdateProfileForm(ModelForm):
     )
 
     website = URLField(
+        required = False,
         max_length = 100,
         widget = URLInput(
             attrs = {
