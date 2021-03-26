@@ -8,7 +8,7 @@
         <div class="flex flex-row items-center">
             <form method="POST" action="" class="space-y-6">
                 <!-- action="" posts us back to the same route -->
-                {{ form.hidden_tag() }}
+                {% csrf_token %}
                 <div class="flex flex-row items-center justify-between -m-4">
                     <div onclick="history.go(-1)">
                         <!-- svg redirects to whatever last page user was on -->
@@ -34,8 +34,8 @@
                         </g>
                     </svg>
                     <div>
-                        {{ form.submit(class="bg-blue-500 py-1 px-4 font-bold rounded-full 
-                    focus:outline-none cursor-pointer") }}
+                        <button class="bg-blue-500 py-1 px-4 font-bold rounded-full 
+                        focus:outline-none cursor-pointer">Confirm</button>
                     </div>
                 </div>
 
@@ -44,27 +44,25 @@
                     <div class="text-tiny text-gray-600">Re-enter your Chirper password to continue</div>
                     <div class="text-gray-600 text-tiny">
                         <!-- password -->
+                        {% if form.non_field_errors %}
                         <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
-                    focus-within:border-blue-500 focus-within:text-blue-500">
-                            {{ form.password.label(class="bg-gray-700 bg-opacity-0 ml-2 mt-2") }}
-                            {% if form.password.errors %}
-                            {{ form.password(maxlength="50", class="text-xl bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white") }}
-                            {% for error in form.password.errors %}
-                            <span class="flash_warning">{{ error }}</span>
-                            {% endfor %}
-                            {% else %}
-                            {{ form.password(maxlength="50", class="text-xl bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white") }}
-                            {% endif %}
+                    focus-within:border-red-600 focus-within:text-red-600 h-18">
+                            <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 mb-2">{{ form.password.label }}</div>
+                            {{ form.password }}
                         </div>
+
                         <div class="mt-1">
-                            {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                            {% for message in messages %}
-                            <span class="text-s text-red-600">{{ message }}</span>
-                            {% endfor %}
-                            {% endif %}
-                            {% endwith %}
+                            <span class="text-s text-red-600">{{ form.non_field_errors }}</span>
                         </div>
+                        {% else %}
+
+                        <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                    focus-within:border-blue-500 focus-within:text-blue-500 h-18">
+                            <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2 mb-2">{{ form.password.label }}</div>
+                            {{ form.password }}
+                            {% endif %}
+                        </div>
+
                     </div>
                 </div>
             </form>
