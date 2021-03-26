@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from django.forms import ModelForm, Form
 from django.forms.fields import CharField, ImageField, URLField
 from django.forms.widgets import TextInput, Textarea, URLInput, FileInput, PasswordInput
@@ -16,6 +15,20 @@ class SettingsAuthForm(Form):
             }
         ),
     )
+
+
+class UpdateScreenNameForm(ModelForm):
+    handle = CharField(
+            label = 'Username',
+            widget = TextInput(
+                attrs = {
+                    'class': 'ml-2 bg-gray-800 bg-opacity-0 text-lg text-white outline-none'
+                }
+            )
+    )
+    class Meta:
+        model = Profile
+        fields = ('handle', )
 
 
 class UpdateUsernameForm(ModelForm):
