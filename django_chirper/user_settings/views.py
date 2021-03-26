@@ -4,7 +4,8 @@ from django.utils import timezone
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import SettingsAuthForm, UpdateUsernameForm, UpdateProfileForm
+from .forms import (SettingsAuthForm, UpdateUsernameForm, UpdateProfileForm,
+    UpdateScreenNameForm)
 
 
 def settings(request):
@@ -89,7 +90,15 @@ def settings_password(request):
 
 @login_required
 def settings_screenName(request):
-    return render(request, 'settings_screenName.html')
+    form = UpdateScreenNameForm(request.POST or None, instance = request.user.profile)
+
+    if form.is_valid():
+        request.user.profile.handle = form.cleaned_data.get('handle')
+        request.user.save()
+        return redirect('settings_yourChirperData_account')
+
+    context = {'form': form}
+    return render(request, 'settings_screenName.html', context)
 
 
 @login_required

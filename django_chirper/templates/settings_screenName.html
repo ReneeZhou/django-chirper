@@ -17,17 +17,23 @@
 {% block content %}
 <div class="flex flex-col mx-4 mt-3 space-y-4 text-tiny">
     <form action="" method="POST">
+        {% csrf_token %}
         <div>
-            {{ form.hidden_tag() }}
+            {% if form.handle.errors %}
             <div
-                class="flex flex-col  bg-gray-800 border-b-2 border-gray-600 bg-opacity-25 w-140 h-16 text-gray-600 focus-within:text-blue-500 focus-within:border-blue-500">
-                {{ form.screen_name.label(class="my-1 ml-2") }}
-                {{ form.screen_name(class="ml-2 bg-gray-800 bg-opacity-0 text-lg text-white outline-none") }}
+                class="flex flex-col bg-gray-800 border-b-2 border-red-600 bg-opacity-25 
+                w-140 h-16 text-red-600 focus-within:text-red-500 focus-within:border-red-500">
+                <div class="my-1 ml-2">{{ form.handle.label }}</div>
+                {{ form.handle }}
             </div>
-            {% if form.screen_name.errors %}
-            {% for error in form.screen_name.errors %}
-            <div class="text-tiny text-red-600 mt-1 mb-2">{{ error }}</div>
-            {% endfor %}
+            <div class="text-s text-red-600 mt-1 mb-2">{{ form.handle.errors }}</div>
+            {% else %}
+            <div
+                class="flex flex-col  bg-gray-800 border-b-2 border-gray-600 bg-opacity-25 
+                w-140 h-16 text-gray-600 focus-within:text-blue-500 focus-within:border-blue-500">
+                <div class="my-1 ml-2">{{ form.handle.label }}</div>
+                {{ form.handle }}
+            </div>
             {% endif %}
         </div>
         <div class="h-3 bg-gray-800 bg-opacity-50 border-t border-b border-gray-700 -mx-4"></div>
@@ -35,7 +41,8 @@
             <div class="font-bold text-xl">Suggestions</div>
         </div>
         <div class="h-3 bg-gray-800 bg-opacity-50 border-t border-b border-gray-700 -mx-4"></div>
-        {{ form.submit(class="font-semibold bg-blue-500 cursor-pointer rounded-full py-2 px-4 focus:outline-none self-end") }}
+        <button class="font-semibold bg-blue-500 cursor-pointer rounded-full py-2 px-4 
+            focus:outline-none self-end text-base">Save</button>
     </form>
 </div>
 {% endblock content %}
