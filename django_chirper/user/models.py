@@ -19,7 +19,13 @@ class Profile(models.Model):
 
     id = models.AutoField(primary_key = True, default = gen_key)
     created_at_ip = models.GenericIPAddressField(null = True, blank = True)
-    handle = models.TextField(default = gen_hex, unique = True)
+    handle = models.TextField(
+        default = gen_hex,
+        unique = True, 
+        error_messages={
+            'unique': 'That username has been taken. Please choose another.'
+        }
+    )
     phone = models.CharField(max_length = 20, null = True, blank = True, unique = True)
     birthdate = models.DateField(null = True, blank = True)
 
