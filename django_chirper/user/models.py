@@ -1,5 +1,7 @@
 from secrets import randbits, token_urlsafe
 from PIL import Image
+import pycountry
+from phonenumbers import COUNTRY_CODE_TO_REGION_CODE
 from django.db import models
 from django.db.models.expressions import Q
 from django.db.models.fields import DateTimeField
@@ -15,6 +17,19 @@ def gen_hex(bytes = 5):
 
 
 class Profile(models.Model):
+    choices = []
+    for code, countries in COUNTRY_CODE_TO_REGION_CODE.items():
+        for country in countries: 
+            try:
+                choices.append([
+                    '+' + str(code),
+                    '+' + str(code) + ' ' + pycountry.countries.get(alpha_2 = country).name
+                ])
+            except AttributeError:
+                pass
+    choices = [[None, '']] + [[i, j.split(',')[0]] for i, j in choices]
+                
+
     user = models.OneToOneField(User, on_delete = models.CASCADE)
 
     id = models.AutoField(primary_key = True, default = gen_key)
@@ -26,7 +41,9 @@ class Profile(models.Model):
             'unique': 'That username has been taken. Please choose another.'
         }
     )
+    country_code = models.CharField(max_length = 200, null = True, choices = choices)
     phone = models.CharField(max_length = 20, null = True, blank = True, unique = True)
+    phone_public = models.BooleanField(default = True)
     birthdate = models.DateField(null = True, blank = True)
 
     profile_image = models.ImageField(default = 'default_profile.png', upload_to = 'profile_pics')
