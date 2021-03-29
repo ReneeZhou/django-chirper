@@ -1,10 +1,13 @@
 from datetime import datetime
+import phonenumbers
+from phonenumbers import carrier
+from phonenumbers.phonenumberutil import NumberParseException, number_type
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import (SettingsAuthForm, UpdateUsernameForm, UpdateProfileForm,
+from .forms import (SettingsAuthForm, UpdatePhoneForm, UpdateUsernameForm, UpdateProfileForm,
     UpdateScreenNameForm)
 
 
@@ -43,7 +46,7 @@ def settings_yourChirperData_account(request):
                 request.session.get('auth_timestamp')[1:-1], 
                 "%Y-%m-%dT%H:%M:%S.%fZ"
             )
-            if (timezone.now().replace(tzinfo = None) - datetime_auth_timestamp).total_seconds() > 300:
+            if (timezone.now().replace(tzinfo = None) - datetime_auth_timestamp).total_seconds() > 30:
                 request.session.pop('auth_timestamp')
                 return redirect('settings_yourChirperData_account')
 
@@ -132,18 +135,46 @@ def settings_phone(request):
 
 @login_required
 def settings_addPhone_auth(request):
-    return render(request, 'settings_addPhone_auth.html')
+    form = SettingsAuthForm(request.POST or None)
+
+    if form.is_valid():
+        username = request.user.username
+        password = form.cleaned_data.get('password')
+        if authenticate(request, username = username, password = password):
+            return redirect('settings_addPhone')
+        else:
+            form.add_error(None, 'The password you entered was incorrect.')
+
+    context = {'form': form}
+    return render(request, 'settings_auth.html', context)
 
 
 @login_required
 def settings_addPhone(request):
-    return render(request, 'settings_addPhone.html')
+    form = UpdatePhoneForm(request.POST or None)
+
+    if form.is_valid():
+        number = form.cleaned_data.get('country_code').split()[0] + \
+            str(form.cleaned_data.get('phone'))
+        try:
+            b = carrier._is_mobile(number_type(phonenumbers.parse(number)))
+            if b:
+                request.user.profile.country_code = form.cleaned_data.get('country_code')
+                request.user.profile.phone = form.cleaned_data.get('phone')
+                request.user.save()
+                return redirect('settings_phone')
+            else:
+                form.add_error(None, 'Please enter a valid phone number.')
+        except NumberParseException:
+            form.add_error(None, 'Please enter a valid phone number.')
+
+    context = {'form': form}
+    return render(request, 'settings_addPhone.html', context)
 
 
 @login_required
 def settings_deletePhone(request):
     return render(request, 'settings_deletePhone.html')
-
 
 
 @login_required
@@ -153,7 +184,7 @@ def settings_email(request):
 
 @login_required
 def settings_addEmail_auth(request):
-    return render(request, 'settings_addEmail_auth.html')
+    return render(request, 'settings_auth.html')
 
 
 @login_required
