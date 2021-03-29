@@ -46,7 +46,7 @@ def settings_yourChirperData_account(request):
                 request.session.get('auth_timestamp')[1:-1], 
                 "%Y-%m-%dT%H:%M:%S.%fZ"
             )
-            if (timezone.now().replace(tzinfo = None) - datetime_auth_timestamp).total_seconds() > 30:
+            if (timezone.now().replace(tzinfo = None) - datetime_auth_timestamp).total_seconds() > 300:
                 request.session.pop('auth_timestamp')
                 return redirect('settings_yourChirperData_account')
 
@@ -122,8 +122,10 @@ def settings_addPhone_auth(request):
 
 @login_required
 def settings_addPhone(request):
-    form = UpdatePhoneForm(request.POST or None)
+    if request.META.get('HTTP_REFERER') is None:
+        return redirect('settings_phone')
 
+    form = UpdatePhoneForm(request.POST or None)
     if form.is_valid():
         number = form.cleaned_data.get('country_code').split()[0] + \
             str(form.cleaned_data.get('phone'))
@@ -175,8 +177,10 @@ def settings_addEmail_auth(request):
 
 @login_required
 def settings_addEmail(request):
-    form = UpdateEmailForm(request.POST or None)
+    if request.META.get('HTTP_REFERER') is None:
+        return redirect('settings_email')
 
+    form = UpdateEmailForm(request.POST or None)
     if form.is_valid():
         request.user.email = form.cleaned_data.get('email')
         request.user.save()
