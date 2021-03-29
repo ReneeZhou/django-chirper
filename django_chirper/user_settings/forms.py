@@ -1,8 +1,13 @@
+from django.forms import widgets
+import pycountry
+from phonenumbers import COUNTRY_CODE_TO_REGION_CODE
 from django.forms import ModelForm, Form
-from django.forms.fields import CharField, ImageField, URLField
-from django.forms.widgets import TextInput, Textarea, URLInput, FileInput, PasswordInput
+from django.forms.fields import BooleanField, CharField, ImageField, IntegerField, URLField, ChoiceField
+from django.forms.widgets import CheckboxInput, NumberInput, Select, TextInput, Textarea, URLInput, FileInput, PasswordInput
 from django.contrib.auth.models import User
 from user.models import Profile
+
+
 
 
 class SettingsAuthForm(Form):
@@ -29,6 +34,38 @@ class UpdateScreenNameForm(ModelForm):
     class Meta:
         model = Profile
         fields = ('handle', )
+
+
+class UpdatePhoneForm(ModelForm):
+    class Meta:
+        input_field_class = '''flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
+                    focus-within:border-blue-500 focus-within:text-blue-500'''
+        model = Profile
+        fields = ('country_code', 'phone', 'phone_public')
+        labels = {
+            'phone': 'Your phone number'
+        }
+        widgets = {
+            'country_code': Select(
+                attrs = {
+                    'class': '''form-select border-transparent text-xl 
+                            bg-gray-700 bg-opacity-0 outline-none text-white cursor-pointer'''
+                }
+            ),
+            'phone': TextInput(
+                attrs = {
+                    'class': 'text-xl bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'
+                }
+            ),
+            'phone_public': CheckboxInput(
+                attrs = {
+                    'checked': 'checked',
+                    'class': '''form-checkbox bg-transparent border-2 border-gray-600 
+                            text-xl cursor-pointer'''
+                }
+            )
+
+        }
 
 
 class UpdateUsernameForm(ModelForm):
