@@ -1,13 +1,8 @@
-from django.forms import widgets
-import pycountry
-from phonenumbers import COUNTRY_CODE_TO_REGION_CODE
 from django.forms import ModelForm, Form
-from django.forms.fields import BooleanField, CharField, ImageField, IntegerField, URLField, ChoiceField
-from django.forms.widgets import CheckboxInput, NumberInput, Select, TextInput, Textarea, URLInput, FileInput, PasswordInput
+from django.forms.fields import BooleanField, CharField, ImageField, URLField
+from django.forms.widgets import CheckboxInput, EmailInput, Select, TextInput, Textarea, URLInput, FileInput, PasswordInput
 from django.contrib.auth.models import User
 from user.models import Profile
-
-
 
 
 class SettingsAuthForm(Form):
@@ -65,6 +60,29 @@ class UpdatePhoneForm(ModelForm):
                 }
             )
 
+        }
+
+
+class UpdateEmailForm(ModelForm):
+    email_public = BooleanField(
+        widget = CheckboxInput(
+            attrs = {
+                'checked': 'checked',
+                'class': '''form-checkbox bg-transparent border-2 border-gray-600 
+                    text-xl cursor-pointer'''
+            }
+        )
+    )
+
+    class Meta:
+        model = User
+        fields = ('email', )
+        widgets = {
+            'email': EmailInput(
+                attrs = {
+                    'class': 'text-xl bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'
+                }
+            )
         }
 
 
