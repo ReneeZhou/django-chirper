@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .forms import (SettingsAuthForm, UpdateScreenNameForm, UpdatePhoneForm, UpdateEmailForm,
     UpdateUsernameForm, UpdateProfileForm)
 
@@ -146,8 +147,12 @@ def settings_addPhone(request):
 
 
 @login_required
+@require_POST
 def settings_deletePhone(request):
-    return render(request, 'settings_deletePhone.html')
+    request.user.profile.country_code = None
+    request.user.profile.phone = None
+    request.user.save()
+    return redirect('settings_phone')
 
 
 @login_required
