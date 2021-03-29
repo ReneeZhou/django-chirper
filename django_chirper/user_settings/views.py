@@ -82,15 +82,6 @@ def settings_yourChirperData(request):
     return render(request, 'settings_yourChirperData.html')
 
 
-def settings_account_personalization(request):
-    return render(request, 'settings_account_personalization.html')
-
-
-@login_required
-def settings_password(request):
-    return render(request, 'settings_password.html')
-
-
 @login_required
 def settings_screenName(request):
     form = UpdateScreenNameForm(request.POST or None, instance = request.user.profile)
@@ -102,30 +93,6 @@ def settings_screenName(request):
 
     context = {'form': form}
     return render(request, 'settings_screenName.html', context)
-
-
-@login_required
-def settings_securityAndAccountAccess(request):
-    return render(request, 'settings_securityAndAccountAccess.html')
-
-
-@login_required
-def settings_privacyAndSafety(request):
-    return render(request, 'settings_privacyAndSafety.html')
-
-
-@login_required
-def settings_notifications(request):
-    return render(request, 'settings_notifications.html')
-
-
-@login_required
-def settings_accessibilityDisplayAndLanguages(request):
-    return render(request, 'settings_accessibilityDisplayAndLanguages.html')
-
-
-def settings_about(request):
-    return render(request, 'settings_about.html')
 
 
 @login_required
@@ -217,6 +184,39 @@ def settings_addEmail(request):
 
     context = {'form': form}
     return render(request, 'settings_addEmail.html', context)
+
+
+@login_required
+def settings_password(request):
+    return render(request, 'settings_password.html')
+
+
+def settings_account_personalization(request):
+    return render(request, 'settings_account_personalization.html')
+
+
+@login_required
+def settings_securityAndAccountAccess(request):
+    return render(request, 'settings_securityAndAccountAccess.html')
+
+
+@login_required
+def settings_privacyAndSafety(request):
+    return render(request, 'settings_privacyAndSafety.html')
+
+
+@login_required
+def settings_notifications(request):
+    return render(request, 'settings_notifications.html')
+
+
+@login_required
+def settings_accessibilityDisplayAndLanguages(request):
+    return render(request, 'settings_accessibilityDisplayAndLanguages.html')
+
+
+def settings_about(request):
+    return render(request, 'settings_about.html')
 
 
 @login_required
