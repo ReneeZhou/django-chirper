@@ -7,8 +7,8 @@ from django.utils import timezone
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import (SettingsAuthForm, UpdatePhoneForm, UpdateUsernameForm, UpdateProfileForm,
-    UpdateScreenNameForm)
+from .forms import (SettingsAuthForm, UpdateScreenNameForm, UpdatePhoneForm, UpdateEmailForm,
+    UpdateUsernameForm, UpdateProfileForm)
 
 
 def settings(request):
@@ -145,7 +145,11 @@ def settings_addPhone_auth(request):
         else:
             form.add_error(None, 'The password you entered was incorrect.')
 
-    context = {'form': form}
+    context = {
+        'layout_title': 'Change phone',
+        'form': form
+    }
+
     return render(request, 'settings_auth.html', context)
 
 
@@ -184,12 +188,35 @@ def settings_email(request):
 
 @login_required
 def settings_addEmail_auth(request):
-    return render(request, 'settings_auth.html')
+    form = SettingsAuthForm(request.POST or None)
+
+    if form.is_valid():
+        username = request.user.username
+        password = form.cleaned_data.get('password')
+        if authenticate(request, username = username, password = password):
+            return redirect('settings_addEmail')
+        else:
+            form.add_error(None, 'The password you entered was incorrect.')
+
+    context = {
+        'layout_title': 'Change email',
+        'form': form
+    }
+
+    return render(request, 'settings_auth.html', context)
 
 
 @login_required
 def settings_addEmail(request):
-    return render(request, 'settings_addEmail.html')
+    form = UpdateEmailForm(request.POST or None)
+
+    if form.is_valid():
+        request.user.email = form.cleaned_data.get('email')
+        request.user.save()
+        return redirect('settings_email')
+
+    context = {'form': form}
+    return render(request, 'settings_addEmail.html', context)
 
 
 @login_required
