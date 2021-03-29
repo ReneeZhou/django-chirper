@@ -8,7 +8,7 @@
         <div class="flex flex-row items-center">
             <form method="POST" action="" class="space-y-6">
                 <!-- action="" posts us back to the same route -->
-                {{ form.hidden_tag() }}
+                {% csrf_token %}
                 <div class="flex flex-row items-center justify-between -m-4">
                     <a href="{% url 'settings_email' %}">
                         <!-- svg redirects to whatever last page user was on -->
@@ -34,15 +34,15 @@
                         </g>
                     </svg>
                     <div>
-                        {{ form.submit(class="bg-blue-500 py-1 px-4 font-bold rounded-full 
-                    focus:outline-none cursor-pointer") }}
+                        <button class="bg-blue-500 py-1 px-4 font-bold rounded-full 
+                        focus:outline-none cursor-pointer">Submit</button>
                     </div>
                 </div>
 
                 <div class="space-y-4 flex flex-col w-128 pb-14">
                     <div class="text-2xl font-bold tracking-wide">Change email</div>
-                    {% if current_user.email %}
-                    <div class="text-tiny text-gray-600">Your current email is {{ current_user.email }}. What
+                    {% if user.email %}
+                    <div class="text-tiny text-gray-600">Your current email is {{ user.email }}. What
                         would you like to update it to?</div>
                     {% else %}
                     <div class="text-tiny text-gray-600">Enter the email address you’d like to associate with your
@@ -52,17 +52,13 @@
                         <!-- email -->
                         <div class="mt-5 flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
                     focus-within:border-blue-500 focus-within:text-blue-500">
-                            {{ form.email.label(class="bg-gray-700 bg-opacity-0 ml-2 mt-2") }}
-                            {{ form.email(maxlength="50", class="text-xl bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white") }}
+                            <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.email.label }}</div>
+                            {{ form.email }}
                         </div>
                         <div class="mt-1">
-                            {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                            {% for message in messages %}
-                            <span class="text-s text-red-600">{{ message }}</span>
-                            {% endfor %}
+                            {% if form.email.errors %}
+                            <span class="text-s text-red-600">{{ form.email.errors }}</span>
                             {% endif %}
-                            {% endwith %}
                         </div>
                         <!-- public -->
                         <div class="flex flex-row items-start mt-8">
@@ -72,8 +68,7 @@
                             </div>
                             <div
                                 class="-mt-2 -mr-4 flex rounded-full hover:bg-gray-700 hover:bg-opacity-25 p-3 justify-center items-center ">
-                                {{ form.public(class="form-checkbox bg-transparent border-2 border-gray-600 text-xl
-                                cursor-pointer") }}
+                                {{ form.email_public }}
                             </div>
                         </div>
                     </div>
