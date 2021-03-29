@@ -17,15 +17,15 @@
 {% block content %}
 <div class="flex flex-col mx-4 text-tiny">
     <div class="mt-6 mb-3">
-        {% if current_user.phone %}
+        {% if user.profile.phone %}
         <div
             class="flex flex-col  bg-gray-800 border-b-2 border-gray-700 bg-opacity-25 w-140 h-16 text-gray-700 focus-within:text-blue-500 focus-within:border-blue-500">
             <div class="my-1 ml-2 text-sm">Current</div>
-            <div class="ml-2 text-lg">{{ current_user.phone }}</div>
+            <div class="ml-2 text-lg">{{ user.profile.country_code }}{{ user.profile.phone }}</div>
         </div>
         {% endif %}
     </div>
-    {% if current_user.phone %}
+    {% if user.profile.phone %}
     <div class="h-3 bg-gray-800 bg-opacity-50 border-t border-b border-gray-700 -mx-4"></div>
     <div>
         <a href="{% url 'settings_addPhone_auth' %}">

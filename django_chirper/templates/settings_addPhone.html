@@ -41,8 +41,8 @@
 
                 <div class="space-y-4 flex flex-col w-128 pb-14">
                     <div class="text-2xl font-bold tracking-wide">Update phone number</div>
-                    {% if user.phone %}
-                    <div class="text-tiny text-gray-600">Your current phone number is {{ user.profile.phone }}. What
+                    {% if user.profile.phone %}
+                    <div class="text-tiny text-gray-600">Your current phone number is {{ user.profile.country_code }}{{ user.profile.phone }}. What
                         would you like to update it to?</div>
                     {% else %}
                     <div class="text-tiny text-gray-600">Enter the phone number you’d like to associate with your
@@ -52,29 +52,27 @@
                         <!-- country -->
                         <div class="flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
                     focus-within:border-blue-500 focus-within:text-blue-500">
-                            {# form.country.label(class="bg-gray-700 bg-opacity-0 ml-2 mt-2") #}
-                            {# form.country(maxlength="50", class="form-select border-transparent text-xl 
-                            bg-gray-700 bg-opacity-0 outline-none text-white cursor-pointer") #}
+                            <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.country_code.label }}</div>
+                            {{ form.country_code }}
                         </div>
                         <!-- phone -->
                         <div class="mt-5 flex flex-col bg-gray-700 bg-opacity-25 border-b-2 border-gray-600
                     focus-within:border-blue-500 focus-within:text-blue-500">
-                            {# form.phone.label(class="bg-gray-700 bg-opacity-0 ml-2 mt-2") #}
-                            {# form.phone(maxlength="50", class="text-xl bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white") #}
+                            <div class="bg-gray-700 bg-opacity-0 ml-2 mt-2">{{ form.phone.label }}</div>
+                            {{ form.phone }}
                         </div>
                         <div class="mt-1">
-                            <span class="text-s text-red-600">{# message #}</span>
+                            <span class="text-s text-red-600">{{ form.non_field_errors }}</span>
                         </div>
                         <!-- public -->
                         <div class="flex flex-row items-start mt-5">
                             <div class="text-white">
-                                Let people who have your phone number find and connect with you on Chirper. 
+                                Let people who have your phone number find and connect with you on Chirper.
                                 <a href="#" class="text-blue-500 hover:underline">Learn more</a>
                             </div>
                             <div
                                 class="-mt-2 -mr-4 flex rounded-full hover:bg-gray-700 hover:bg-opacity-25 p-3 justify-center items-center ">
-                                {# form.public(class="form-checkbox bg-transparent border-2 border-gray-600 text-xl
-                                cursor-pointer") #}
+                                {{ form.phone_public }}
                             </div>
                         </div>
                     </div>
