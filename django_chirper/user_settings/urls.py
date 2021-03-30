@@ -1,12 +1,22 @@
-from django.urls import path
+from django.urls import path, reverse_lazy
 from . import views
+from .views import PasswordChangeView
+from .forms import UpdatePasswordForm
 
 
 urlpatterns = [
     path('', views.settings, name = 'settings'),
     path('account/', views.settings_account, name = 'settings_account'),
     path('account/personalization/', views.settings_account_personalization, name = 'settings_account_personalization'),
-    path('password/', views.settings_password, name = 'settings_password'),
+    path(
+        'password/', 
+        PasswordChangeView.as_view(
+            template_name = 'settings_password.html',
+            form_class = UpdatePasswordForm,
+            success_url = reverse_lazy('settings')
+        ),
+        name = 'settings_password'
+    ),
     path('screen_name/', views.settings_screenName, name = 'settings_screenName'),
     path('security_and_account_access/', views.settings_securityAndAccountAccess, name = 'settings_securityAndAccountAccess'),
     path('privacy_and_safety', views.settings_privacyAndSafety, name = 'settings_privacyAndSafety'),

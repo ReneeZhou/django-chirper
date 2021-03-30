@@ -195,11 +195,6 @@ def settings_addEmail(request):
     return render(request, 'settings_addEmail.html', context)
 
 
-@login_required
-def settings_password(request):
-    return render(request, 'settings_password.html')
-
-
 def settings_account_personalization(request):
     return render(request, 'settings_account_personalization.html')
 
