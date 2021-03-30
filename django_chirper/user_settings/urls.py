@@ -1,6 +1,6 @@
 from django.urls import path, reverse_lazy
 from . import views
-from .views import PasswordChangeView
+from django.contrib.auth.views import PasswordChangeView
 from .forms import UpdatePasswordForm
 
 
