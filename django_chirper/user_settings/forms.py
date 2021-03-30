@@ -1,7 +1,9 @@
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm, Form
 from django.forms.fields import BooleanField, CharField, ImageField, URLField
 from django.forms.widgets import CheckboxInput, EmailInput, Select, TextInput, Textarea, URLInput, FileInput, PasswordInput
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 from user.models import Profile
 
 
@@ -86,6 +88,19 @@ class UpdateEmailForm(ModelForm):
         }
 
 
+class UpdatePasswordForm(PasswordChangeForm): 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.fields['old_password'].label = 'Current password'
+        self.fields['new_password2'].label = 'Confirm password'
+
+        input_field_class = 'ml-2 bg-gray-800 bg-opacity-0 text-lg text-white outline-none'
+        self.fields['old_password'].widget = PasswordInput(attrs = {'class': input_field_class})
+        self.fields['new_password1'].widget = PasswordInput(attrs = {'class': input_field_class})
+        self.fields['new_password2'].widget = PasswordInput(attrs = {'class': input_field_class})
+    
+
 class UpdateUsernameForm(ModelForm):
     username = CharField(
         max_length = 50, 
@@ -104,7 +119,6 @@ class UpdateUsernameForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
 
 
 class UpdateProfileForm(ModelForm):
