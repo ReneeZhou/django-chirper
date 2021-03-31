@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
 from django.contrib.auth.views import (PasswordResetView, PasswordResetDoneView,
     PasswordResetConfirmView, PasswordResetCompleteView)
-from .forms import BeginPasswordResetForm
+from .forms import BeginPasswordResetForm, SendPasswordResetForm
 
 
 class BeginPasswordResetView(FormView):
@@ -10,6 +10,11 @@ class BeginPasswordResetView(FormView):
     form_class = BeginPasswordResetForm
     success_url = reverse_lazy('account_sendPasswordReset')
 
-
-class SendPasswordResetView(PasswordResetView):
-    template_name = 'account_sendPasswordReset.html'
+    # added user search to session, show result next page
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            self.request.session['email'] = form.cleaned_data['email']
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
