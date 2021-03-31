@@ -35,3 +35,7 @@ class ResetPasswordView(PasswordResetConfirmView):
         context['account'] = User.objects.get(email = self.request.session['email'])
         context['context'] = context.items()
         return context
+
+
+class ResetPasswordCompleteView(PasswordResetCompleteView):
+    template_name = 'account_resetPasswordComplete.html'
