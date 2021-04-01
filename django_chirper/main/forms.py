@@ -11,6 +11,6 @@ class PostForm(ModelForm):
             'content': TextInput(attrs = {
                 'placeholder': "What's happening?",
                 'rows': 1,
-                'class': 'resize-none bg-gray-900 text-xl focus:outline-none p-2'
+                'class': 'resize-none bg-gray-900 text-xl focus:outline-none p-2 pb-4'
             })
         }

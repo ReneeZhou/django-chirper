@@ -16,7 +16,7 @@ def home(request):
 
         context = {
             'posts': posts,
-            'form': form.add_error,
+            'form': form,
             'topics': topics
         }
         if form.is_valid():
