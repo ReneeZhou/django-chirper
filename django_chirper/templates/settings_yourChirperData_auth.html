@@ -45,7 +45,7 @@
                 {{ form.password }}
             </div>
             {% endif %}
-            <a href="{#{{ url_for('account.account_beginPasswordReset') }}#}"
+            <a href="{% url 'account_beginPasswordReset' %}"
                 class="text-blue-500 text-xs mt-2 ml-2 no-underline hover:underline">Forgot
                 password?</a>
         </div>

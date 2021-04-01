@@ -63,8 +63,7 @@
                             <div class="my-1 ml-2">{{ form.password.label }}</div>
                             {{ form.password }}
                         </div>
-                        <!-- 'account.account_beginPasswordReset' -->
-                        <a href=""
+                        <a href="{% url 'account_beginPasswordReset' %}"
                             class="text-blue-500 text-xs mt-2 ml-2 no-underline hover:underline">Forgot
                             password?</a>
                     </div>
