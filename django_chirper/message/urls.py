@@ -10,11 +10,6 @@ urlpatterns = [
         MessageCounterpartView.as_view(),
         name = 'messages_counterpart'
     ),
-    # path(
-    #     'messages/<int:counterpart_id>-<int:currentuser_id>/', 
-    #     views.messages_counterpart, 
-    #     name = 'messages_counterpart'
-    # ),
     path(
         'messages/<int:counterpart_id>-<int:currentuser_id>/info/', 
         MessageCounterpartInfoView.as_view(), 
