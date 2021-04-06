@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from user.models import Profile
 from message.models import Message
 from message.forms import MessageForm
@@ -56,34 +56,49 @@ class MessageView(BaseMessageView):
         return 
 
 
-@login_required
-def messages_counterpart(request, counterpart_id, currentuser_id):
-    counterpart = Profile.objects.get(id = counterpart_id)
+class MessageCounterpartView(CreateView, BaseMessageView):
+    model = Message
+    fields = ('sender', 'recipient', 'body', 'created_at')
+    template_name = 'messages_counterpart.html'
 
-    if counterpart is None: 
-        return redirect('messages')
-    else: 
-        following_profiles = request.user.profile.following.all()
-        form = MessageForm(request.POST or None)
+    def get_queryset(self):
+        self.counterpart_id = self.kwargs['counterpart_id']
+        self.currentuser_id = self.kwargs['currentuser_id']
+        return 
 
-        msg_f = Message.objects.filter(sender_id = counterpart_id, recipient_id = currentuser_id)
-        msg_t = Message.objects.filter(sender_id = currentuser_id, recipient_id = counterpart_id)
-        message_history = (msg_t | msg_f).order_by('created_at') 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['counterpart'] = Profile.objects.get(id = self.counterpart_id)
+        return context
+        
+# @login_required
+# def messages_counterpart(request, counterpart_id, currentuser_id):
+#     counterpart = Profile.objects.get(id = counterpart_id)
 
-        context = {
-            'counterpart': counterpart,
-            'following_profiles': following_profiles,
-            'message_history': message_history,
-            'form': form
-        }
+#     if counterpart is None: 
+#         return redirect('messages')
+#     else: 
+#         following_profiles = request.user.profile.following.all()
+#         form = MessageForm(request.POST or None)
 
-        if form.is_valid():
-            form.instance.sender_id = currentuser_id
-            form.instance.recipient_id = counterpart_id
-            form.save()
-            return redirect('messages_counterpart', counterpart_id = counterpart.id, currentuser_id = request.user.profile.id)
+#         msg_f = Message.objects.filter(sender_id = counterpart_id, recipient_id = currentuser_id)
+#         msg_t = Message.objects.filter(sender_id = currentuser_id, recipient_id = counterpart_id)
+#         message_history = (msg_t | msg_f).order_by('created_at') 
 
-    return render(request, 'messages_counterpart.html', context)
+#         context = {
+#             'counterpart': counterpart,
+#             'following_profiles': following_profiles,
+#             'message_history': message_history,
+#             'form': form
+#         }
+
+#         if form.is_valid():
+#             form.instance.sender_id = currentuser_id
+#             form.instance.recipient_id = counterpart_id
+#             form.save()
+#             return redirect('messages_counterpart', counterpart_id = counterpart.id, currentuser_id = request.user.profile.id)
+
+#     return render(request, 'messages_counterpart.html', context)
 
 
 class MessageCounterpartInfoView(BaseMessageView):
