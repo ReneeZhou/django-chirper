@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.utils import timezone
-from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView
 from user.models import Profile
 from message.models import Message
 from message.forms import MessageForm
@@ -56,49 +55,41 @@ class MessageView(BaseMessageView):
         return 
 
 
-class MessageCounterpartView(CreateView, BaseMessageView):
+class MessageCounterpartView(FormView, BaseMessageView):
     model = Message
-    fields = ('sender', 'recipient', 'body', 'created_at')
     template_name = 'messages_counterpart.html'
+    form_class = MessageForm
 
     def get_queryset(self):
         self.counterpart_id = self.kwargs['counterpart_id']
         self.currentuser_id = self.kwargs['currentuser_id']
-        return 
+        return
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['counterpart'] = Profile.objects.get(id = self.counterpart_id)
+        msg_f = Message.objects.filter(sender_id = self.counterpart_id, recipient_id = self.currentuser_id)
+        msg_t = Message.objects.filter(sender_id = self.currentuser_id, recipient_id = self.counterpart_id)
+        message_history = (msg_t | msg_f).order_by('created_at') 
+        context['message_history'] = message_history
         return context
-        
-# @login_required
-# def messages_counterpart(request, counterpart_id, currentuser_id):
-#     counterpart = Profile.objects.get(id = counterpart_id)
 
-#     if counterpart is None: 
-#         return redirect('messages')
-#     else: 
-#         following_profiles = request.user.profile.following.all()
-#         form = MessageForm(request.POST or None)
+    def form_valid(self, form):
+        self.counterpart_id = self.kwargs['counterpart_id']
+        self.currentuser_id = self.kwargs['currentuser_id']
+        form.instance.recipient_id = self.counterpart_id
+        form.instance.sender_id = self.currentuser_id
+        form.save()
+        return super().form_valid(form)
 
-#         msg_f = Message.objects.filter(sender_id = counterpart_id, recipient_id = currentuser_id)
-#         msg_t = Message.objects.filter(sender_id = currentuser_id, recipient_id = counterpart_id)
-#         message_history = (msg_t | msg_f).order_by('created_at') 
-
-#         context = {
-#             'counterpart': counterpart,
-#             'following_profiles': following_profiles,
-#             'message_history': message_history,
-#             'form': form
-#         }
-
-#         if form.is_valid():
-#             form.instance.sender_id = currentuser_id
-#             form.instance.recipient_id = counterpart_id
-#             form.save()
-#             return redirect('messages_counterpart', counterpart_id = counterpart.id, currentuser_id = request.user.profile.id)
-
-#     return render(request, 'messages_counterpart.html', context)
+    def get_success_url(self):
+        return reverse_lazy(
+            'messages_counterpart',
+            kwargs = {
+                'counterpart_id': self.counterpart_id,
+                'currentuser_id': self.currentuser_id
+            }
+        )
 
 
 class MessageCounterpartInfoView(BaseMessageView):
