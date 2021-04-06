@@ -1,7 +1,5 @@
-from django.db.models.expressions import OuterRef
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from django.db.models import F, Q, When, Case
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
@@ -14,25 +12,34 @@ class BaseMessageView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        t = Message.objects.filter(
-            sender_id = self.request.user.profile.id
-            ).annotate(
-                counterpart_id = F('recipient_id')
-            ).values(
-                'counterpart_id'
+        history_counterparts = Message.objects.raw(
+            '''
+            WITH last_msg AS (
+                SELECT *
+                    FROM
+                    (
+                    SELECT id, sender_id as counterpart, body, created_at
+                    FROM message_message
+                    WHERE recipient_id = %s
+                    UNION
+                    SELECT id, recipient_id as counterpart, body, created_at
+                    FROM message_message
+                    WHERE sender_id = %s
+                    ) 
+                GROUP BY counterpart
+                HAVING created_at = Max(created_at)
             )
-        t = set(q.get('counterpart_id') for q in t)
-        
-        f = Message.objects.filter(
-            recipient_id = self.request.user.profile.id
-            ).annotate(
-                counterpart_id = F('sender_id')
-            ).values(
-                'counterpart_id'
-            )
-        f = set(q.get('counterpart_id') for q in f)
 
-        history_counterparts = Profile.objects.filter(id__in = t.union(f))
+            SELECT user_profile.id, auth_user.username, user_profile.handle, user_profile.profile_image,
+                last_msg.created_at, last_msg.body 
+            FROM last_msg
+            LEFT JOIN user_profile
+            ON last_msg.counterpart = user_profile.id
+            LEFT JOIN auth_user
+            ON auth_user.id = user_profile.user_id;
+            ''',
+            [self.request.user.profile.id, self.request.user.profile.id]
+        )
 
         context['history_counterparts'] = history_counterparts
         context['following_profiles'] = self.request.user.profile.following.all()
