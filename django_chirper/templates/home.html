@@ -169,6 +169,50 @@
 <!-- templates for all chirp feeds -->
 <div class="border-t-8 border-gray-800">
     {% for post in posts %}
+
+    {% if post.original_post is not None %}
+    <div class="flex flex-row pt-2 -mb-1 pl-11 items-center space-x-3
+    text-gray-600 text-sm font-semibold">
+        <div class="">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+            class="h-5 w-5 fill-current" >
+                <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+                <path
+                    d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+            </svg>
+        </div>
+        <div>{{ post.author.user.username }} replied</div>
+    </div>
+
+    <!-- original post -->
+    <div class="flex flex-row pb-5">
+        <!-- profile pic -->
+        <div class="px-3 py-2 z-50">
+            <div class="w-12 h-12 rounded-full overflow-hidden">
+                <img src="{{ post.original_post.author.profile_image.url }}" alt="profile pic"
+                    class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        <div class="flex flex-col space-y-1
+         border-l-2 border-gray-700 border-opacity-75 -ml-9 pl-10 -mb-4 pb-4 mt-2 z-0">
+            <div class="flex flex-row space-x-1 text-gray-600 text-tiny items-center">
+                <!-- author, handle, timestamp -->
+                <div class="flex flex-row space-x-1">
+                    <div class="text-base text-white font-bold">
+                        {{ post.original_post.author.user.username }}
+                    </div>
+                    <div class="text-gray-600">@{{ post.original_post.author.handle }}</div>
+                </div>
+                <div>·</div>
+                <div>{{ post.original_post.show_time }}</div>
+            </div>
+            <div class=>{{ post.original_post.content }}</div>
+        </div>
+    </div>
+    <!-- original post end -->
+    {% endif %}
+
     <div class="block border-b border-gray-700 hover:bg-gray-800 hover:bg-opacity-25">
         <div class="p-3 text-sm flex flex-row space-x-2">
             <!-- user icon -->
