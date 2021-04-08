@@ -1,14 +1,35 @@
 <!-- 2 svgs -->
 <div class="flex flex-row items-end ml-2 -space-x-1 opacity-0 hover:opacity-100">
     <!-- heart svg -->
-    <div class="rounded-full w-10 h-10 flex items-center justify-center
-hover:bg-gray-800 active:bg-blue-900 cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-            class="stroke-current w-6 h-6 text-gray-600">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-    </div>
+    {% if user.profile in message.liker.all %}
+    <form action="{% url 'unlike_message' pk=message.id %}" method="POST">
+        {% csrf_token %}
+        <button class="focus:outline-none">
+            <div class="rounded-full w-10 h-10 flex items-center justify-center
+    hover:bg-gray-800 active:bg-blue-900 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="full" viewBox="0 0 24 24"
+                    class="stroke-current fill-current w-6 h-6 text-red-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+            </div>
+        </button>
+    </form>
+    {% else %}
+    <form action="{% url 'like_message' pk=message.id %}" method="POST">
+        {% csrf_token %}
+        <button class="focus:outline-none">
+            <div class="rounded-full w-10 h-10 flex items-center justify-center
+    hover:bg-gray-800 active:bg-blue-900 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    class="stroke-current w-6 h-6 text-gray-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+            </div>
+        </button>
+    </form>
+    {% endif %}
     <!-- heart svg ends -->
 
 

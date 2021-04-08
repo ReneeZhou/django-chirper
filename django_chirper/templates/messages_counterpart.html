@@ -95,8 +95,18 @@
                 </div>
 
                 <!-- timestamp -->
-                <div class="text-s text-gray-600 mb-4">
-                    {{ message.created_at|date:"N j, Y, g:s A" }}
+                <div class="text-s text-gray-600 mb-4 flex flex-row items-center space-x-2">
+                    {% if message.liker.all %}
+                    <div class="flex flex-row items-center space-x-1 border border-gray-700 rounded-2xl pl-1 pr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="full" viewBox="0 0 24 24"
+                            class="stroke-current fill-current w-6 h-6 text-red-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                        <div>{{ message.liker.count }}</div>
+                    </div>
+                    {% endif %}
+                    <div>{{ message.created_at|date:"N j, Y, g:s A" }}</div>
                 </div>
                 <!-- timestamp end -->
             </div>
@@ -115,16 +125,27 @@
                         </div>
                     </a>
 
-                    <div class="text-tiny rounded-2xl rounded-bl-none bg-gray-700 py-2 px-3 mb-1 w-96 break-words">
-                        {{ message.body }}
+                    <div class="flex flex-row">
+                        <div class="text-tiny rounded-2xl rounded-bl-none bg-gray-700 py-2 px-3 mb-1 w-96 break-words">
+                            {{ message.body }}
+                        </div>
+                        <!-- 2 svgs -->
+                        {% include 'messages_counterpart_counterComp.html' %}
                     </div>
-
-                    <!-- 2 svgs -->
-                    {% include 'messages_counterpart_counterComp.html' %}
                 </div>
 
-                <div class="text-s text-gray-600 mb-4 ml-16">
-                    {{ message.created_at|date:"N j, Y, g:s A" }}
+                <div class="text-s text-gray-600 mb-4 ml-16 flex flex-row items-center space-x-1">
+                    <div>{{ message.created_at|date:"N j, Y, g:s A" }}</div>
+                    {% if message.liker.all %}
+                    <div class="flex flex-row items-center space-x-1 border border-gray-700 rounded-2xl pl-1 pr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="full" viewBox="0 0 24 24"
+                            class="stroke-current fill-current w-6 h-6 text-red-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                        <div>{{ message.liker.count }}</div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}
