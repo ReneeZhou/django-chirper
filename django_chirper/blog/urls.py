@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     StatusDetailView, StatusCreateView, StatusUpdateView, StatusDeleteView,
     like_chirp, unlike_chirp, 
-    StatusAnalyticsView
+    StatusReplyView, StatusAnalyticsView
 )
 from .forms import PostReplyForm
 
@@ -15,12 +15,5 @@ urlpatterns = [
     path('<str:handle>/status/<int:pk>/unlike_chirp/', unlike_chirp, name = 'unlike_chirp'),
     path('<str:handle>/status/<int:pk>/analytics/', StatusAnalyticsView.as_view(), name = 'status_analytics'),
     path('compose/chirp/', StatusCreateView.as_view(), name = 'compose_chirp'),
-    path(
-        'compose/reply/', 
-        StatusCreateView.as_view(
-            template_name = 'compose_reply.html',
-            form_class = PostReplyForm
-        ), 
-        name = 'compose_reply'
-    )
+    path('compose/reply/<int:pk>/', StatusReplyView.as_view(), name = 'compose_reply')
 ]

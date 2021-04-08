@@ -5,7 +5,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from user.models import Profile
-from .forms import PostForm
+from .forms import PostForm, PostReplyForm
 from .models import Post
 
 
@@ -57,6 +57,18 @@ class StatusDeleteView(LoginRequiredMixin, DeleteView):
     # if set success_url with reverse()
     # the resolver wouldn't have all info to reverse yet
     # must use reverse_lazy()
+
+
+class StatusReplyView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostReplyForm
+    template_name = 'compose_reply.html'
+
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user.profile
+        form.instance.original_post = Post.objects.get(id = self.kwargs['pk'])
+        return super().form_valid(form)
 
 
 class StatusAnalyticsView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
