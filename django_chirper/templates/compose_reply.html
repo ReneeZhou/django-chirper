@@ -20,6 +20,37 @@
                     </div>
                 </div>
 
+                <!-- original post -->
+                <div class="flex flex-row pt-2 pb-5">
+                    <!-- profile pic -->
+                    <div class="px-3 py-2 z-50">
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="{{ original_post.author.profile_image.url }}" alt="profile pic"
+                                class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col space-y-1
+                     border-l-2 border-gray-700 border-opacity-75 -ml-9 pl-10 -mb-4 pb-4 mt-2 z-0">
+                        <div class="flex flex-row space-x-1 text-gray-600 text-tiny items-center">
+                            <!-- author, handle, timestamp -->
+                            <div class="flex flex-row space-x-1">
+                                <div class="text-base text-white font-bold">
+                                    {{ original_post.author.user.username }}
+                                </div>
+                                <div class="text-gray-600">@{{ original_post.author.handle }}</div>
+                            </div>
+                            <div>·</div>
+                            <div>{{ original_post.show_time }}</div>
+                        </div>
+                        <div class=>{{ original_post.content }}</div>
+                        <div class="pt-2 text-gray-600 text-">
+                            Replying to <span class="text-blue-600">@{{ original_post.author.handle }}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- original post end -->
+
                 <div class="h-68 flex flex-row">
                     <!-- profile pic -->
                     <div class="px-3 py-2">
@@ -101,8 +132,7 @@
                                 </div>
                                 <!-- chirp button -->
                                 <div>
-                                    <button type="submit"
-                                        class="inline w-20 h-10 rounded-full font-bold bg-blue-500 hover:bg-blue-600 
+                                    <button type="submit" class="inline w-20 h-10 rounded-full font-bold bg-blue-500 hover:bg-blue-600 
                                         active:bg-blue-700 focus:outline-none cursor-pointer">Chirp
                                     </button>
                                 </div>
