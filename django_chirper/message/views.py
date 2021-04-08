@@ -1,6 +1,9 @@
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.views.decorators.http import require_POST
 from django.views.generic import ListView, FormView
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from user.models import Profile
 from message.models import Message
@@ -111,3 +114,19 @@ class MessageComposeView(BaseMessageView):
     def get_queryset(self):
         self.following_profiles = self.request.user.profile.following.all()
         return self.following_profiles
+
+
+@login_required
+@require_POST
+def like_message(request, pk):
+    message = Message.objects.get(pk = pk)
+    message.liker.add(request.user.profile)
+    return redirect(request.META['HTTP_REFERER'])
+
+
+@login_required
+@require_POST
+def unlike_message(request, pk):
+    message = Message.objects.get(pk = pk)
+    message.liker.remove(request.user.profile)
+    return redirect(request.META['HTTP_REFERER'])
