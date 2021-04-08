@@ -199,7 +199,6 @@
                         <!-- link to that specific chirp -->
                         <a href="{% url 'status' handle=post.author.handle pk=post.id %}"
                             class="text-gray-600 hover:underline">
-                            <time class="">{{ post.show }}</time>
                             <!-- if less than a hour: do it backwards: e.g. 30min -->
                             <!-- if not the same year:  %d %b %Y-->
                             <div>{{ post.show_time }}</div>
