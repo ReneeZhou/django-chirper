@@ -17,6 +17,7 @@ class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete = models.CASCADE)
     # if the author is deleted, so will all its posts; one-way only
     liker = models.ManyToManyField(Profile, related_name = 'liked_posts')
+    original_post = models.ForeignKey('self', on_delete = models.CASCADE, null = True)
 
     @property
     def show_time(self):
