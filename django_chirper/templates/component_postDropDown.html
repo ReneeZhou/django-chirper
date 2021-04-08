@@ -1,0 +1,248 @@
+<!-- setting button dropdown -->
+<!-- post owner -->
+{% if post.author.user == user %}
+<div class="text-gray-700">
+    <div x-data="{ open: false }" class="flex flex-col">
+        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow 
+                                sm:pb-0 sm:flex sm:justify-end sm:flex-row
+                                xs:pb-0 xs:flex xs:justify-end xs:flex-row">
+            <div @click.away="open = false" class="relative" x-data="{ open: false }" class="bg-gray-900">
+                <button @click="open = !open" class="flex flex-row items-center z-10 focus:outline-none">
+                    <div class="rounded-full p-1 hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="w-5 h-5 stroke-current text-gray-600 hover:text-blue-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                        </svg>
+                    </div>
+                </button>
+                <!-- setting button -->
+                <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                    x-transition:enter-start="transform opacity-0 scale-95"
+                    x-transition:enter-end="transform opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="transform opacity-100 scale-100"
+                    x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 top-0 w-full rounded-md shadow-msg xs:w-48 sm:w-48 z-50
+                                        text-white">
+                    <div class="flex flex-col text-tiny bg-gray-900 rounded-md shadow">
+                        <!-- delete button -->
+                        <!-- delete modal -->
+                        <div>
+                            <!-- delete modal button -->
+                            <div class="modal-delete-open bg-transparent bg-gray-900 
+flex flex-row items-center space-x-3 text-red-700 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="stroke-current text-red-700 w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                <div>Delete</div>
+                            </div>
+
+                            <!-- delete modal content -->
+                            <div
+                                class="modal-delete opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+                                <!-- bg outside modal -->
+                                <div class="modal-delete-overlay absolute w-full h-full bg-gray-700 opacity-25">
+                                </div>
+
+                                <div
+                                    class="w-76 modal-delete-container rounded-2xl bg-gray-900 text-white shadow-lg z-50 overflow-y-auto">
+                                    <!-- Add margin if you want to see some of the overlay behind the modal-->
+                                    <div class="modal-delete-content flex flex-col pt-6 px-3 pb-6">
+                                        <div class="flex flex-col items-center justify-center">
+                                            <!-- body -->
+                                            <div class="w-68 flex flex-col space-y-2">
+                                                <div class="flex flex-col justify-center items-center space-y-3 pb-3">
+                                                    <p class="font-bold text-xl text-center">Delete
+                                                        Chirp?</p>
+                                                    <p class="text-gray-600 text-tiny text-center leading-tight">
+                                                        This can't be undone and it will be
+                                                        removed from your profile, the timeline of
+                                                        any accounts that follow you, and from
+                                                        Chirper search
+                                                        results.
+                                                    </p>
+                                                </div>
+
+                                                <!-- delete modal -->
+                                                <div class="flex flex-row justify-center items-center space-x-3">
+                                                    <!-- cancel button -->
+                                                    <button
+                                                        class="modal-delete-close block w-32 font-bold focus:outline-none bg-gray-600 rounded-full h-10 bg-opacity-25 hover:bg-opacity-50 focus:bg-gray-500">Cancel</button>
+                                                    <!-- delete button -->
+                                                    <div>
+                                                        <form
+                                                            action="{% url 'delete_chirp' handle=post.author.handle pk=post.id %}"
+                                                            method="POST">
+                                                            {% csrf_token %}
+                                                            <input type="submit" value="Delete" class="block w-32 font-bold focus:outline-none bg-red-600 rounded-full h-10 hover:bg-opacity-75 focus:bg-red-700
+                                                            cursor-pointer">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- delete button ends -->
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- delete modal content ends here -->
+                        </div>
+                        <!-- delete modal ends here -->
+                        <!-- delete button ends -->
+
+                        <div
+                            class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current text-gray-600 w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                            </svg>
+                            <div>Pin to your profile</div>
+                        </div>
+                        <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25"
+                            href="{% url 'status_analytics' handle=user.profile.handle pk=post.id %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                class="fill-current text-gray-600 w-5 h-5 inline">
+                                <path
+                                    d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                            </svg>
+                            <div class="inline align-middle">View Chirp activity</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- end -->
+
+<!-- audience -->
+{% else %}
+<div class="text-gray-700">
+    <div x-data="{ open: false }" class="flex flex-col">
+        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow 
+                                sm:pb-0 sm:flex sm:justify-end sm:flex-row
+                                xs:pb-0 xs:flex xs:justify-end xs:flex-row">
+            <div @click.away="open = false" class="relative" x-data="{ open: false }" class="bg-gray-900">
+                <button @click="open = !open" class="flex flex-row items-center z-10 focus:outline-none">
+                    <div class="rounded-full p-1 hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="w-5 h-5 stroke-current text-gray-600 hover:text-blue-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                        </svg>
+                    </div>
+                </button>
+                <!-- setting button -->
+                <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                    x-transition:enter-start="transform opacity-0 scale-95"
+                    x-transition:enter-end="transform opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="transform opacity-100 scale-100"
+                    x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 top-0 w-full rounded-md shadow-msg xs:w-60 sm:w-60 z-50
+                                        text-white">
+                    <div class="flex flex-col text-tiny bg-gray-900 rounded-md shadow">
+                        <div
+                            class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current text-gray-600 w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div>Not interested in this Chirp</div>
+                        </div>
+
+                        {% if post.author not in user.profile.following.all %}
+                        <form action="{% url 'follow' handle=post.author.handle %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="focus:outline-none">
+                                <div
+                                    class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" class="stroke-current text-gray-600 w-5 h-5">
+                                        <path stroke-linecap=" round" stroke-linejoin="round" stroke-width="2"
+                                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                    </svg>
+                                    <div>Follow @{{ post.author.handle }}</div>
+                                </div>
+                            </button>
+                        </form>
+                        {% else %}
+                        <form action="{% url 'unfollow' handle=post.author.handle %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="focus:outline-none">
+                                <div
+                                    class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        class="stroke-current text-gray-600 w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
+                                    </svg>
+
+                                    <div>Unfollow @{{ post.author.handle }}</div>
+                                </div>
+                            </button>
+                        </form>
+                        {% endif %}
+
+
+                        <a class="space-x-2 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25"
+                            href="{% url 'lists_addMember' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current text-gray-600 w-5 h-5 inline">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
+                            <div class="inline align-middle">Add/remove from Lists</div>
+                        </a>
+                        <div
+                            class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current text-gray-600 w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+                                    clip-rule="evenodd" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                            </svg>
+                            <div>Mute @{{ post.author.handle }}</div>
+                        </div>
+                        <div
+                            class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current text-gray-600 w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                            </svg>
+                            <div>Block @{{ post.author.handle }}</div>
+                        </div>
+                        <div
+                            class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current text-gray-600 w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                            <div>Embed Chirp</div>
+                        </div>
+                        <div
+                            class="flex flex-row items-center space-x-3 py-3 px-3 hover:bg-gray-800 hover:bg-opacity-25 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current text-gray-600 w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                            </svg>
+                            <div>Report Chirp</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+{% endif %}
+<!-- setting dropdown ends -->
