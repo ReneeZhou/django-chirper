@@ -1,6 +1,6 @@
 from django.db import models
-from user.models import Profile
 from django.utils import timezone
+from user.models import Profile
 
 
 class Message(models.Model):
@@ -8,6 +8,7 @@ class Message(models.Model):
     recipient = models.ForeignKey(Profile, on_delete = models.CASCADE, related_name = 'received')
     body = models.TextField()
     created_at = models.DateTimeField(default = timezone.now)
+    liker = models.ManyToManyField(Profile, related_name = 'liked_messages')
 
     def __repr__(self):
         return f'''
