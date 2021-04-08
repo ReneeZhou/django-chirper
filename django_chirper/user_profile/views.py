@@ -68,7 +68,7 @@ def follow(request, handle):
     currentuser = Profile.objects.get(handle = request.user.profile.handle)
     if counterpart not in currentuser.following.all():
         currentuser.following.add(counterpart)
-        return redirect('profile', handle = counterpart.handle)
+        return redirect(request.META['HTTP_REFERER'])
 
 
 @login_required
@@ -78,4 +78,4 @@ def unfollow(request, handle):
     currentuser = Profile.objects.get(handle = request.user.profile.handle)
     if counterpart in currentuser.following.all():
         currentuser.following.remove(counterpart)
-        return redirect('profile', handle = counterpart.handle)
+        return redirect(request.META['HTTP_REFERER'])
