@@ -130,12 +130,12 @@
 
                 <!-- counts -->
                 <div class="flex flex-row text-gray-600 space-x-4 text-tiny border-b border-gray-600 py-4">
-                    <div>{{ 171 }} Rechirps</div>
-                    <div>{{ 21 }} Quotes</div>
+                    <div>Rechirps</div>
+                    <div>Quotes</div>
                     <div class="hover:underline text-white">
                         <!-- url_for('post.status_likes', handle = post.author.handle, post_id = post.id) -->
                         <a href="">
-                            <b class="font-semibold">{{ post.like_count }}</b>
+                            <b class="text-white font-bold">{{ post.liker.count }}</b>
                             <span class="text-gray-600"> Likes</span>
                         </a>
                     </div>
@@ -145,7 +145,7 @@
             <!-- svg group -->
             <div class="flex flex-row pt-2 -mb-1 justify-around">
                 <!-- comment -->
-                <a href="{% url 'compose_chirp' %}">
+                <a href="{% url 'compose_reply' %}">
                     <div class="rounded-full p-2 hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             class="w-6 h-6 stroke-current stroke-1 text-gray-500 hover:text-blue-500 ">
@@ -181,7 +181,6 @@
                                         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                 </svg>
                             </div>
-                            <div class="text-red-600">{{ post.liker.count }}</div>
                         </button>
                     </form>
                 </div>
