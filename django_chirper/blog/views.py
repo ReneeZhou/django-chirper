@@ -74,7 +74,7 @@ class StatusAnalyticsView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 def like_chirp(request, handle, pk):
     post = Post.objects.get(pk = pk)
     post.liker.add(request.user.profile)
-    return redirect('home')
+    return redirect(request.META['HTTP_REFERER'])
 
 
 @login_required
@@ -82,4 +82,4 @@ def like_chirp(request, handle, pk):
 def unlike_chirp(request, handle, pk):
     post = Post.objects.get(pk = pk)
     post.liker.remove(request.user.profile)
-    return redirect('home')
+    return redirect(request.META['HTTP_REFERER'])
