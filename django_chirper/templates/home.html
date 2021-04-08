@@ -82,8 +82,7 @@
     <!-- profile pic -->
     <a href="{% url 'profile' handle=user.profile.handle %}">
         <div class="w-12 h-12 rounded-full overflow-hidden">
-            <img src="{{ user.profile.profile_image.url }}" alt="profile pic"
-                class="w-full h-full object-cover">
+            <img src="{{ user.profile.profile_image.url }}" alt="profile pic" class="w-full h-full object-cover">
         </div>
     </a>
 
@@ -166,117 +165,6 @@
         </form>
     </div>
 </div>
-
-
-<div class="border-t-8 border-gray-800">
-    <div class="p-1 m-2 text-sm flex flex-row space-x-2">
-        <!-- user icon -->
-        <div class="w-12 h-12">
-            <div class="w-12 h-12 rounded-full overflow-hidden">
-                <img src="{% static 'img/profile_pics/ocean4.jpg' %}" alt="profile pic"
-                    class="w-full h-full object-cover">
-            </div>
-        </div>
-
-        <div class="flex flex-col w-full space-y-2 -m-1">
-            <!-- small header -->
-            <div class="flex flex-row justify-between items-center">
-                <!-- username, handle, timestamp -->
-                <div class="flex flex-row space-x-2">
-                    <!-- link to user page -->
-                    <a href="#">
-                        <div class="flex flex-row space-x-1">
-                            <div class="text-base font-bold hover:underline">Renee Zhou</div>
-                            <div class="text-gray-600">@handle</div>
-                        </div>
-                    </a>
-                    <div class="text-gray-600 font-bold">·</div>
-                    <!-- link to that specific chirp -->
-                    <a href="#" class="text-gray-600 hover:underline">
-                        <time class="text-gray-600 hover:underline">10m</time>
-                    </a>
-                </div>
-
-                <!-- setting button -->
-                <button class="focus:outline-none">
-                    <div class="rounded-full p-1 hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="w-5 h-5 stroke-current text-gray-600 hover:text-blue-500">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                        </svg>
-                    </div>
-                </button>
-
-            </div>
-
-            <!-- chirp content section -->
-            <div>
-                <p class="text-base">
-                    I am building Chirp using Python 🐍 , flask & tailwind.
-                    It is so fun! This is to pay tribute to Twitter of being such a wonderful platform!
-                </p>
-            </div>
-
-            <!-- svg group -->
-            <div class="flex flex-row justify-between pr-20">
-                <!-- comment -->
-                <a href="{% url 'compose_chirp' %}">
-                    <div class="rounded-full p-1 hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="w-5 h-5 stroke-current stroke-1 text-gray-500 hover:text-blue-500 ">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </svg>
-                    </div>
-                </a>
-
-                <!-- rechirp -->
-                <a href="{% url 'compose_chirp' %}">
-                    <div class="rounded-full p-1 hover:bg-green-700 hover:bg-opacity-25 active:bg-green-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="w-5 h-5 stroke-current stroke-1 text-gray-500 hover:text-green-500 ">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                    </div>
-                </a>
-
-
-                <!-- like -->
-                <button class="focus:outline-none">
-                    <div class="rounded-full p-1 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="w-5 h-5 stroke-current stroke-1 text-gray-500 hover:text-red-500 ">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                    </div>
-                </button>
-
-
-                <!-- share -->
-                <button class="focus:outline-none">
-                    <div class="rounded-full p-1 hover:bg-blue-700 hover:bg-opacity-25 active:bg-blue-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="w-5 h-5 stroke-current stroke-1 text-gray-500 hover:text-blue-500 ">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                        </svg>
-                    </div>
-                </button>
-
-            </div>
-
-            <!-- link to thread -->
-            <!-- <div>
-                <a href="#">Show this thread</a>
-            </div> -->
-        </div>
-
-    </div>
-</div>
-
 
 <!-- templates for all chirp feeds -->
 <div class="border-t-8 border-gray-800">
