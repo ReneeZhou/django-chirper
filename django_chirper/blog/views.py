@@ -64,7 +64,12 @@ class StatusReplyView(LoginRequiredMixin, CreateView):
     form_class = PostReplyForm
     template_name = 'compose_reply.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['original_post'] = Post.objects.get(pk = self.kwargs['pk'])
+        return context
 
+        
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
         form.instance.original_post = Post.objects.get(id = self.kwargs['pk'])
