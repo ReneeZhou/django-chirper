@@ -120,6 +120,7 @@
 {% block tabcontent %}
 <div class="">
     {% for post in posts %}
+    {% if post.original_post is None %}
     <div class="block border-b border-gray-700 hover:bg-gray-800 hover:bg-opacity-25">
         <div class="p-3 text-sm flex flex-row space-x-2">
             <!-- user icon -->
@@ -179,7 +180,7 @@
             </div>
         </div>
     </div>
-
+    {% endif %}
     {% endfor %}
 </div>
 
