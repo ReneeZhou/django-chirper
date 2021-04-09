@@ -3,7 +3,7 @@
 <!-- overwrite the ones in layout_profile.html -->
 {% block title %}Chirps liked by {{ user_profile.user.username }} (@{{ user_profile.handle }}){% endblock title %}
 {% block small %}
-<div class="text-gray-600 text-s font-normal">{{ posts_count }} Likes</div>
+<div class="text-gray-600 text-s font-normal">{{ user_profile.liked_posts.count }} Likes</div>
 {% endblock small %}
 
 <!-- 4 tabs -->
@@ -32,7 +32,7 @@
 {% block tabcontent %}
 {% if user_profile.liked_posts.all %}
 
-{% for post in user_profile.liked_posts.all %}
+{% for post in posts %}
 <div class="block border-b border-gray-700 hover:bg-gray-800 hover:bg-opacity-25">
     <div class="p-3 text-sm flex flex-row space-x-2">
         <!-- user icon -->

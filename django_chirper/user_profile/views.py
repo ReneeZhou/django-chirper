@@ -31,6 +31,11 @@ class ProfileMediaView(ProfilePostView):
 class ProfileLikesView(ProfilePostView):
     template_name = 'profile_likes.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = self.user_profile.liked_posts.order_by('-created_at')
+        return context
+
 
 class ProfileFollowersView(ProfilePostView):
     template_name = 'profile_followers.html'
