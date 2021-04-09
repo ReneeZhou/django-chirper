@@ -14,10 +14,10 @@ class Post(models.Model):
     id = models.BigAutoField(primary_key = True, default = gen_key)
     content = models.CharField(max_length = 280)
     created_at = models.DateTimeField(default = timezone.now)
-    author = models.ForeignKey(Profile, on_delete = models.CASCADE)
+    author = models.ForeignKey(Profile, on_delete = models.CASCADE, related_name = 'wrote_posts')
     # if the author is deleted, so will all its posts; one-way only
     liker = models.ManyToManyField(Profile, related_name = 'liked_posts')
-    original_post = models.ForeignKey('self', on_delete = models.CASCADE, null = True)
+    original_post = models.ForeignKey('self', on_delete = models.CASCADE, null = True, related_name = 'comments')
 
     @property
     def show_time(self):
