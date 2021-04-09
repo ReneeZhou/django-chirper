@@ -14,105 +14,275 @@
     hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2 text-blue-500 border-b-2 border-blue-500">
         <div>Chirps & replies</div>
     </a>
-    
+
     <!-- media modal -->
     <!-- <div class="w-40 flex flex-row justify-center items-center pb-3 pt-2 hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500"> -->
-        {% if user.is_authenticated %}
-        <a href="{% url 'profile_media' handle=user_profile.handle %}" class="w-40 flex flex-row justify-center items-center 
+    {% if user.is_authenticated %}
+    <a href="{% url 'profile_media' handle=user_profile.handle %}" class="w-40 flex flex-row justify-center items-center 
         hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
-            <div>Media</div>
-        </a>
-        {% else %}
-        <a href="{% url 'profile_media' handle=user_profile.handle %}" class="modal-media-open w-40 flex flex-row justify-center items-center 
+        <div>Media</div>
+    </a>
+    {% else %}
+    <a href="{% url 'profile_media' handle=user_profile.handle %}" class="modal-media-open w-40 flex flex-row justify-center items-center 
         hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
-            <!-- media modal button -->
-            <div>Media</div>
-        </a>
-    
-    
-        <!-- media modal content -->
-        <div
-            class="modal-media opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
-            <!-- bg outside modal -->
-            <div class="modal-media-overlay absolute w-full h-full bg-gray-700 opacity-25"></div>
-    
-            <div class="w-144 modal-container rounded-2xl bg-gray-900 text-white shadow-lg z-50 overflow-y-auto">
-                <!-- Add margin if you want to see some of the overlay behind the modal-->
-                <div class="modal-content flex flex-col pt-2 px-3 pb-16">
-                    <!-- close svg -->
-                    <div class="flex justify-between items-center">
-                        <div class="modal-media-close cursor-pointer z-50 w-10 h-10 rounded-full flex justify-center items-center
+        <!-- media modal button -->
+        <div>Media</div>
+    </a>
+
+
+    <!-- media modal content -->
+    <div
+        class="modal-media opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+        <!-- bg outside modal -->
+        <div class="modal-media-overlay absolute w-full h-full bg-gray-700 opacity-25"></div>
+
+        <div class="w-144 modal-container rounded-2xl bg-gray-900 text-white shadow-lg z-50 overflow-y-auto">
+            <!-- Add margin if you want to see some of the overlay behind the modal-->
+            <div class="modal-content flex flex-col pt-2 px-3 pb-16">
+                <!-- close svg -->
+                <div class="flex justify-between items-center">
+                    <div class="modal-media-close cursor-pointer z-50 w-10 h-10 rounded-full flex justify-center items-center
                                      hover:bg-blue-700 hover:bg-opacity-25">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                class="w-6 h-6 stroke-current text-blue-500">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="w-6 h-6 stroke-current text-blue-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center justify-center">
+                    <!-- chirper svg-->
+                    <div class="flex justify-center items-center pb-16 pt-6">
+                        <div class="z-50 w-12 h-12">
+                            <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512"
+                                width="512" xmlns="http://www.w3.org/2000/svg"
+                                class="w-12 h-12 fill-current text-white">
+                                <g>
+                                    <path
+                                        d="m105.623 201.204c0 1.149.382 2.74 2.202 3.789l61.082 35.184v-77.947l-61.081 35.184c-1.821 1.048-2.203 2.639-2.203 3.79z" />
+                                    <path
+                                        d="m428.034 70.164c-26.196-26.197-60.866-40.624-97.624-40.624h-.698c-34.778 0-67.582 13.65-92.368 38.437s-38.437 57.591-38.437 92.369v132.412c0 58.142 22.813 112.976 64.237 154.399 20.686 20.686 44.716 36.729 70.831 47.61-.258-.255-.521-.502-.778-.759-30.652-30.652-47.533-71.253-47.533-114.324v-64.083c0-59.79 48.644-108.434 108.434-108.434h.527c26.968 0 52.263 7.288 74.031 19.987v-59.367c.001-36.757-14.426-71.427-40.622-97.623zm-94.501 83.862c-8.284 0-15-6.716-15-15 0-9.743-7.96-17.669-17.745-17.669s-17.745 7.926-17.745 17.669c0 8.284-6.716 15-15 15s-15-6.716-15-15c0-26.285 21.418-47.669 47.745-47.669s47.745 21.384 47.745 47.669c0 8.284-6.716 15-15 15z" />
+                                    <path
+                                        d="m477.509 271.66c-22.242-22.243-51.678-34.492-82.883-34.492h-.527c-43.248 0-78.434 35.186-78.434 78.434v64.083c0 35.058 13.761 68.125 38.746 93.11 24.985 24.986 58.054 38.746 93.111 38.746h50.427c7.748 0 14.051-6.303 14.051-14.051v-142.948c0-31.205-12.249-60.64-34.491-82.882z" />
+                                    <path
+                                        d="m101.433 87.27-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 2.931 2.937 6.774 4.406 10.619 4.406 3.833 0 7.666-1.46 10.594-4.381l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-78.035c0-8.284-6.716-15-15-15h-79.812c-8.284 0-15 6.716-15 15v71.811l-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 5.852 5.866 15.348 5.876 21.213.025l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-63.035h49.812z" />
+                                </g>
                             </svg>
                         </div>
                     </div>
-    
-                    <div class="flex flex-col items-center justify-center">
-                        <!-- chirper svg-->
-                        <div class="flex justify-center items-center pb-16 pt-6">
-                            <div class="z-50 w-12 h-12">
-                                <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512"
-                                    width="512" xmlns="http://www.w3.org/2000/svg"
-                                    class="w-12 h-12 fill-current text-white">
-                                    <g>
-                                        <path
-                                            d="m105.623 201.204c0 1.149.382 2.74 2.202 3.789l61.082 35.184v-77.947l-61.081 35.184c-1.821 1.048-2.203 2.639-2.203 3.79z" />
-                                        <path
-                                            d="m428.034 70.164c-26.196-26.197-60.866-40.624-97.624-40.624h-.698c-34.778 0-67.582 13.65-92.368 38.437s-38.437 57.591-38.437 92.369v132.412c0 58.142 22.813 112.976 64.237 154.399 20.686 20.686 44.716 36.729 70.831 47.61-.258-.255-.521-.502-.778-.759-30.652-30.652-47.533-71.253-47.533-114.324v-64.083c0-59.79 48.644-108.434 108.434-108.434h.527c26.968 0 52.263 7.288 74.031 19.987v-59.367c.001-36.757-14.426-71.427-40.622-97.623zm-94.501 83.862c-8.284 0-15-6.716-15-15 0-9.743-7.96-17.669-17.745-17.669s-17.745 7.926-17.745 17.669c0 8.284-6.716 15-15 15s-15-6.716-15-15c0-26.285 21.418-47.669 47.745-47.669s47.745 21.384 47.745 47.669c0 8.284-6.716 15-15 15z" />
-                                        <path
-                                            d="m477.509 271.66c-22.242-22.243-51.678-34.492-82.883-34.492h-.527c-43.248 0-78.434 35.186-78.434 78.434v64.083c0 35.058 13.761 68.125 38.746 93.11 24.985 24.986 58.054 38.746 93.111 38.746h50.427c7.748 0 14.051-6.303 14.051-14.051v-142.948c0-31.205-12.249-60.64-34.491-82.882z" />
-                                        <path
-                                            d="m101.433 87.27-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 2.931 2.937 6.774 4.406 10.619 4.406 3.833 0 7.666-1.46 10.594-4.381l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-78.035c0-8.284-6.716-15-15-15h-79.812c-8.284 0-15 6.716-15 15v71.811l-17.215 17.175c-5.865 5.851-5.876 15.349-.025 21.213 5.852 5.866 15.348 5.876 21.213.025l21.621-21.57c2.821-2.814 4.406-6.635 4.406-10.619v-63.035h49.812z" />
-                                    </g>
-                                </svg>
-                            </div>
+
+                    <!-- body -->
+                    <div class="w-108 flex flex-col">
+                        <div class="flex flex-col justify-center items-center pb-16">
+                            <p class="font-bold text-2xl text-center">Don't miss what's happening</p>
+                            <p class="text-gray-600 text-tiny">People on Chirper are the first to know.</p>
                         </div>
-    
-                        <!-- body -->
-                        <div class="w-108 flex flex-col">
-                            <div class="flex flex-col justify-center items-center pb-16">
-                                <p class="font-bold text-2xl text-center">Don't miss what's happening</p>
-                                <p class="text-gray-600 text-tiny">People on Chirper are the first to know.</p>
-                            </div>
-    
-                            <!-- buttons -->
-                            <div
-                                class="flex flex-col justify-center items-center text-center font-bold space-y-4 pt-2 pb-2">
-                                <a href="{% url 'login' %}">
-                                    <button class="w-80 bg-blue-500 rounded-full h-12 font-semibold 
+
+                        <!-- buttons -->
+                        <div
+                            class="flex flex-col justify-center items-center text-center font-bold space-y-4 pt-2 pb-2">
+                            <a href="{% url 'login' %}">
+                                <button class="w-80 bg-blue-500 rounded-full h-12 font-semibold 
                             hover:bg-blue-600 focus:outline-none">Log in</button>
-                                </a>
-                                <a href="{% url 'signup' %}">
-                                    <button class="w-80 border border-blue-500 rounded-full h-12 text-blue-500 font-semibold
+                            </a>
+                            <a href="{% url 'signup' %}">
+                                <button class="w-80 border border-blue-500 rounded-full h-12 text-blue-500 font-semibold
                              hover:bg-gray-800 hover:bg-opacity-50 focus:outline-none">Sign up</button>
-                                </a>
-                            </div>
+                            </a>
                         </div>
                     </div>
-    
-    
                 </div>
+
+
             </div>
         </div>
-        {% endif %}
-        <!-- </div> -->
-    
-        <!-- likes modal -->
-        {% if user.is_authenticated %}
-        <a href="{% url 'profile_likes' handle=user_profile.handle %}" class="w-40 flex flex-row justify-center items-center 
+    </div>
+    {% endif %}
+    <!-- </div> -->
+
+    <!-- likes modal -->
+    {% if user.is_authenticated %}
+    <a href="{% url 'profile_likes' handle=user_profile.handle %}" class="w-40 flex flex-row justify-center items-center 
         hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
-            <div>Likes</div>
-        </a>
-        {% else %}
-        <a href="{% url 'profile_likes' handle=user_profile.handle %}" class="modal-media-open w-40 flex flex-row justify-center items-center 
+        <div>Likes</div>
+    </a>
+    {% else %}
+    <a href="{% url 'profile_likes' handle=user_profile.handle %}" class="modal-media-open w-40 flex flex-row justify-center items-center 
         hover:bg-blue-800 hover:bg-opacity-25 hover:text-blue-500 pb-3 pt-2">
-            <!-- likes modal button -->
-            <div>Likes</div>
-        </a>
-        {% endif %}
+        <!-- likes modal button -->
+        <div>Likes</div>
+    </a>
+    {% endif %}
 </div>
 {% endblock tabs %}
+
+
+{% block tabcontent %}
+
+{% for post in posts %}
+
+<!-- original post-->
+{% if post.original_post is not None %}
+{% with comment=post.original_post %}
+<div class="flex flex-row pt-2 -mb-1 pl-11 items-center space-x-3
+    text-gray-600 text-sm font-semibold">
+    <div class="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="h-5 w-5 fill-current">
+            <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+            <path
+                d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+        </svg>
+    </div>
+    <div>{{ post.author.user.username }} replied</div>
+</div>
+
+<div class="flex flex-row pb-5">
+    <!-- profile pic -->
+    <div class="px-3 py-2 z-50">
+        <a href="{% url 'profile' handle=comment.author.handle %}">
+            <div class="w-12 h-12 rounded-full overflow-hidden">
+                <img src="{{ comment.author.profile_image.url }}" alt="profile pic" class="w-full h-full object-cover">
+            </div>
+        </a>
+    </div>
+
+    <div class="flex flex-col space-y-1 w-full
+         border-l-2 border-gray-700 border-opacity-75 -ml-9 pl-10 -mb-4 pb-4 mt-2 z-0">
+
+        <div class="flex flex-row space-x-1 text-gray-600 text-tiny items-center">
+            <!-- author, handle, timestamp -->
+            <a href="{% url 'profile' handle=comment.author.handle %}">
+                <div class="flex flex-row space-x-1">
+                    <div class="text-base text-white font-bold hover:underline">
+                        {{ comment.author.user.username }}
+                    </div>
+                    <div class="text-gray-600">@{{ comment.author.handle }}</div>
+                </div>
+            </a>
+            <div>·</div>
+            <a href="{% url 'status' handle=comment.author.handle pk=comment.id %}">
+                <div class="hover:underline">{{ comment.show_time }}</div>
+            </a>
+        </div>
+        <a href="{% url 'status' handle=comment.author.handle pk=comment.id %}">
+            <div>{{ comment.content }}</div>
+        </a>
+
+        {% include 'component_replySvgGroup.html' %}
+    </div>
+</div>
+{% endwith %}
+{% endif %}
+<!-- original post end -->
+
+<!-- reply/comment -->
+<div class="block border-b border-gray-700 hover:bg-gray-800 hover:bg-opacity-25">
+    <div class="p-3 text-sm flex flex-row space-x-2">
+        <!-- user icon -->
+        <div class="w-12 h-12">
+            <div class="w-12 h-12 rounded-full overflow-hidden">
+                <a href="{% url 'profile' handle=post.author.handle %}">
+                    <img src="{{ post.author.profile_image.url }}" alt="profile pic"
+                        class="w-full h-full object-cover">
+                </a>
+            </div>
+        </div>
+
+
+        <div class="flex flex-col w-full space-y-2 -m-1">
+            <!-- small header -->
+            <div class="flex flex-row justify-between items-center">
+                <!-- author, handle, timestamp -->
+                <div class="flex flex-row space-x-2">
+                    <!-- link to user page -->
+                    <a href="{% url 'profile' handle=post.author.handle %}">
+                        <div class="flex flex-row space-x-1">
+                            <div class="text-base font-bold hover:underline">{{ post.author.user.username }}</div>
+                            <div class="text-gray-600">@{{ post.author.handle }}</div>
+                            <div></div>
+                        </div>
+                    </a>
+                    <div class="text-gray-600 font-bold">·</div>
+                    <!-- link to that specific chirp -->
+                    <a href="{% url 'status' handle=post.author.handle pk=post.id %}"
+                        class="text-gray-600 hover:underline">
+                        <!-- if less than a hour: do it backwards: e.g. 30min -->
+                        <!-- if not the same year:  %d %b %Y-->
+                        <div>{{ post.show_time }}</div>
+                    </a>
+                </div>
+
+                <!-- setting button dropdown -->
+                {% include 'component_postDropDown.html' %}
+                <!-- setting dropdown ends -->
+            </div>
+
+            <!-- chirp content section -->
+            <div>
+                <p class="text-base">
+                    <a href="{% url 'status' handle=post.author.handle pk=post.id %}">{{ post.content }}</a>
+                </p>
+            </div>
+
+            <!-- svg group -->
+            {% include 'component_postSvgGroup.html' %}
+
+            <!-- link to thread -->
+            <!-- <div>
+                    <a href="#">Show this thread</a>
+                </div> -->
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+
+
+
+<!-- delete button scripts -->
+<script>
+    var openmodalDelete = document.querySelectorAll('.modal-delete-open')
+    for (var i = 0; i < openmodalDelete.length; i++) {
+        openmodalDelete[i].addEventListener('click', function (event) {
+            event.preventDefault()
+            toggleModalDelete()
+        })
+    }
+
+
+    const overlayDelete = document.querySelector('.modal-delete-overlay')
+    overlayDelete.addEventListener('click', toggleModalDelete)
+
+
+    var closemodalDelete = document.querySelectorAll('.modal-delete-close')
+    for (var i = 0; i < closemodalDelete.length; i++) {
+        closemodalDelete[i].addEventListener('click', toggleModalDelete)
+    }
+
+
+    document.onkeydown = function (evt) {
+        evt = evt || window.event
+        var isEscape = false
+        if ("key" in evt) {
+            isEscape = (evt.key === "Escape" || evt.key === "Esc")
+        } else {
+            isEscape = (evt.keyCode === 27)
+        }
+        if (isEscape && document.body.classList.contains('modal-delete-active')) {
+            toggleModalDelete()
+        }
+    };
+
+
+    function toggleModalDelete() {
+        const body = document.querySelector('body')
+        const modalDelete = document.querySelector('.modal-delete')
+        modalDelete.classList.toggle('opacity-0')
+        modalDelete.classList.toggle('pointer-events-none')
+        body.classList.toggle('modal-delete-active')
+    }
+</script>
+<!-- scripts end -->
+{% endblock tabcontent %}

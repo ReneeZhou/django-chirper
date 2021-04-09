@@ -23,8 +23,8 @@
             <a href="{% url 'profile' handle=user_profile.handle %}">
                 <div class="w-12 h-12">
                     <div class="w-12 h-12 rounded-full overflow-hidden">
-                        <img src="{{ user_profile.profile_image.url }}"
-                            alt="profile pic" class="w-full h-full object-cover">
+                        <img src="{{ user_profile.profile_image.url }}" alt="profile pic"
+                            class="w-full h-full object-cover">
                     </div>
                 </div>
             </a>
@@ -61,9 +61,8 @@
 
 
                         <!-- delete button -->
-                        <form
-                            action="{% url 'delete_chirp' handle=user.profile.handle pk=post.id %}"
-                            method="POST" class="inline">
+                        <form action="{% url 'delete_chirp' handle=user.profile.handle pk=post.id %}" method="POST"
+                            class="inline">
                             {% csrf_token %}
                             <button class="focus:outline-none">
                                 <div class="rounded-full p-2 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
@@ -109,7 +108,7 @@
 
                 <!-- post timestamp -->
                 <div class="flex flex-row text-gray-600 space-x-1 text-tiny border-b border-gray-600 py-4">
-                    <div>{# {{ post.created_at.strftime('%I:%M %p · %d %b %Y').lstrip('0') }} #}</div> 
+                    <div>{{ post.created_at|time }} {{ post.created_at|date:"j M Y" }}</div>
                     <div>·</div>
                     <div>Source Label</div>
                 </div>
@@ -170,8 +169,7 @@
                 <!-- like button -->
                 {% if user.profile in post.liker.all %}
                 <div>
-                    <form action="{% url 'unlike_chirp' handle=post.author.handle pk=post.id %}"
-                        method="POST">
+                    <form action="{% url 'unlike_chirp' handle=post.author.handle pk=post.id %}" method="POST">
                         {% csrf_token %}
                         <button class="focus:outline-none flex flex-row items-center space-x-1">
                             <div class="rounded-full p-2 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
@@ -186,8 +184,7 @@
                 </div>
                 {% else %}
                 <div>
-                    <form action="{% url 'like_chirp' handle=post.author.handle pk=post.id %}"
-                        method="POST">
+                    <form action="{% url 'like_chirp' handle=post.author.handle pk=post.id %}" method="POST">
                         {% csrf_token %}
                         <button class="focus:outline-none flex flex-row items-center space-x-1">
                             <div class="rounded-full p-2 hover:bg-red-700 hover:bg-opacity-25 active:bg-red-500">
@@ -197,9 +194,6 @@
                                         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                 </svg>
                             </div>
-                            {% if post.liker.count != 0 %}
-                            <div class="text-gray-600">{{ post.liker.count }}</div>
-                            {% endif %}
                         </button>
                     </form>
                 </div>
@@ -228,6 +222,73 @@
 
 
     </div>
+</div>
+
+
+<!-- templates for all replies -->
+<div>
+    {% for comment in post.comments.all %}
+    <div class="block border-b border-gray-700 hover:bg-gray-800 hover:bg-opacity-25">
+        <div class="p-3 text-sm flex flex-row space-x-2">
+            <!-- user icon -->
+            <div class="w-12 h-12">
+                <div class="w-12 h-12 rounded-full overflow-hidden">
+                    <a href="{% url 'profile' handle=comment.author.handle %}">
+                        <img src="{{ comment.author.profile_image.url }}" alt="profile pic"
+                            class="w-full h-full object-cover">
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="flex flex-col w-full space-y-2 -m-1">
+                <!-- small header -->
+                <div class="flex flex-row justify-between items-center">
+                    <!-- author, handle, timestamp -->
+                    <div class="flex flex-row space-x-2">
+                        <!-- link to user page -->
+                        <a href="{% url 'profile' handle=comment.author.handle %}">
+                            <div class="flex flex-row space-x-1">
+                                <div class="text-base font-bold hover:underline">{{ comment.author.user.username }}
+                                </div>
+                                <div class="text-gray-600">@{{ comment.author.handle }}</div>
+                                <div></div>
+                            </div>
+                        </a>
+                        <div class="text-gray-600 font-bold">·</div>
+                        <!-- link to that specific chirp -->
+                        <a href="{% url 'status' handle=comment.author.handle pk=post.id %}"
+                            class="text-gray-600 hover:underline">
+                            <!-- if less than a hour: do it backwards: e.g. 30min -->
+                            <!-- if not the same year:  %d %b %Y-->
+                            <div>{{ comment.show_time }}</div>
+                        </a>
+                    </div>
+
+                    <!-- setting button dropdown -->
+                    {% include 'component_postDropDown.html' %}
+                    <!-- setting dropdown ends -->
+                </div>
+
+                <!-- chirp content section -->
+                <div>
+                    <p class="text-base">
+                        <a href="{% url 'status' handle=comment.author.handle pk=comment.id %}">{{ comment.content }}</a>
+                    </p>
+                </div>
+
+                <!-- svg group -->
+                {% include 'component_replySvgGroup.html' %}
+
+                <!-- link to thread -->
+                <!-- <div>
+                        <a href="#">Show this thread</a>
+                    </div> -->
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
 </div>
 
 
