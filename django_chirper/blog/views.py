@@ -12,6 +12,15 @@ from .models import Post
 class StatusDetailView(DetailView):
     template_name = 'status.html'
 
+    def get(self, request, *args, **kwargs):
+        post = get_object_or_404(Post, id = self.kwargs['pk'])
+        if post.author.handle != self.kwargs['handle']:
+            return redirect('status', handle = post.author.handle, pk = self.kwargs['pk'])
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+
     def get_queryset(self):
         # capture dynamic parameters and save them in self
         self.user_profile = get_object_or_404(Profile, handle = self.kwargs['handle'])
