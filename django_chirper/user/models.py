@@ -79,7 +79,7 @@ class Profile(models.Model):
 
     # override save() in the Model class
     def save(self, *args, **kwargs):
-        super().save()                                                      # first run the parent's save method
+        super().save(*args, **kwargs)                                                      # first run the parent's save method
         output_size = {'profile': (400, 400), 'background': (600, 200)}
         p_img = Image.open(self.profile_image.path)
         b_img = Image.open(self.background_image.path)
