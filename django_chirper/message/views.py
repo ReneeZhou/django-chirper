@@ -14,11 +14,43 @@ class BaseMessageView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        # raw query for sqlite
+        # history_counterparts = Message.objects.raw(
+        #     '''
+        #     WITH last_msg AS (
+        #         SELECT *
+        #             FROM
+        #             (
+        #             SELECT id, sender_id as counterpart, body, created_at
+        #             FROM message_message
+        #             WHERE recipient_id = %s
+        #             UNION
+        #             SELECT id, recipient_id as counterpart, body, created_at
+        #             FROM message_message
+        #             WHERE sender_id = %s
+        #             ) 
+        #         GROUP BY counterpart
+        #         HAVING created_at = Max(created_at)
+        #     )
+
+        #     SELECT user_profile.id, auth_user.username, user_profile.handle, user_profile.profile_image,
+        #         last_msg.created_at, last_msg.body 
+        #     FROM last_msg
+        #     LEFT JOIN user_profile
+        #     ON last_msg.counterpart = user_profile.id
+        #     LEFT JOIN auth_user
+        #     ON auth_user.id = user_profile.user_id;
+        #     ''',
+        #     [self.request.user.profile.id, self.request.user.profile.id]
+        # )
+
+        # raw query for psql
         history_counterparts = Message.objects.raw(
             '''
             WITH last_msg AS (
-                SELECT *
-                    FROM
+                SELECT DISTINCT ON (t1.counterpart)
+                       t1.id, t1.counterpart, t1.body, t1.created_at
+                FROM
                     (
                     SELECT id, sender_id as counterpart, body, created_at
                     FROM message_message
@@ -27,9 +59,8 @@ class BaseMessageView(LoginRequiredMixin, ListView):
                     SELECT id, recipient_id as counterpart, body, created_at
                     FROM message_message
                     WHERE sender_id = %s
-                    ) 
-                GROUP BY counterpart
-                HAVING created_at = Max(created_at)
+                    ) AS t1
+                ORDER BY t1.counterpart, t1.created_at DESC
             )
 
             SELECT user_profile.id, auth_user.username, user_profile.handle, user_profile.profile_image,
