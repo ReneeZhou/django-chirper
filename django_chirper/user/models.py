@@ -32,7 +32,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete = models.CASCADE)
 
-    id = models.AutoField(primary_key = True, default = gen_key)
+    id = models.BigAutoField(primary_key = True, default = gen_key)
     created_at_ip = models.GenericIPAddressField(null = True, blank = True)
     handle = models.TextField(
         default = gen_hex,
