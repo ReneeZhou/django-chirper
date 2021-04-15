@@ -32,3 +32,13 @@ staticfiles/
 
 # user's pics
 media/
+
+
+# heroku deployment files
+.gitignore
+Procfile
+requirements.txt
+
+
+# django shell script for db population
+shell_script
