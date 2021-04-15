@@ -1,6 +1,5 @@
-from django.contrib.auth.forms import PasswordResetForm
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic.edit import FormView
 from django.contrib.auth.views import (PasswordResetView, PasswordResetDoneView,
     PasswordResetConfirmView, PasswordResetCompleteView)
 from .forms import BeginPasswordResetForm, ResetPasswordForm
@@ -21,9 +20,16 @@ class BeginPasswordResetView(PasswordResetView):
         else:
             return self.form_invalid(form)
 
+    
 
 class ConfirmPasswordResetView(PasswordResetDoneView):
     template_name = 'account_confirmPasswordReset.html'
+
+    def get(self, request, *args, **kwargs):
+        if self.request.META.get('HTTP_REFERER') is None:
+            return redirect('account_beginPasswordReset')
+        else: 
+            return super().get(request, *args, **kwargs)
 
 
 class ResetPasswordView(PasswordResetConfirmView):
@@ -39,3 +45,9 @@ class ResetPasswordView(PasswordResetConfirmView):
 
 class ResetPasswordCompleteView(PasswordResetCompleteView):
     template_name = 'account_resetPasswordComplete.html'
+
+    def get(self, request, *args, **kwargs):
+        if self.request.META.get('HTTP_REFERER') is None:
+            return redirect('account_beginPasswordReset')
+        else: 
+            return super().get(request, *args, **kwargs)
