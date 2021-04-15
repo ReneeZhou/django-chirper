@@ -6,25 +6,25 @@ from django.forms.fields import CharField, EmailField
 
 class RegistrationForm(UserCreationForm):
     class Meta:
-        input_field_class = 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'
+        # input_field_class = 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'
         model = User
         fields = ('username', 'email', 'password1', 'password2')
         labels = {
             'username': 'Name',
             'email': 'Email',
         }
-        widgets = {
-            'username': TextInput(
-                attrs = {
-                    'class': input_field_class
-                }
-            ),
-            'email': TextInput(
-                attrs = {
-                    'class': input_field_class
-                }
-            )
-        },
+        # widgets = {
+        #     'username': TextInput(
+        #         attrs = {
+        #             'class': input_field_class
+        #         }
+        #     ),
+        #     'email': TextInput(
+        #         attrs = {
+        #             'class': input_field_class
+        #         }
+        #     )
+        # },
         #  to change username max_length
         #  will need custom User model
         #  current max_length = 150
@@ -32,14 +32,19 @@ class RegistrationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         self.fields['password1'].label = 'Password'
         self.fields['password2'].label = 'Confirm Password'
-
+        
+        input_field_class = 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'
         self.fields['password1'].widget = PasswordInput(attrs = {'class': 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'})
         self.fields['password2'].widget = PasswordInput(attrs = {'class': 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'})
         # Username is an actual field on User model, overriding Meta works
         # Password1 & Password2 are fields defined only in form
         # therefore, overriding Meta would not work
+
+        self.fields['username'].widget = TextInput(attrs = {'class': 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'})
+        self.fields['email'].widget = TextInput(attrs = {'class': 'bg-gray-700 bg-opacity-0 ml-2 mt-2 outline-none text-white'})
 
 
 class LoginForm(AuthenticationForm):
