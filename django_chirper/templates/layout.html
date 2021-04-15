@@ -100,8 +100,10 @@
                     {% endif %}
 
                     <!-- who to follow, user recommendation template -->
+                    {% if request.resolver_match.url_name != 'profile' %}
                     {% if user.is_authenticated and user_profile.handle != user.profile.handle %}
                     {% include 'layout_sidebar_whoToFollow.html' %}
+                    {% endif %}
                     {% endif %}
 
                     <!-- footer -->
