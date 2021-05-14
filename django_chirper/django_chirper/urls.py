@@ -45,8 +45,8 @@ urlpatterns = [
     path('', include('message.urls')),
     path('', include('blog.urls')),
     path('', include('user.urls')),
+    path('account/', include('password_reset.urls')),
     path('settings/', include('user_settings.urls')),
-    path('account/', include('user_account.urls')),
     path('<str:handle>/', include('user_profile.urls')),
 ]
 
