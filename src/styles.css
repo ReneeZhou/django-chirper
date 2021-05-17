@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+
+.home-btn {
+    @apply inline-flex rounded-full p-2;
+}
+.home-btn:hover{
+    @apply bg-gray-800 bg-opacity-50 p-2;
+}
+
+
+.home-svg {
+    @apply stroke-current w-8 h-8 stroke-1;
+}
+
+
+.home-a {
+    @apply rounded-full px-2;
+}
+.home-a:hover {
+    @apply fill-current text-blue-500;
+}
+
+
+.svg-bg-div {
+    @apply rounded-full w-10 h-10 flex justify-center items-center;
+}
+.svg-bg-div:hover {
+    @apply bg-blue-700 bg-opacity-25;
+}
+.svg-bg-div:active{
+    @apply bg-blue-900;
+}
+
+
+.flash_warning{
+    @apply text-red-600 text-tiny pl-2 pb-2;
+}
+
+.flash_success{
+    @apply text-blue-600 text-tiny pl-5 mt-5;
+}
+
+@tailwind utilities;
