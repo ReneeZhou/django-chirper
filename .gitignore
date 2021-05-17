@@ -37,7 +37,6 @@ media/
 # heroku deployment files
 .gitignore
 Procfile
-requirements.txt
 
 
 # django shell script for db population
