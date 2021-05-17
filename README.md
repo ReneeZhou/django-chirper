@@ -1,8 +1,12 @@
-#### Purpose: 
+Django Chirper 
+===== 
 
+###
 A simulated Twitter web app using Django framework
 
-#### Features available:
+*****
+
+### Features available:
 
 - Posting 
   - editing, deleting, liking/unliking, commenting
@@ -13,6 +17,8 @@ A simulated Twitter web app using Django framework
 - Account settings (username, email, phone)
 - Password reset
 
-#### Notes:
+*****
+
+### Notes:
 
 Currently can log in via only ***username***
