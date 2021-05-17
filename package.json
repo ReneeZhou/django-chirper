@@ -1,0 +1,29 @@
+{
+  "name": "django-chirper",
+  "version": "1.0.0",
+  "description": "Chirper, a web app simulating Twitter",
+  "main": "postcss.config.js",
+  "dependencies": {
+    "autoprefixer": "^10.2.1",
+    "postcss": "^8.2.4",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^1.9.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "postcss src/styles.css -o django_chirper/static/css/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ReneeZhou/django-chirper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ReneeZhou/django-chirper/issues"
+  },
+  "homepage": "https://github.com/ReneeZhou/django-chirper#readme"
+}
