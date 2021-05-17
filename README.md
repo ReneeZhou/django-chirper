@@ -13,12 +13,12 @@ A simulated Twitter web app using Django framework
 - Following / unfollowing users
 - Messaging users 
   - deleting, liking/unliking messages 
-- Profile settings (handle, bio, location, website, profile & background images)
-- Account settings (username, email, phone)
+- Profile settings (`handle`, `bio`, `location`, `website`, `profile & background images`)
+- Account settings (`username`, `email`, `phone`)
 - Password reset
 
 *****
 
 ### Notes:
 
-Currently can log in via only ***username***
+Currently can log in via only `username`
