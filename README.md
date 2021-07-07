@@ -26,4 +26,4 @@ Currently can log in via only `username`
 *****
 
 ### Database Diagram: 
-![database-diagram](https://github.com/ReneeZhou/django-chirper/blob/master/django-chirper-db-diagram.png)
+![database-diagram](https://github.com/ReneeZhou/django-chirper/blob/master/db-diagram.png)
